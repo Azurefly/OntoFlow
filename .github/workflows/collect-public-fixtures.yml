@@ -17,7 +17,22 @@ jobs:
         with:
           python-version: '3.11'
       - name: Collect upstream samples and provenance
-        run: python scripts/collect_public_fixtures.py --output collected-public-fixtures
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, 'scripts')
+          import collect_public_fixtures as c
+          c.SPECS.extend([
+              ('vega_tsv', 'vega/vega-datasets', 'data/', '.tsv', (), 1, None),
+              ('jsonl_algebra', 'queelius/jsonl-algebra', '', '.jsonl', (), 2, None),
+              ('docling_complex_pdf', 'docling-project/docling', 'tests/data/pdf/sources/', '.pdf', ('2206.01062.pdf',), 1, None),
+              ('docling_legacy_doc', 'docling-project/docling', 'tests/data/doc/sources/', '.doc', (), 1, None),
+          ])
+          sys.argv = ['collect_public_fixtures.py', '--output', 'collected-public-fixtures']
+          c.main()
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
