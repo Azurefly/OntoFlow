@@ -1,0 +1,112 @@
+@prefix ont: <urn:ontology:2120e7b9cadb4a:> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ont:3411bc31f3f149 a owl:Class ;
+    rdfs:label "最小系统模块" .
+
+ont:4310888a0a4549 a owl:Class ;
+    rdfs:label "BOB模块" .
+
+ont:5c615e1b097a43 a owl:Class ;
+    rdfs:label "接口模块" .
+
+<urn:ontology:2120e7b9cadb4a:attribute/23de67ed5b2742/%E5%B7%A5%E4%BD%9C%E9%A2%91%E6%AE%B5> a owl:DatatypeProperty ;
+    rdfs:label "工作频段" ;
+    rdfs:domain ont:23de67ed5b2742 ;
+    rdfs:range xsd:string .
+
+<urn:ontology:2120e7b9cadb4a:attribute/28ede0d1766444/%E6%9D%BF%E5%8D%A1%E7%BC%96%E5%8F%B7> a owl:DatatypeProperty ;
+    rdfs:label "板卡编号" ;
+    rdfs:domain ont:28ede0d1766444 ;
+    rdfs:range xsd:string .
+
+<urn:ontology:2120e7b9cadb4a:attribute/c039d261b2f54c/%E8%AE%BE%E5%A4%87%E5%9E%8B%E5%8F%B7> a owl:DatatypeProperty ;
+    rdfs:label "设备型号" ;
+    rdfs:domain ont:c039d261b2f54c ;
+    rdfs:range xsd:string .
+
+ont:dabf701232f14d a owl:Class ;
+    rdfs:label "网口模块" .
+
+ont:ecbb61c464014d a owl:Class ;
+    rdfs:label "基带模块" .
+
+ont:f4dc154f002948 a owl:Class ;
+    rdfs:label "射频模块" .
+
+ont:ontology a owl:Ontology ;
+    rdfs:label "【演示】网关设备本体" ;
+    rdfs:comment "以网关设备为核心，构建设备与内部组件、模块的分类及组成关系。" .
+
+ont:43834c751eaf44 a owl:Class ;
+    rdfs:label "单盘" ;
+    rdfs:subClassOf <urn:ontology:2120e7b9cadb4a:restriction/c598f74fde9644> .
+
+ont:5b348c28fff84a a owl:Class ;
+    rdfs:label "2.4G模块" ;
+    rdfs:subClassOf <urn:ontology:2120e7b9cadb4a:restriction/a0908dea55964b>,
+        <urn:ontology:2120e7b9cadb4a:restriction/a0bdaa939b9e4d> .
+
+ont:8a598cb9748540 a owl:Class ;
+    rdfs:label "接收支路" .
+
+ont:92c4722baf9747 a owl:Class ;
+    rdfs:label "5G模块" .
+
+ont:af07029ba6e543 a owl:Class ;
+    rdfs:label "供电模块" .
+
+ont:bd57e5d841624f a owl:Class ;
+    rdfs:label "发射支路" .
+
+ont:c039d261b2f54c a owl:Class ;
+    rdfs:label "网关" ;
+    rdfs:subClassOf <urn:ontology:2120e7b9cadb4a:restriction/97b0a92591074a> .
+
+<urn:ontology:2120e7b9cadb4a:restriction/40cb38105ed349> a owl:Restriction ;
+    owl:onProperty <urn:ontology:2120e7b9cadb4a:relation/hasPart> ;
+    owl:someValuesFrom ont:af07029ba6e543 .
+
+<urn:ontology:2120e7b9cadb4a:restriction/6ccf3b77afee43> a owl:Restriction ;
+    owl:onProperty <urn:ontology:2120e7b9cadb4a:relation/hasPart> ;
+    owl:someValuesFrom ont:5b348c28fff84a .
+
+<urn:ontology:2120e7b9cadb4a:restriction/76a9b05384b44c> a owl:Restriction ;
+    owl:onProperty <urn:ontology:2120e7b9cadb4a:relation/hasPart> ;
+    owl:someValuesFrom ont:92c4722baf9747 .
+
+<urn:ontology:2120e7b9cadb4a:restriction/97b0a92591074a> a owl:Restriction ;
+    owl:onProperty <urn:ontology:2120e7b9cadb4a:relation/hasPart> ;
+    owl:someValuesFrom ont:43834c751eaf44 .
+
+<urn:ontology:2120e7b9cadb4a:restriction/a0908dea55964b> a owl:Restriction ;
+    owl:onProperty <urn:ontology:2120e7b9cadb4a:relation/hasPart> ;
+    owl:someValuesFrom ont:8a598cb9748540 .
+
+<urn:ontology:2120e7b9cadb4a:restriction/a0bdaa939b9e4d> a owl:Restriction ;
+    owl:onProperty <urn:ontology:2120e7b9cadb4a:relation/hasPart> ;
+    owl:someValuesFrom ont:bd57e5d841624f .
+
+<urn:ontology:2120e7b9cadb4a:restriction/c598f74fde9644> a owl:Restriction ;
+    owl:onProperty <urn:ontology:2120e7b9cadb4a:relation/hasPart> ;
+    owl:someValuesFrom ont:28ede0d1766444 .
+
+<urn:ontology:2120e7b9cadb4a:restriction/f0509e69213049> a owl:Restriction ;
+    owl:onProperty <urn:ontology:2120e7b9cadb4a:relation/hasPart> ;
+    owl:someValuesFrom ont:23de67ed5b2742 .
+
+ont:23de67ed5b2742 a owl:Class ;
+    rdfs:label "WIFI模块" ;
+    rdfs:subClassOf <urn:ontology:2120e7b9cadb4a:restriction/6ccf3b77afee43>,
+        <urn:ontology:2120e7b9cadb4a:restriction/76a9b05384b44c> .
+
+ont:28ede0d1766444 a owl:Class ;
+    rdfs:label "主板" ;
+    rdfs:subClassOf <urn:ontology:2120e7b9cadb4a:restriction/40cb38105ed349>,
+        <urn:ontology:2120e7b9cadb4a:restriction/f0509e69213049> .
+
+<urn:ontology:2120e7b9cadb4a:relation/hasPart> a owl:ObjectProperty ;
+    rdfs:label "hasPart" .
+

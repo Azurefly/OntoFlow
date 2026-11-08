@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:attribute/23de67ed5b2742/%E5%B7%A5%E4%BD%9C%E9%A2%91%E6%AE%B5">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label>工作频段</rdfs:label>
+    <rdfs:domain rdf:resource="urn:ontology:2120e7b9cadb4a:23de67ed5b2742"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:restriction/97b0a92591074a">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="urn:ontology:2120e7b9cadb4a:relation/hasPart"/>
+    <owl:someValuesFrom rdf:resource="urn:ontology:2120e7b9cadb4a:43834c751eaf44"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:attribute/28ede0d1766444/%E6%9D%BF%E5%8D%A1%E7%BC%96%E5%8F%B7">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label>板卡编号</rdfs:label>
+    <rdfs:domain rdf:resource="urn:ontology:2120e7b9cadb4a:28ede0d1766444"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:restriction/a0908dea55964b">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="urn:ontology:2120e7b9cadb4a:relation/hasPart"/>
+    <owl:someValuesFrom rdf:resource="urn:ontology:2120e7b9cadb4a:8a598cb9748540"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:restriction/a0bdaa939b9e4d">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="urn:ontology:2120e7b9cadb4a:relation/hasPart"/>
+    <owl:someValuesFrom rdf:resource="urn:ontology:2120e7b9cadb4a:bd57e5d841624f"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:bd57e5d841624f">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>发射支路</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:4310888a0a4549">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>BOB模块</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:restriction/40cb38105ed349">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="urn:ontology:2120e7b9cadb4a:relation/hasPart"/>
+    <owl:someValuesFrom rdf:resource="urn:ontology:2120e7b9cadb4a:af07029ba6e543"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:43834c751eaf44">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>单盘</rdfs:label>
+    <rdfs:subClassOf rdf:resource="urn:ontology:2120e7b9cadb4a:restriction/c598f74fde9644"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:28ede0d1766444">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>主板</rdfs:label>
+    <rdfs:subClassOf rdf:resource="urn:ontology:2120e7b9cadb4a:restriction/f0509e69213049"/>
+    <rdfs:subClassOf rdf:resource="urn:ontology:2120e7b9cadb4a:restriction/40cb38105ed349"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:restriction/76a9b05384b44c">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="urn:ontology:2120e7b9cadb4a:relation/hasPart"/>
+    <owl:someValuesFrom rdf:resource="urn:ontology:2120e7b9cadb4a:92c4722baf9747"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:relation/hasPart">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label>hasPart</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:af07029ba6e543">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>供电模块</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:dabf701232f14d">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>网口模块</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:ecbb61c464014d">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>基带模块</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:5c615e1b097a43">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>接口模块</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:3411bc31f3f149">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>最小系统模块</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:restriction/6ccf3b77afee43">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="urn:ontology:2120e7b9cadb4a:relation/hasPart"/>
+    <owl:someValuesFrom rdf:resource="urn:ontology:2120e7b9cadb4a:5b348c28fff84a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:attribute/c039d261b2f54c/%E8%AE%BE%E5%A4%87%E5%9E%8B%E5%8F%B7">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label>设备型号</rdfs:label>
+    <rdfs:domain rdf:resource="urn:ontology:2120e7b9cadb4a:c039d261b2f54c"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:23de67ed5b2742">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>WIFI模块</rdfs:label>
+    <rdfs:subClassOf rdf:resource="urn:ontology:2120e7b9cadb4a:restriction/6ccf3b77afee43"/>
+    <rdfs:subClassOf rdf:resource="urn:ontology:2120e7b9cadb4a:restriction/76a9b05384b44c"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:f4dc154f002948">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>射频模块</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:92c4722baf9747">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>5G模块</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:5b348c28fff84a">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>2.4G模块</rdfs:label>
+    <rdfs:subClassOf rdf:resource="urn:ontology:2120e7b9cadb4a:restriction/a0908dea55964b"/>
+    <rdfs:subClassOf rdf:resource="urn:ontology:2120e7b9cadb4a:restriction/a0bdaa939b9e4d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:c039d261b2f54c">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>网关</rdfs:label>
+    <rdfs:subClassOf rdf:resource="urn:ontology:2120e7b9cadb4a:restriction/97b0a92591074a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:ontology">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:label>【演示】网关设备本体</rdfs:label>
+    <rdfs:comment>以网关设备为核心，构建设备与内部组件、模块的分类及组成关系。</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:restriction/c598f74fde9644">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="urn:ontology:2120e7b9cadb4a:relation/hasPart"/>
+    <owl:someValuesFrom rdf:resource="urn:ontology:2120e7b9cadb4a:28ede0d1766444"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:8a598cb9748540">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label>接收支路</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:ontology:2120e7b9cadb4a:restriction/f0509e69213049">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="urn:ontology:2120e7b9cadb4a:relation/hasPart"/>
+    <owl:someValuesFrom rdf:resource="urn:ontology:2120e7b9cadb4a:23de67ed5b2742"/>
+  </rdf:Description>
+</rdf:RDF>

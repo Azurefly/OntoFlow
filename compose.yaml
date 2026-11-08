@@ -1,0 +1,75 @@
+name: ${COMPOSE_PROJECT_NAME:-ontoflow-fresh}
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${PG_DB:-ontoflow}
+      POSTGRES_USER: ${PG_USER:-ontoflow}
+      POSTGRES_PASSWORD: ${PG_PASSWORD:?Set PG_PASSWORD in generated .env}
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+    stop_grace_period: 40s
+    logging:
+      options: {max-size: "10m", max-file: "3"}
+
+  ontology:
+    build: .
+    image: ontoflow:local
+    init: true
+    env_file: .env
+    environment:
+      APP_ENV: production
+      ONTOFLOW_DEMO_MODE: ${ONTOFLOW_DEMO_MODE:-true}
+      ONTOFLOW_FRESH_ONLY: "1"
+      DATA_DIR: /app/data
+      DATABASE_URL: postgresql://${PG_USER:-ontoflow}:${PG_PASSWORD:?PG_PASSWORD required}@postgres:5432/${PG_DB:-ontoflow}
+      ASYNC_PARSE: "1"
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${PORT:-8001}:8000"
+    volumes:
+      - ontoflow-data:/app/data
+    depends_on:
+      postgres: {condition: service_healthy}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/api/ready',timeout=3)"]
+      interval: 20s
+      timeout: 6s
+      retries: 3
+      start_period: 30s
+    logging:
+      options: {max-size: "10m", max-file: "3"}
+
+  worker:
+    build: .
+    image: ontoflow:local
+    init: true
+    command: ["python", "-m", "app.worker"]
+    env_file: .env
+    environment:
+      APP_ENV: production
+      ONTOFLOW_DEMO_MODE: ${ONTOFLOW_DEMO_MODE:-true}
+      ONTOFLOW_FRESH_ONLY: "1"
+      DATA_DIR: /app/data
+      DATABASE_URL: postgresql://${PG_USER:-ontoflow}:${PG_PASSWORD:?PG_PASSWORD required}@postgres:5432/${PG_DB:-ontoflow}
+      WORKER_CONCURRENCY: ${WORKER_CONCURRENCY:-2}
+      JOB_LEASE_SECONDS: ${JOB_LEASE_SECONDS:-120}
+    volumes:
+      - ontoflow-data:/app/data
+    depends_on:
+      postgres: {condition: service_healthy}
+    restart: unless-stopped
+    stop_grace_period: 60s
+    logging:
+      options: {max-size: "10m", max-file: "3"}
+
+volumes:
+  pg-data:
+  ontoflow-data:

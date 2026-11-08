@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>OntoFlow · 渐进式本体构建工作台</title>
+<link rel="stylesheet" href="/static/app.css?v=1.4.1" />
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">◈</div><div><strong>OntoFlow</strong><small>本体协商工作台 · Demo</small></div></div>
+    <div class="section-label">工作空间 <button id="newProject" class="icon-button" title="创建项目">＋</button></div>
+    <div id="projectList" class="project-list"></div>
+    <div class="sidebar-bottom">
+      <div class="tiny-title">技术状态</div><div id="modeIndicator" class="mode-badge">初始化中</div>
+      <p>逐步建模 · 来源追踪 · 人工审核 · 版本发布</p>
+      <button id="modelSettingBtn" class="link-btn model-link">✦ 大模型配置</button><button id="settingBtn" class="link-btn">⚙ API 访问设置</button>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div class="breadcrumb">本体工作空间 <span>/</span> <b id="currentTitle">请选择项目</b></div><div class="top-actions"><span class="local-pill">自主部署 · API 可集成</span><button id="openmindBtn" class="button neutral small">⇄ OpenMind 对接</button><button id="modelSettingTopBtn" class="button neutral small">✦ 模型配置</button><button id="refreshBtn" class="button neutral small">↻ 刷新</button></div></header>
+    <div id="welcome" class="welcome"><div class="hero-icon">◈</div><h1>让本体在协商中逐步生长</h1><p>上传资料 → 理解材料 → 主题确认 → 实体 → 属性 → 关系 → 人工审批 → 版本发布。所有模型建议先进入候选区，未经授权不会写入正式本体。</p><button id="heroCreate" class="button primary">＋ 创建第一个本体项目</button><div class="hint-box">未配置 LLM 时，系统以规则演示模式运行；可用示例文档验证完整闭环。点击顶部“模型配置”，填写 OpenAI 兼容接口即可启用真实语义协商。</div></div>
+    <section id="workspace" class="workspace hidden">
+      <div class="project-header"><div><div class="eyebrow">ONTOLOGY PROJECT · 可追溯的增量构建</div><h1 id="projectName"></h1><div id="projectSub" class="project-sub"></div></div><div class="header-buttons"><button id="exportJson" class="button neutral small">↓ JSON</button><button id="exportTtl" class="button neutral small">↓ TTL</button><button id="exportOwl" class="button neutral small">↓ OWL</button><button id="exportJsonld" class="button neutral small">↓ JSON-LD</button></div></div>
+      <div id="stepper" class="stepper"></div>
+      <div class="bodygrid">
+        <section class="left-pane">
+          <div class="tabs" id="tabs"><button data-tab="overview" class="tab current">理解与主题</button><button data-tab="entity" class="tab">实体</button><button data-tab="attribute" class="tab">属性</button><button data-tab="relation" class="tab">关系</button><button data-tab="review" class="tab">发布与版本</button></div>
+          <div id="tabContent" class="tab-content"></div>
+        </section>
+        <aside class="right-pane">
+          <div class="assistant-header"><div class="assistant-avatar">✳</div><div><b>本体协商助手</b><small id="stageAssist">对话式协商 · 保留对话记录</small></div></div>
+          <div class="assistant-notice" id="assistantNotice"></div>
+          <div style="padding:4px 14px"><button id="modelingIntentBtn" class="button neutral small">建模意图与用户决定</button><button id="gapManagerBtn" class="button neutral small">抽取缺口与建模决定</button></div>
+          <div id="chatMessages" class="chat-messages"></div>
+          <div class="chat-bottom"><div class="suggested" id="suggested"></div><textarea id="chatInput" rows="3" placeholder="提出疑问、修改意见、需要补充的概念…"></textarea><div class="sendrow"><small>Enter 发送 · Shift+Enter 换行</small><button id="sendChat" class="button primary small">发送 ↗</button></div></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="modal" class="modal-backdrop hidden"><div class="modal-window"><div class="modal-head"><h3 id="modalTitle"></h3><button id="closeModal" class="icon-button">✕</button></div><div id="modalBody"></div><div id="modalFoot" class="modal-foot"></div></div></div>
+<div id="toast" class="toast hidden" aria-live="polite"></div>
+<script src="/static/app.js?v=1.4.1"></script>
+</body>
+</html>

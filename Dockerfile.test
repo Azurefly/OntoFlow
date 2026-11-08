@@ -1,0 +1,14 @@
+FROM python:3.11-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 DATA_DIR=/tmp/ontoflow-test
+WORKDIR /app
+COPY requirements.txt requirements-dev.txt requirements-tested-constraints.txt ./
+RUN pip install --no-cache-dir -r requirements-dev.txt -c requirements-tested-constraints.txt -c requirements-tested-constraints.txt
+COPY app ./app
+COPY static ./static
+COPY tests ./tests
+COPY scripts ./scripts
+COPY examples ./examples
+COPY pytest.ini ./
+RUN useradd -r -u 10001 testuser && mkdir -p /tmp/ontoflow-test && chown -R testuser:testuser /app /tmp/ontoflow-test
+USER testuser
+CMD ["python", "-m", "pytest", "-q", "tests/test_postgres_integration_v137.py"]

@@ -1,0 +1,256 @@
+{
+  "project": {
+    "id": "2120e7b9cadb4a",
+    "name": "【演示】网关设备本体",
+    "scope": "以网关设备为核心，构建设备与内部组件、模块的分类及组成关系。",
+    "summary": "网关设备的主要组成、接口和功能模块。",
+    "revision": 27,
+    "published_version": 1
+  },
+  "entities": [
+    {
+      "id": "5b348c28fff84a",
+      "project_id": "2120e7b9cadb4a",
+      "name": "2.4G模块",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "92c4722baf9747",
+      "project_id": "2120e7b9cadb4a",
+      "name": "5G模块",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "4310888a0a4549",
+      "project_id": "2120e7b9cadb4a",
+      "name": "BOB模块",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "23de67ed5b2742",
+      "project_id": "2120e7b9cadb4a",
+      "name": "WIFI模块",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "28ede0d1766444",
+      "project_id": "2120e7b9cadb4a",
+      "name": "主板",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "af07029ba6e543",
+      "project_id": "2120e7b9cadb4a",
+      "name": "供电模块",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "43834c751eaf44",
+      "project_id": "2120e7b9cadb4a",
+      "name": "单盘",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "bd57e5d841624f",
+      "project_id": "2120e7b9cadb4a",
+      "name": "发射支路",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "ecbb61c464014d",
+      "project_id": "2120e7b9cadb4a",
+      "name": "基带模块",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "f4dc154f002948",
+      "project_id": "2120e7b9cadb4a",
+      "name": "射频模块",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "5c615e1b097a43",
+      "project_id": "2120e7b9cadb4a",
+      "name": "接口模块",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "8a598cb9748540",
+      "project_id": "2120e7b9cadb4a",
+      "name": "接收支路",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "3411bc31f3f149",
+      "project_id": "2120e7b9cadb4a",
+      "name": "最小系统模块",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "c039d261b2f54c",
+      "project_id": "2120e7b9cadb4a",
+      "name": "网关",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "dabf701232f14d",
+      "project_id": "2120e7b9cadb4a",
+      "name": "网口模块",
+      "kind": "class",
+      "description": "",
+      "class_id": null,
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"实体：网关、单盘、主板、供电模块、网口模块、接口模块、WIFI模块、BOB模块、最小系统模块、2.4G模块、5G模块、基带模块、射频模块、发射支路、接收支路\", \"verified\": true}]"
+    }
+  ],
+  "attributes": [
+    {
+      "id": "84db52c20eba40",
+      "project_id": "2120e7b9cadb4a",
+      "owner_id": "23de67ed5b2742",
+      "name": "工作频段",
+      "datatype": "string",
+      "required": 0,
+      "multivalued": 0,
+      "description": "",
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"属性：WIFI模块.工作频段: string\", \"verified\": true}]"
+    },
+    {
+      "id": "81abb5b306cf47",
+      "project_id": "2120e7b9cadb4a",
+      "owner_id": "28ede0d1766444",
+      "name": "板卡编号",
+      "datatype": "string",
+      "required": 0,
+      "multivalued": 0,
+      "description": "",
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"属性：主板.板卡编号: string\", \"verified\": true}]"
+    },
+    {
+      "id": "143528c61adb40",
+      "project_id": "2120e7b9cadb4a",
+      "owner_id": "c039d261b2f54c",
+      "name": "设备型号",
+      "datatype": "string",
+      "required": 0,
+      "multivalued": 0,
+      "description": "",
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"属性：网关.设备型号: string\", \"verified\": true}]"
+    }
+  ],
+  "relations": [
+    {
+      "id": "6ccf3b77afee43",
+      "project_id": "2120e7b9cadb4a",
+      "source_id": "23de67ed5b2742",
+      "target_id": "5b348c28fff84a",
+      "predicate": "hasPart",
+      "description": "",
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"关系：WIFI模块 包含 2.4G模块\", \"verified\": true}]"
+    },
+    {
+      "id": "76a9b05384b44c",
+      "project_id": "2120e7b9cadb4a",
+      "source_id": "23de67ed5b2742",
+      "target_id": "92c4722baf9747",
+      "predicate": "hasPart",
+      "description": "",
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"关系：WIFI模块 包含 5G模块\", \"verified\": true}]"
+    },
+    {
+      "id": "f0509e69213049",
+      "project_id": "2120e7b9cadb4a",
+      "source_id": "28ede0d1766444",
+      "target_id": "23de67ed5b2742",
+      "predicate": "hasPart",
+      "description": "",
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"关系：主板 包含 WIFI模块\", \"verified\": true}]"
+    },
+    {
+      "id": "40cb38105ed349",
+      "project_id": "2120e7b9cadb4a",
+      "source_id": "28ede0d1766444",
+      "target_id": "af07029ba6e543",
+      "predicate": "hasPart",
+      "description": "",
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"关系：主板 包含 供电模块\", \"verified\": true}]"
+    },
+    {
+      "id": "c598f74fde9644",
+      "project_id": "2120e7b9cadb4a",
+      "source_id": "43834c751eaf44",
+      "target_id": "28ede0d1766444",
+      "predicate": "hasPart",
+      "description": "",
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"关系：单盘 包含 主板\", \"verified\": true}]"
+    },
+    {
+      "id": "a0908dea55964b",
+      "project_id": "2120e7b9cadb4a",
+      "source_id": "5b348c28fff84a",
+      "target_id": "8a598cb9748540",
+      "predicate": "hasPart",
+      "description": "",
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"关系：2.4G模块 包含 接收支路\", \"verified\": true}]"
+    },
+    {
+      "id": "a0bdaa939b9e4d",
+      "project_id": "2120e7b9cadb4a",
+      "source_id": "5b348c28fff84a",
+      "target_id": "bd57e5d841624f",
+      "predicate": "hasPart",
+      "description": "",
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"关系：2.4G模块 包含 发射支路\", \"verified\": true}]"
+    },
+    {
+      "id": "97b0a92591074a",
+      "project_id": "2120e7b9cadb4a",
+      "source_id": "c039d261b2f54c",
+      "target_id": "43834c751eaf44",
+      "predicate": "hasPart",
+      "description": "",
+      "evidence": "[{\"document_id\": \"5920534696ab49\", \"locator\": \"行 1-15\", \"quote\": \"关系：网关 包含 单盘\", \"verified\": true}]"
+    }
+  ]
+}
