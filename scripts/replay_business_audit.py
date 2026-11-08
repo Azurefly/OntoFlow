@@ -1,12 +1,7 @@
 """Replay the downloaded business corpus against its frozen SHA256 manifest.
 
-Requires the normal project development dependencies plus requests,
-beautifulsoup4 and the system executable pdftotext (poppler-utils).
-No original business document or model answer is embedded in this script.
-
-python -m scripts.replay_business_audit \
-  --manifest reports/business-2026-11-08/summary.json \
-  --output /tmp/business-replay
+Requires project dev dependencies, requests, beautifulsoup4 and pdftotext.
+Only source provenance enters the runner; historic test results are not inputs.
 """
 from __future__ import annotations
 import argparse
@@ -23,10 +18,12 @@ def main():
     options, remaining = parser.parse_known_args()
     manifest = json.loads(Path(options.manifest).read_text(encoding='utf-8'))
     if manifest.get('frozen_application_commit') != audit.BASE_COMMIT:
-        raise SystemExit('Manifest/application baseline mismatch; choose an explicitly matching frozen test version.')
-    samples = [dict(item) for item in manifest.get('samples', []) if item.get('status') == 'downloaded']
+        raise SystemExit('Manifest/application baseline mismatch; choose a matching frozen test version.')
+    allowed = ('id', 'file', 'title', 'domain', 'url', 'landing', 'sha256', 'bytes', 'anchors')
+    samples = [{key: item[key] for key in allowed if key in item}
+               for item in manifest.get('samples', []) if item.get('status') == 'downloaded']
     if not samples:
-        raise SystemExit('No successfully downloaded source records in this manifest.')
+        raise SystemExit('No downloaded source records in this manifest.')
     for item in samples:
         if not re.fullmatch(r'[0-9a-f]{64}', str(item.get('sha256', ''))):
             raise SystemExit('Every replay source requires the original SHA256.')
@@ -44,7 +41,7 @@ def main():
                 changed.append(sample['id'])
                 record.update(status='source_changed', expected_sha256=sample['sha256'],
                               expected_bytes=sample['bytes'],
-                              error='Upstream bytes differ from the frozen input; not passed into the application.')
+                              error='Upstream bytes differ; the changed file was not tested.')
                 (output / sample['file']).unlink(missing_ok=True)
         return record
 
