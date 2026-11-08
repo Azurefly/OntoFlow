@@ -1,0 +1,83 @@
+........................................................................ [ 16%]
+........................................................................ [ 33%]
+........................................................................ [ 50%]
+........................................................................ [ 67%]
+...sssss................................................................ [ 84%]
+................................................................         [100%]
+=============================== warnings summary ===============================
+app/main.py:241: 1 warning
+tests/test_assistant_progress_v123.py: 3 warnings
+tests/test_bulk_review_v09.py: 9 warnings
+tests/test_chinese_names_codes_v1310.py: 9 warnings
+tests/test_demo_connection_policy_v138.py: 4 warnings
+tests/test_demo_mode_v12.py: 4 warnings
+tests/test_document_coverage_and_json.py: 1 warning
+tests/test_header_semantics_v135.py: 1 warning
+tests/test_json_extraction_v136.py: 2 warnings
+tests/test_llm_contract.py: 1 warning
+tests/test_model_settings.py: 3 warnings
+tests/test_multiformat_v141.py: 7 warnings
+tests/test_open_source_patterns.py: 1 warning
+tests/test_openmind.py: 1 warning
+tests/test_openmind_auto_auth_v08.py: 2 warnings
+tests/test_openmind_baseline_v07.py: 7 warnings
+tests/test_openmind_http_compat_v111.py: 1 warning
+tests/test_openmind_settings.py: 6 warnings
+tests/test_operational_v10.py: 1 warning
+tests/test_review_all_conflicts_v139.py: 15 warnings
+tests/test_review_fixes_v137.py: 20 warnings
+tests/test_subjective_inputs_v140.py: 9 warnings
+tests/test_terminal_metrics_v141.py: 2 warnings
+tests/test_v06_jobs_and_connectivity.py: 2 warnings
+tests/test_v08_login_workspace.py: 5 warnings
+tests/test_workflow.py: 4 warnings
+tests/test_workspace_scope_and_delete_v121.py: 5 warnings
+  /mnt/data/ontoflow_main_submission/ontology-workbench/app/main.py:241: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event('shutdown')
+
+../../../../opt/pyvenv/lib/python3.13/site-packages/fastapi/applications.py:4579: 1 warning
+tests/test_assistant_progress_v123.py: 3 warnings
+tests/test_bulk_review_v09.py: 9 warnings
+tests/test_chinese_names_codes_v1310.py: 9 warnings
+tests/test_demo_connection_policy_v138.py: 4 warnings
+tests/test_demo_mode_v12.py: 4 warnings
+tests/test_document_coverage_and_json.py: 1 warning
+tests/test_header_semantics_v135.py: 1 warning
+tests/test_json_extraction_v136.py: 2 warnings
+tests/test_llm_contract.py: 1 warning
+tests/test_model_settings.py: 3 warnings
+tests/test_multiformat_v141.py: 7 warnings
+tests/test_open_source_patterns.py: 1 warning
+tests/test_openmind.py: 1 warning
+tests/test_openmind_auto_auth_v08.py: 2 warnings
+tests/test_openmind_baseline_v07.py: 7 warnings
+tests/test_openmind_http_compat_v111.py: 1 warning
+tests/test_openmind_settings.py: 6 warnings
+tests/test_operational_v10.py: 1 warning
+tests/test_review_all_conflicts_v139.py: 15 warnings
+tests/test_review_fixes_v137.py: 20 warnings
+tests/test_subjective_inputs_v140.py: 9 warnings
+tests/test_terminal_metrics_v141.py: 2 warnings
+tests/test_v06_jobs_and_connectivity.py: 2 warnings
+tests/test_v08_login_workspace.py: 5 warnings
+tests/test_workflow.py: 4 warnings
+tests/test_workspace_scope_and_delete_v121.py: 5 warnings
+  /opt/pyvenv/lib/python3.13/site-packages/fastapi/applications.py:4579: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+tests/test_workflow.py::test_full_loop_publish_export_reload_restore
+  /opt/pyvenv/lib/python3.13/site-packages/rdflib/plugins/parsers/jsonld.py:159: DeprecationWarning: ConjunctiveGraph is deprecated, use Dataset instead.
+    conj_sink = ConjunctiveGraph(store=sink.store, identifier=sink.identifier)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+419 passed, 5 skipped, 253 warnings in 45.85s

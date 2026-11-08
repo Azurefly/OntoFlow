@@ -1,0 +1,68 @@
+docling_docx-1 partial 200
+docling_docx-2 rejected 422
+docling_docx-3 read 200
+docling_pptx-1 partial 200
+docling_pptx-2 partial 200
+docling_html-1 partial 200
+docling_html-2 partial 200
+docling_xml-1 read 200
+pdfminer_pdf-1 rejected 422
+pdfminer_pdf-2 rejected 422
+pdfminer_pdf-3 rejected 422
+pandas_csv-1 read 200
+pandas_csv-2 read 200
+pandas_xlsx-1 partial 200
+pandas_xlsx-2 read 200
+openapi_yaml-1 read 200
+openapi_json-1 partial 200
+cpython_eml-1 read 200
+cpython_eml-2 read 200
+cpython_rst-1 read 200
+cpython_xml-1 read 200
+jieba_chinese_md-1 read 200
+postgres_sql-1 read 200
+pdfminer_text-1 read 200
+vega_tsv-1 read 200
+jsonl_algebra-1 read 200
+jsonl_algebra-2 read 200
+docling_complex_pdf-1 partial 200
+docling_legacy_doc-1 rejected 415
+{
+  "schema": "ontoflow.external-audit/v1",
+  "ran_at_utc": "2026-11-07T11:02:40.846213+00:00",
+  "application_version": "1.4.1-demo",
+  "source_unchanged": true,
+  "source_file_count": 102,
+  "python": "3.13.5",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "total_seconds": 10.435,
+  "samples": 29,
+  "collection_failures": [
+    {
+      "id": "pandas_tsv",
+      "error": "No matching upstream file; no synthetic replacement"
+    },
+    {
+      "id": "pandas_jsonl",
+      "error": "No matching upstream file; no synthetic replacement"
+    }
+  ],
+  "parse_statuses": {
+    "partial": 8,
+    "rejected": 5,
+    "read": 16
+  },
+  "api_statuses": {
+    "200": 24,
+    "422": 4,
+    "415": 1
+  },
+  "unexpected_model_requests": 0,
+  "limitations": [
+    "No real LLM semantic accuracy test",
+    "No real PostgreSQL",
+    "No OpenMind HTTP write",
+    "Public repository fixtures include synthetic upstream cases; collection is new, not a claim of unknown-world accuracy.",
+    "Source retention is lexical only; layout/image/OCR/interpretation limitations are separate."
+  ]
+}

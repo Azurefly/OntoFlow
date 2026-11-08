@@ -1,0 +1,1900 @@
+[
+  {
+    "id": "docling_docx-1",
+    "file": "raw/docling_docx-1.docx",
+    "repository": "docling-project/docling",
+    "upstream_commit": "bcb3678fad7426549643f54c5eceab77925ac5c1",
+    "upstream_path": "tests/data/docx/sources/unit_test_formatting.docx",
+    "git_blob_sha": "d4e193c3f27e5bc8dbdce4683c6ecb509972db09",
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/docx/sources/unit_test_formatting.docx",
+    "browse_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/docx/sources/unit_test_formatting.docx",
+    "sha256": "23518f8c635264b038b3e1207292f99cb5d40be35dbcd85d56508d3226ad9a11",
+    "bytes": 29578,
+    "extension": ".docx",
+    "original_extension": ".docx",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "partial",
+      "seconds": 0.035077,
+      "chunks": 22,
+      "text_characters": 554,
+      "chunk_kinds": {
+        "prose": 22
+      },
+      "warnings": [
+        "节1 / 首页页脚 / 块3 / 段落 有 1 个图片引用：未识别图片中文字，不能视为全文已覆盖。"
+      ],
+      "reader_status": "needs_review"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "rule_pass_finished",
+      "seconds": 0.098398,
+      "counters": {
+        "units": 22,
+        "cold_cache_hits": 0,
+        "completed_units": 22,
+        "unresolved": 0,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "stdlib_zip_xml_source_text",
+      "source_units": 21,
+      "retained_units": 21,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {
+        "word_namespace": "transitional"
+      },
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "docling_docx-2",
+    "file": "raw/docling_docx-2.docx",
+    "repository": "docling-project/docling",
+    "upstream_commit": "bcb3678fad7426549643f54c5eceab77925ac5c1",
+    "upstream_path": "tests/data/docx/sources/Strict.docx",
+    "git_blob_sha": "336c624ce87fde38166432c857fa384da54a4ff7",
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/docx/sources/Strict.docx",
+    "browse_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/docx/sources/Strict.docx",
+    "sha256": "87742da12fecf8301faa898fb457b9045de462128523011f0d0658f6b5e8fbe3",
+    "bytes": 11923,
+    "extension": ".docx",
+    "original_extension": ".docx",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "rejected",
+      "error_type": "ExtractionError",
+      "error": "解析 docling_docx-2.docx 失败：\"no relationship of type 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument' in collection\""
+    },
+    "discovery": {},
+    "api": {
+      "upload_http_status": 422,
+      "status": "rejected",
+      "error": "{\"detail\":\"解析 33f9b90d83794c.docx 失败：\\\"no relationship of type 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument' in collection\\\"\"}"
+    }
+  },
+  {
+    "id": "docling_docx-3",
+    "file": "raw/docling_docx-3.docx",
+    "repository": "docling-project/docling",
+    "upstream_commit": "bcb3678fad7426549643f54c5eceab77925ac5c1",
+    "upstream_path": "tests/data/docx/sources/Transitional.docx",
+    "git_blob_sha": "7cb5aa0fe0e22e30a9b8a7d43cac2e1bc742e87c",
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/docx/sources/Transitional.docx",
+    "browse_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/docx/sources/Transitional.docx",
+    "sha256": "52a3f5d4866150709ed8d73cc31c6133abb83f2db4c7e93fec8cf9ea7459903d",
+    "bytes": 11932,
+    "extension": ".docx",
+    "original_extension": ".docx",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.001458,
+      "chunks": 1,
+      "text_characters": 9,
+      "chunk_kinds": {
+        "prose": 1
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "rule_pass_finished",
+      "seconds": 0.005015,
+      "counters": {
+        "units": 1,
+        "cold_cache_hits": 0,
+        "completed_units": 1,
+        "unresolved": 0,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "stdlib_zip_xml_source_text",
+      "source_units": 1,
+      "retained_units": 1,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {
+        "word_namespace": "transitional"
+      },
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "docling_pptx-1",
+    "file": "raw/docling_pptx-1.pptx",
+    "repository": "docling-project/docling",
+    "upstream_commit": "bcb3678fad7426549643f54c5eceab77925ac5c1",
+    "upstream_path": "tests/data/pptx/sources/powerpoint_sample.pptx",
+    "git_blob_sha": "0818f283bed6ee82d09ceb98f07da9fe3f01cbb2",
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/pptx/sources/powerpoint_sample.pptx",
+    "browse_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/pptx/sources/powerpoint_sample.pptx",
+    "sha256": "24191d47fda511e11984e875f8676506da5ae1fbcaefcc63d81be377d3a3950c",
+    "bytes": 45849,
+    "extension": ".pptx",
+    "original_extension": ".pptx",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "partial",
+      "seconds": 0.041922,
+      "chunks": 13,
+      "text_characters": 737,
+      "chunk_kinds": {
+        "heading": 2,
+        "prose": 8,
+        "ambiguous_table": 1,
+        "note": 2
+      },
+      "warnings": [
+        "幻灯片 1 / 对象3 表格含合并单元格，不自动推断其归属",
+        "幻灯片按文件对象顺序读取；自由布局、箭头和空间位置不被当作业务关系，需人工核查阅读顺序",
+        "幻灯片 1 / 对象3 / 表格 行 2-9：PPT 合并单元格需人工核查"
+      ],
+      "reader_status": "needs_review"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "needs_semantic_review",
+      "seconds": 0.050669,
+      "counters": {
+        "units": 11,
+        "cold_cache_hits": 0,
+        "completed_units": 11,
+        "unresolved": 3,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "stdlib_zip_xml_source_text",
+      "source_units": 25,
+      "retained_units": 25,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {
+        "slide_xml_count": 3
+      },
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "docling_pptx-2",
+    "file": "raw/docling_pptx-2.pptx",
+    "repository": "docling-project/docling",
+    "upstream_commit": "bcb3678fad7426549643f54c5eceab77925ac5c1",
+    "upstream_path": "tests/data/pptx/sources/pptx_chart.pptx",
+    "git_blob_sha": "08ea13cafed72ab831867cc29b43295a15793299",
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/pptx/sources/pptx_chart.pptx",
+    "browse_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/pptx/sources/pptx_chart.pptx",
+    "sha256": "c0bd75bbf8ac10380bc2c3bedd752564ef82030a587f85ca5235060edaf918dd",
+    "bytes": 48107,
+    "extension": ".pptx",
+    "original_extension": ".pptx",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "partial",
+      "seconds": 0.003808,
+      "chunks": 2,
+      "text_characters": 43,
+      "chunk_kinds": {
+        "heading": 2
+      },
+      "warnings": [
+        "幻灯片 1 / 对象2 为图表，图表数据和图形含义未完整读取",
+        "幻灯片 2 / 对象2 为图表，图表数据和图形含义未完整读取",
+        "幻灯片按文件对象顺序读取；自由布局、箭头和空间位置不被当作业务关系，需人工核查阅读顺序"
+      ],
+      "reader_status": "needs_review"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "rule_pass_finished",
+      "seconds": 6.4e-05,
+      "counters": {},
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "stdlib_zip_xml_source_text",
+      "source_units": 2,
+      "retained_units": 2,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {
+        "slide_xml_count": 2
+      },
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "docling_html-1",
+    "file": "raw/docling_html-1.html",
+    "repository": "docling-project/docling",
+    "upstream_commit": "bcb3678fad7426549643f54c5eceab77925ac5c1",
+    "upstream_path": "tests/data/html/sources/example_01.html",
+    "git_blob_sha": "065c4f2543ae7794cbb2f819460587002263944b",
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/html/sources/example_01.html",
+    "browse_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/html/sources/example_01.html",
+    "sha256": "d83caa8e29ab48148ae323c5e96a8889c56d7b84fced8fd82d0bf6e577c9b72c",
+    "bytes": 680,
+    "extension": ".html",
+    "original_extension": ".html",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "partial",
+      "seconds": 0.002914,
+      "chunks": 11,
+      "text_characters": 316,
+      "chunk_kinds": {
+        "heading": 2,
+        "prose": 9
+      },
+      "warnings": [
+        "HTML 行 7 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 7 / 行 1-1 / 片段 1：仅图片替代文字"
+      ],
+      "reader_status": "needs_review"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "needs_semantic_review",
+      "seconds": 0.040886,
+      "counters": {
+        "units": 9,
+        "cold_cache_hits": 0,
+        "completed_units": 9,
+        "unresolved": 1,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "manual_or_unavailable",
+      "status": "not_measured"
+    }
+  },
+  {
+    "id": "docling_html-2",
+    "file": "raw/docling_html-2.html",
+    "repository": "docling-project/docling",
+    "upstream_commit": "bcb3678fad7426549643f54c5eceab77925ac5c1",
+    "upstream_path": "tests/data/html/sources/wiki_duck.html",
+    "git_blob_sha": "7d0896e746c643fae7ef300b1f8dc6362ce1ed9e",
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/html/sources/wiki_duck.html",
+    "browse_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/html/sources/wiki_duck.html",
+    "sha256": "a41f163af380f1ebab4b514f8c62a990557347d7b154bc8e7151894431483e20",
+    "bytes": 245014,
+    "extension": ".html",
+    "original_extension": ".html",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "partial",
+      "seconds": 0.034095,
+      "chunks": 422,
+      "text_characters": 28725,
+      "chunk_kinds": {
+        "prose": 399,
+        "heading": 21,
+        "ambiguous_table": 2
+      },
+      "warnings": [
+        "HTML 行 118 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 120 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 121 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 787 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 807 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 818 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1002 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1007 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1008 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1012 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1017 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1023 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1026 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1031 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1041 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1049 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1061 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1065 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1074 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1225 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1231 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1268 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1297 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 1298 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+        "HTML 行 801 含合并、嵌套或不等列表格；保留文字，不猜测属性归属",
+        "HTML 行 1231 含合并、嵌套或不等列表格；保留文字，不猜测属性归属",
+        "HTML 行 801 / 行 1-14 / 片段 1：合并/嵌套/不等列表格需人工核查",
+        "HTML 行 1231 / 行 1-8 / 片段 1：合并/嵌套/不等列表格需人工核查"
+      ],
+      "reader_status": "needs_review"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "needs_semantic_review",
+      "seconds": 1.77584,
+      "counters": {
+        "units": 401,
+        "cold_cache_hits": 9,
+        "completed_units": 401,
+        "unresolved": 2,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "manual_or_unavailable",
+      "status": "not_measured"
+    }
+  },
+  {
+    "id": "docling_xml-1",
+    "file": "raw/docling_xml-1.xml",
+    "repository": "docling-project/docling",
+    "upstream_commit": "bcb3678fad7426549643f54c5eceab77925ac5c1",
+    "upstream_path": "tests/data/uspto/sources/tables_ipa20180000016.xml",
+    "git_blob_sha": "281336492780e5846b1ff4dc8812e0dafc326658",
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/uspto/sources/tables_ipa20180000016.xml",
+    "browse_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/uspto/sources/tables_ipa20180000016.xml",
+    "sha256": "3531a9748d5a525e24e33639cdadd0b342694139a212f356059393c5dc5f1885",
+    "bytes": 4778,
+    "extension": ".xml",
+    "original_extension": ".xml",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.001723,
+      "chunks": 228,
+      "text_characters": 2490,
+      "chunk_kinds": {
+        "prose": 228
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "rule_pass_finished",
+      "seconds": 1.04629,
+      "counters": {
+        "units": 228,
+        "cold_cache_hits": 0,
+        "completed_units": 228,
+        "unresolved": 0,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "stdlib_elementtree_text_and_attributes",
+      "source_units": 79,
+      "retained_units": 79,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {
+        "root_tag": "table"
+      },
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "pdfminer_pdf-1",
+    "file": "raw/pdfminer_pdf-1.pdf",
+    "repository": "pdfminer/pdfminer.six",
+    "upstream_commit": "a18de2a9c479b4c847538500017b449ddaec177e",
+    "upstream_path": "samples/simple1.pdf",
+    "git_blob_sha": "77b8623bb637cbeaa79296e58c7fa2cc8eefa627",
+    "source_url": "https://raw.githubusercontent.com/pdfminer/pdfminer.six/a18de2a9c479b4c847538500017b449ddaec177e/samples/simple1.pdf",
+    "browse_url": "https://github.com/pdfminer/pdfminer.six/blob/a18de2a9c479b4c847538500017b449ddaec177e/samples/simple1.pdf",
+    "sha256": "a21f0df056bbd133cbf987859d9934c6b37ec8c0cd484f93dd233e012e4ca320",
+    "bytes": 849,
+    "extension": ".pdf",
+    "original_extension": ".pdf",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/pdfminer/pdfminer.six/blob/a18de2a9c479b4c847538500017b449ddaec177e/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "rejected",
+      "error_type": "ExtractionError",
+      "error": "解析 pdfminer_pdf-1.pdf 失败：startxref not found"
+    },
+    "discovery": {},
+    "api": {
+      "upload_http_status": 422,
+      "status": "rejected",
+      "error": "{\"detail\":\"解析 504e2bcef43342.pdf 失败：startxref not found\"}"
+    }
+  },
+  {
+    "id": "pdfminer_pdf-2",
+    "file": "raw/pdfminer_pdf-2.pdf",
+    "repository": "pdfminer/pdfminer.six",
+    "upstream_commit": "a18de2a9c479b4c847538500017b449ddaec177e",
+    "upstream_path": "samples/simple2.pdf",
+    "git_blob_sha": "9619ffe6081e52d86b9af1cbb2e889ed3c210839",
+    "source_url": "https://raw.githubusercontent.com/pdfminer/pdfminer.six/a18de2a9c479b4c847538500017b449ddaec177e/samples/simple2.pdf",
+    "browse_url": "https://github.com/pdfminer/pdfminer.six/blob/a18de2a9c479b4c847538500017b449ddaec177e/samples/simple2.pdf",
+    "sha256": "dfd271205e2be7421d265ef7974b54ac3bb4aeb9e040c0d644220bb3c7dedcd3",
+    "bytes": 1174,
+    "extension": ".pdf",
+    "original_extension": ".pdf",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/pdfminer/pdfminer.six/blob/a18de2a9c479b4c847538500017b449ddaec177e/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "rejected",
+      "error_type": "ExtractionError",
+      "error": "解析 pdfminer_pdf-2.pdf 失败：PDF 没有可读取的文字层，当前未执行 OCR；请提供可复制文字的 PDF 或文字版文件"
+    },
+    "discovery": {},
+    "api": {
+      "upload_http_status": 422,
+      "status": "rejected",
+      "error": "{\"detail\":\"解析 6b4efb21d85240.pdf 失败：PDF 没有可读取的文字层，当前未执行 OCR；请提供可复制文字的 PDF 或文字版文件\"}"
+    }
+  },
+  {
+    "id": "pdfminer_pdf-3",
+    "file": "raw/pdfminer_pdf-3.pdf",
+    "repository": "pdfminer/pdfminer.six",
+    "upstream_commit": "a18de2a9c479b4c847538500017b449ddaec177e",
+    "upstream_path": "samples/simple3.pdf",
+    "git_blob_sha": "8c4f6487c808d2d9f867cbe0eeb57950dbdb0b1c",
+    "source_url": "https://raw.githubusercontent.com/pdfminer/pdfminer.six/a18de2a9c479b4c847538500017b449ddaec177e/samples/simple3.pdf",
+    "browse_url": "https://github.com/pdfminer/pdfminer.six/blob/a18de2a9c479b4c847538500017b449ddaec177e/samples/simple3.pdf",
+    "sha256": "1a86f259208896a670930e65a01636b3c628619309d37a0f7f3ad1aa3417ded0",
+    "bytes": 1051,
+    "extension": ".pdf",
+    "original_extension": ".pdf",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/pdfminer/pdfminer.six/blob/a18de2a9c479b4c847538500017b449ddaec177e/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "rejected",
+      "error_type": "ExtractionError",
+      "error": "解析 pdfminer_pdf-3.pdf 失败：startxref not found"
+    },
+    "discovery": {},
+    "api": {
+      "upload_http_status": 422,
+      "status": "rejected",
+      "error": "{\"detail\":\"解析 4b75011ba31c42.pdf 失败：startxref not found\"}"
+    }
+  },
+  {
+    "id": "pandas_csv-1",
+    "file": "raw/pandas_csv-1.csv",
+    "repository": "pandas-dev/pandas",
+    "upstream_commit": "831f55cdb3662a396587a0553c94a24bcefc9c6f",
+    "upstream_path": "pandas/tests/io/data/csv/iris.csv",
+    "git_blob_sha": "c19b9c36885151fc5a15b40577946f0c4352ad97",
+    "source_url": "https://raw.githubusercontent.com/pandas-dev/pandas/831f55cdb3662a396587a0553c94a24bcefc9c6f/pandas/tests/io/data/csv/iris.csv",
+    "browse_url": "https://github.com/pandas-dev/pandas/blob/831f55cdb3662a396587a0553c94a24bcefc9c6f/pandas/tests/io/data/csv/iris.csv",
+    "sha256": "904d791b308aa79bf4f06669f63be3f1ab331a23bd508051065e00f700f573f9",
+    "bytes": 4600,
+    "extension": ".csv",
+    "original_extension": ".csv",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "BSD-3-Clause",
+    "license_url": "https://github.com/pandas-dev/pandas/blob/831f55cdb3662a396587a0553c94a24bcefc9c6f/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.001859,
+      "chunks": 2,
+      "text_characters": 6539,
+      "chunk_kinds": {
+        "table": 2
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "needs_semantic_review",
+      "seconds": 0.012825,
+      "counters": {
+        "units": 2,
+        "cold_cache_hits": 0,
+        "completed_units": 0,
+        "unresolved": 2,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "raw_utf8_line_or_csv_cell",
+      "source_units": 82,
+      "retained_units": 82,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {
+        "independent_records_including_header": 151,
+        "independent_column_widths": [
+          5
+        ]
+      },
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "pandas_csv-2",
+    "file": "raw/pandas_csv-2.csv",
+    "repository": "pandas-dev/pandas",
+    "upstream_commit": "831f55cdb3662a396587a0553c94a24bcefc9c6f",
+    "upstream_path": "pandas/tests/io/data/csv/tips.csv",
+    "git_blob_sha": "856a65a69e64754130340a15e2b9c68d7ab8fa6f",
+    "source_url": "https://raw.githubusercontent.com/pandas-dev/pandas/831f55cdb3662a396587a0553c94a24bcefc9c6f/pandas/tests/io/data/csv/tips.csv",
+    "browse_url": "https://github.com/pandas-dev/pandas/blob/831f55cdb3662a396587a0553c94a24bcefc9c6f/pandas/tests/io/data/csv/tips.csv",
+    "sha256": "22415aaf1e56e675b9a0983cb0d321697dad51f6060a44fb8ecaad7a00de9a09",
+    "bytes": 7943,
+    "extension": ".csv",
+    "original_extension": ".csv",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "BSD-3-Clause",
+    "license_url": "https://github.com/pandas-dev/pandas/blob/831f55cdb3662a396587a0553c94a24bcefc9c6f/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.001916,
+      "chunks": 3,
+      "text_characters": 12106,
+      "chunk_kinds": {
+        "table": 3
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "needs_semantic_review",
+      "seconds": 0.015603,
+      "counters": {
+        "units": 3,
+        "cold_cache_hits": 0,
+        "completed_units": 0,
+        "unresolved": 3,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "raw_utf8_line_or_csv_cell",
+      "source_units": 367,
+      "retained_units": 367,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {
+        "independent_records_including_header": 245,
+        "independent_column_widths": [
+          7
+        ]
+      },
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "pandas_xlsx-1",
+    "file": "raw/pandas_xlsx-1.xlsx",
+    "repository": "pandas-dev/pandas",
+    "upstream_commit": "831f55cdb3662a396587a0553c94a24bcefc9c6f",
+    "upstream_path": "pandas/tests/io/data/excel/test1.xlsx",
+    "git_blob_sha": "862574e05a114240e403a653b7fe22d2feb458b3",
+    "source_url": "https://raw.githubusercontent.com/pandas-dev/pandas/831f55cdb3662a396587a0553c94a24bcefc9c6f/pandas/tests/io/data/excel/test1.xlsx",
+    "browse_url": "https://github.com/pandas-dev/pandas/blob/831f55cdb3662a396587a0553c94a24bcefc9c6f/pandas/tests/io/data/excel/test1.xlsx",
+    "sha256": "b6fe2d9ae5afd6d0bdfefbae9c0c1649d8bf883e183a153cb76f2a8a548cef11",
+    "bytes": 12074,
+    "extension": ".xlsx",
+    "original_extension": ".xlsx",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "BSD-3-Clause",
+    "license_url": "https://github.com/pandas-dev/pandas/blob/831f55cdb3662a396587a0553c94a24bcefc9c6f/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "partial",
+      "seconds": 0.05312,
+      "chunks": 4,
+      "text_characters": 1512,
+      "chunk_kinds": {
+        "ambiguous_table": 3,
+        "prose": 1
+      },
+      "warnings": [
+        "Sheet1 行 2-8：表头重复/缺失或各行列数不一致，保留全部单元格，归属需人工核查",
+        "Sheet2 行 2-9：表头重复/缺失或各行列数不一致，保留全部单元格，归属需人工核查",
+        "Sheet4 行 2-3：表头重复/缺失或各行列数不一致，保留全部单元格，归属需人工核查"
+      ],
+      "reader_status": "needs_review"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "needs_semantic_review",
+      "seconds": 0.018335,
+      "counters": {
+        "units": 4,
+        "cold_cache_hits": 0,
+        "completed_units": 4,
+        "unresolved": 3,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "stdlib_zip_xml_source_text",
+      "source_units": 5,
+      "retained_units": 5,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {
+        "shared_and_inline_string_count": 18
+      },
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "pandas_xlsx-2",
+    "file": "raw/pandas_xlsx-2.xlsx",
+    "repository": "pandas-dev/pandas",
+    "upstream_commit": "831f55cdb3662a396587a0553c94a24bcefc9c6f",
+    "upstream_path": "pandas/tests/io/data/excel/test2.xlsx",
+    "git_blob_sha": "94dd951e0bb84dd566dc9aa58c89067771f49a8d",
+    "source_url": "https://raw.githubusercontent.com/pandas-dev/pandas/831f55cdb3662a396587a0553c94a24bcefc9c6f/pandas/tests/io/data/excel/test2.xlsx",
+    "browse_url": "https://github.com/pandas-dev/pandas/blob/831f55cdb3662a396587a0553c94a24bcefc9c6f/pandas/tests/io/data/excel/test2.xlsx",
+    "sha256": "1910a60747bd1a52bfd046973ff5df2a83bcbf57199920f29aac0606e9f21cef",
+    "bytes": 8067,
+    "extension": ".xlsx",
+    "original_extension": ".xlsx",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "BSD-3-Clause",
+    "license_url": "https://github.com/pandas-dev/pandas/blob/831f55cdb3662a396587a0553c94a24bcefc9c6f/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.004535,
+      "chunks": 1,
+      "text_characters": 47,
+      "chunk_kinds": {
+        "table": 1
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "needs_semantic_review",
+      "seconds": 0.004798,
+      "counters": {
+        "units": 1,
+        "cold_cache_hits": 0,
+        "completed_units": 0,
+        "unresolved": 1,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "stdlib_zip_xml_source_text",
+      "source_units": 4,
+      "retained_units": 4,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {
+        "shared_and_inline_string_count": 4
+      },
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "openapi_yaml-1",
+    "file": "raw/openapi_yaml-1.yaml",
+    "repository": "OAI/OpenAPI-Specification",
+    "upstream_commit": "4f86429f134f7e48b6351563549b4502fc69de52",
+    "upstream_path": "_archive_/schemas/v3.0/pass/petstore.yaml",
+    "git_blob_sha": "7ed987ff63e423bf492e005ffb59c07a0d2caab9",
+    "source_url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/4f86429f134f7e48b6351563549b4502fc69de52/_archive_/schemas/v3.0/pass/petstore.yaml",
+    "browse_url": "https://github.com/OAI/OpenAPI-Specification/blob/4f86429f134f7e48b6351563549b4502fc69de52/_archive_/schemas/v3.0/pass/petstore.yaml",
+    "sha256": "598136cb904e17e8eeead51ae33dd8d401fdff455d2d74f3869c4aa5f2742266",
+    "bytes": 2772,
+    "extension": ".yaml",
+    "original_extension": ".yaml",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "Apache-2.0",
+    "license_url": "https://github.com/OAI/OpenAPI-Specification/blob/4f86429f134f7e48b6351563549b4502fc69de52/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.018632,
+      "chunks": 12,
+      "text_characters": 646,
+      "chunk_kinds": {
+        "json-overview": 1,
+        "json-class": 1,
+        "json-field": 1,
+        "prose": 9
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "rule_pass_finished",
+      "seconds": 0.044867,
+      "counters": {
+        "units": 12,
+        "cold_cache_hits": 2,
+        "completed_units": 12,
+        "unresolved": 0,
+        "entities": 1,
+        "attributes": 1,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 1,
+        "attributes": 1,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "independent_structure_inventory_only",
+      "status": "inventory_only_not_full_retention",
+      "facts": {
+        "document_or_record_count": 1,
+        "scalar_and_key_count": 169
+      }
+    }
+  },
+  {
+    "id": "openapi_json-1",
+    "file": "raw/openapi_json-1.json",
+    "repository": "OAI/OpenAPI-Specification",
+    "upstream_commit": "4f86429f134f7e48b6351563549b4502fc69de52",
+    "upstream_path": "_archive_/schemas/v1.2/resourceObject.json",
+    "git_blob_sha": "a88e83f562d8ae38086c8dc9f50b34aba83a12c3",
+    "source_url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/4f86429f134f7e48b6351563549b4502fc69de52/_archive_/schemas/v1.2/resourceObject.json",
+    "browse_url": "https://github.com/OAI/OpenAPI-Specification/blob/4f86429f134f7e48b6351563549b4502fc69de52/_archive_/schemas/v1.2/resourceObject.json",
+    "sha256": "29dab26d6553ee7f4f2c3eb03521fa71302d1f512d5204cb7028564b0c78e925",
+    "bytes": 385,
+    "extension": ".json",
+    "original_extension": ".json",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "Apache-2.0",
+    "license_url": "https://github.com/OAI/OpenAPI-Specification/blob/4f86429f134f7e48b6351563549b4502fc69de52/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "partial",
+      "seconds": 0.000197,
+      "chunks": 8,
+      "text_characters": 385,
+      "chunk_kinds": {
+        "prose": 8
+      },
+      "warnings": [
+        "此结构未明确声明本体/集合语义；已保留字段与值供模型或用户理解，不直接把键名当实体类型"
+      ],
+      "reader_status": "needs_review"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "rule_pass_finished",
+      "seconds": 0.032885,
+      "counters": {
+        "units": 8,
+        "cold_cache_hits": 0,
+        "completed_units": 8,
+        "unresolved": 0,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "independent_structure_inventory_only",
+      "status": "inventory_only_not_full_retention",
+      "facts": {
+        "document_or_record_count": 1,
+        "scalar_and_key_count": 19
+      }
+    }
+  },
+  {
+    "id": "cpython_eml-1",
+    "file": "raw/cpython_eml-1.eml",
+    "repository": "python/cpython",
+    "upstream_commit": "cbaba022cf2778c5f02445ae231a8af1f1db53a1",
+    "upstream_path": "Lib/test/test_email/data/msg_01.txt",
+    "git_blob_sha": "7e33bcf96afc57f23fdffd2024468799d10663e7",
+    "source_url": "https://raw.githubusercontent.com/python/cpython/cbaba022cf2778c5f02445ae231a8af1f1db53a1/Lib/test/test_email/data/msg_01.txt",
+    "browse_url": "https://github.com/python/cpython/blob/cbaba022cf2778c5f02445ae231a8af1f1db53a1/Lib/test/test_email/data/msg_01.txt",
+    "sha256": "c15a3a17f6b65e9c51c58ed3a79d12bc517f867321ed118e5dc7b5c3a1ed7d4b",
+    "bytes": 459,
+    "extension": ".eml",
+    "original_extension": ".txt",
+    "bytes_modified": false,
+    "extension_alias_only": true,
+    "repository_license": "NOASSERTION",
+    "license_url": "https://github.com/python/cpython/blob/cbaba022cf2778c5f02445ae231a8af1f1db53a1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.001417,
+      "chunks": 2,
+      "text_characters": 139,
+      "chunk_kinds": {
+        "prose": 2
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "rule_pass_finished",
+      "seconds": 0.008611,
+      "counters": {
+        "units": 2,
+        "cold_cache_hits": 0,
+        "completed_units": 2,
+        "unresolved": 0,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "stdlib_email_body_reference",
+      "source_units": 3,
+      "retained_units": 3,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {
+        "mime_parts": 1
+      },
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "cpython_eml-2",
+    "file": "raw/cpython_eml-2.eml",
+    "repository": "python/cpython",
+    "upstream_commit": "cbaba022cf2778c5f02445ae231a8af1f1db53a1",
+    "upstream_path": "Lib/test/test_email/data/msg_02.txt",
+    "git_blob_sha": "5d0a7e16c8251f3de3c980ed453da5e26bb6be2d",
+    "source_url": "https://raw.githubusercontent.com/python/cpython/cbaba022cf2778c5f02445ae231a8af1f1db53a1/Lib/test/test_email/data/msg_02.txt",
+    "browse_url": "https://github.com/python/cpython/blob/cbaba022cf2778c5f02445ae231a8af1f1db53a1/Lib/test/test_email/data/msg_02.txt",
+    "sha256": "05d5e533f5e590d9ee2c7692d26dc87ccbf381f4831cca3362baf596691a55bb",
+    "bytes": 2812,
+    "extension": ".eml",
+    "original_extension": ".txt",
+    "bytes_modified": false,
+    "extension_alias_only": true,
+    "repository_license": "NOASSERTION",
+    "license_url": "https://github.com/python/cpython/blob/cbaba022cf2778c5f02445ae231a8af1f1db53a1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.003792,
+      "chunks": 9,
+      "text_characters": 861,
+      "chunk_kinds": {
+        "prose": 9
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "rule_pass_finished",
+      "seconds": 0.02531,
+      "counters": {
+        "units": 9,
+        "cold_cache_hits": 4,
+        "completed_units": 9,
+        "unresolved": 0,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "stdlib_email_body_reference",
+      "source_units": 20,
+      "retained_units": 20,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {
+        "mime_parts": 15
+      },
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "cpython_rst-1",
+    "file": "raw/cpython_rst-1.rst",
+    "repository": "python/cpython",
+    "upstream_commit": "cbaba022cf2778c5f02445ae231a8af1f1db53a1",
+    "upstream_path": "Doc/faq/index.rst",
+    "git_blob_sha": "46ed3db2203d3a4f8b071281d058723336f2645c",
+    "source_url": "https://raw.githubusercontent.com/python/cpython/cbaba022cf2778c5f02445ae231a8af1f1db53a1/Doc/faq/index.rst",
+    "browse_url": "https://github.com/python/cpython/blob/cbaba022cf2778c5f02445ae231a8af1f1db53a1/Doc/faq/index.rst",
+    "sha256": "3cf75d195de125769cc55b8b9c3d0a8cf1653d0aa3538fd4e0738f7eea04e56c",
+    "bytes": 278,
+    "extension": ".rst",
+    "original_extension": ".rst",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "NOASSERTION",
+    "license_url": "https://github.com/python/cpython/blob/cbaba022cf2778c5f02445ae231a8af1f1db53a1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.00025,
+      "chunks": 1,
+      "text_characters": 277,
+      "chunk_kinds": {
+        "prose": 1
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "rule_pass_finished",
+      "seconds": 0.00471,
+      "counters": {
+        "units": 1,
+        "cold_cache_hits": 0,
+        "completed_units": 1,
+        "unresolved": 0,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "raw_utf8_line_or_csv_cell",
+      "source_units": 13,
+      "retained_units": 13,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {},
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "cpython_xml-1",
+    "file": "raw/cpython_xml-1.xml",
+    "repository": "python/cpython",
+    "upstream_commit": "cbaba022cf2778c5f02445ae231a8af1f1db53a1",
+    "upstream_path": "Lib/test/xmltestdata/simple.xml",
+    "git_blob_sha": "b88c2c7e69a0887eff79d18026b62bfaff4c5fd4",
+    "source_url": "https://raw.githubusercontent.com/python/cpython/cbaba022cf2778c5f02445ae231a8af1f1db53a1/Lib/test/xmltestdata/simple.xml",
+    "browse_url": "https://github.com/python/cpython/blob/cbaba022cf2778c5f02445ae231a8af1f1db53a1/Lib/test/xmltestdata/simple.xml",
+    "sha256": "24b3c8e971a76d61cbf6a1bc9f9806c2b8e651a3aae2978c21a5654e98a3ff33",
+    "bytes": 122,
+    "extension": ".xml",
+    "original_extension": ".xml",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "NOASSERTION",
+    "license_url": "https://github.com/python/cpython/blob/cbaba022cf2778c5f02445ae231a8af1f1db53a1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.00021,
+      "chunks": 4,
+      "text_characters": 26,
+      "chunk_kinds": {
+        "prose": 4
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "rule_pass_finished",
+      "seconds": 0.016927,
+      "counters": {
+        "units": 4,
+        "cold_cache_hits": 0,
+        "completed_units": 4,
+        "unresolved": 0,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "stdlib_elementtree_text_and_attributes",
+      "source_units": 3,
+      "retained_units": 3,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {
+        "root_tag": "root"
+      },
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "jieba_chinese_md-1",
+    "file": "raw/jieba_chinese_md-1.md",
+    "repository": "fxsjy/jieba",
+    "upstream_commit": "67fa2e36e72f69d9134b8a1037b83fbb070b9775",
+    "upstream_path": "README.md",
+    "git_blob_sha": "ee2ed8aac14264134918eb5abebdd811a6bd63ca",
+    "source_url": "https://raw.githubusercontent.com/fxsjy/jieba/67fa2e36e72f69d9134b8a1037b83fbb070b9775/README.md",
+    "browse_url": "https://github.com/fxsjy/jieba/blob/67fa2e36e72f69d9134b8a1037b83fbb070b9775/README.md",
+    "sha256": "d6754b68da8fae70d2fb93b8100f41d55e2c0c262230c1017a053ad8154d85c1",
+    "bytes": 31879,
+    "extension": ".md",
+    "original_extension": ".md",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/fxsjy/jieba/blob/67fa2e36e72f69d9134b8a1037b83fbb070b9775/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.002335,
+      "chunks": 55,
+      "text_characters": 24858,
+      "chunk_kinds": {
+        "prose": 26,
+        "code": 16,
+        "heading": 12,
+        "table": 1
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "needs_semantic_review",
+      "seconds": 0.219466,
+      "counters": {
+        "units": 43,
+        "cold_cache_hits": 0,
+        "completed_units": 23,
+        "unresolved": 31,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "raw_utf8_line_or_csv_cell",
+      "source_units": 413,
+      "retained_units": 413,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {},
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "postgres_sql-1",
+    "file": "raw/postgres_sql-1.sql",
+    "repository": "postgres/postgres",
+    "upstream_commit": "0607aa61090ac1b574f8bafe854c684195b31e16",
+    "upstream_path": "src/test/regress/sql/create_misc.sql",
+    "git_blob_sha": "6fb9fdab4c1d820c5a8985dde8bfb1360acfc4a1",
+    "source_url": "https://raw.githubusercontent.com/postgres/postgres/0607aa61090ac1b574f8bafe854c684195b31e16/src/test/regress/sql/create_misc.sql",
+    "browse_url": "https://github.com/postgres/postgres/blob/0607aa61090ac1b574f8bafe854c684195b31e16/src/test/regress/sql/create_misc.sql",
+    "sha256": "c80d56c083aafad268a8c896d9a8f086dc59f875e4ab7fd5ab5e1ec112731f01",
+    "bytes": 6144,
+    "extension": ".sql",
+    "original_extension": ".sql",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "NOASSERTION",
+    "license_url": "https://github.com/postgres/postgres/blob/0607aa61090ac1b574f8bafe854c684195b31e16/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.000369,
+      "chunks": 2,
+      "text_characters": 6142,
+      "chunk_kinds": {
+        "prose": 2
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "rule_pass_finished",
+      "seconds": 0.010402,
+      "counters": {
+        "units": 2,
+        "cold_cache_hits": 0,
+        "completed_units": 2,
+        "unresolved": 0,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "raw_utf8_line_or_csv_cell",
+      "source_units": 160,
+      "retained_units": 160,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {},
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "pdfminer_text-1",
+    "file": "raw/pdfminer_text-1.txt",
+    "repository": "pdfminer/pdfminer.six",
+    "upstream_commit": "a18de2a9c479b4c847538500017b449ddaec177e",
+    "upstream_path": "cmaprsrc/README.txt",
+    "git_blob_sha": "ae63479f4309b94abf9c556a1bcb1b9a810843eb",
+    "source_url": "https://raw.githubusercontent.com/pdfminer/pdfminer.six/a18de2a9c479b4c847538500017b449ddaec177e/cmaprsrc/README.txt",
+    "browse_url": "https://github.com/pdfminer/pdfminer.six/blob/a18de2a9c479b4c847538500017b449ddaec177e/cmaprsrc/README.txt",
+    "sha256": "fa4f600f27b26ba68df5a392058c9f0c00bd39a726953e03bca8223a12da98be",
+    "bytes": 2916,
+    "extension": ".txt",
+    "original_extension": ".txt",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/pdfminer/pdfminer.six/blob/a18de2a9c479b4c847538500017b449ddaec177e/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.00018,
+      "chunks": 1,
+      "text_characters": 2915,
+      "chunk_kinds": {
+        "prose": 1
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "rule_pass_finished",
+      "seconds": 0.005098,
+      "counters": {
+        "units": 1,
+        "cold_cache_hits": 0,
+        "completed_units": 1,
+        "unresolved": 0,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "raw_utf8_line_or_csv_cell",
+      "source_units": 45,
+      "retained_units": 45,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {},
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "vega_tsv-1",
+    "file": "raw/vega_tsv-1.tsv",
+    "repository": "vega/vega-datasets",
+    "upstream_commit": "5448e25297c8f705be78e879d5423d55d04dc6f1",
+    "upstream_path": "data/unemployment.tsv",
+    "git_blob_sha": "d1aca19c4821fdc3b4270989661a1787d38588d0",
+    "source_url": "https://raw.githubusercontent.com/vega/vega-datasets/5448e25297c8f705be78e879d5423d55d04dc6f1/data/unemployment.tsv",
+    "browse_url": "https://github.com/vega/vega-datasets/blob/5448e25297c8f705be78e879d5423d55d04dc6f1/data/unemployment.tsv",
+    "sha256": "f82bff0a9745cc9e9997c0b83a02ecc77cea7b1d6acbbc4b404bff293e95bb6e",
+    "bytes": 34739,
+    "extension": ".tsv",
+    "original_extension": ".tsv",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": null,
+    "license_url": "https://github.com/vega/vega-datasets/blob/5448e25297c8f705be78e879d5423d55d04dc6f1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.013419,
+      "chunks": 11,
+      "text_characters": 54346,
+      "chunk_kinds": {
+        "table": 11
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "needs_semantic_review",
+      "seconds": 0.063881,
+      "counters": {
+        "units": 11,
+        "cold_cache_hits": 0,
+        "completed_units": 0,
+        "unresolved": 11,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "raw_utf8_line_or_csv_cell",
+      "source_units": 3427,
+      "retained_units": 3427,
+      "missing_units": 0,
+      "retention_fraction": 1.0,
+      "missing_unit_sha256": [],
+      "facts": {
+        "independent_records_including_header": 3219,
+        "independent_column_widths": [
+          2
+        ]
+      },
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "jsonl_algebra-1",
+    "file": "raw/jsonl_algebra-1.jsonl",
+    "repository": "queelius/jsonl-algebra",
+    "upstream_commit": "382b83bafa8cc83506c48eafe81e3d0903a60c74",
+    "upstream_path": "examples/companies.jsonl",
+    "git_blob_sha": "ac376babdbf257a049c4a26be8eff649994f7dfd",
+    "source_url": "https://raw.githubusercontent.com/queelius/jsonl-algebra/382b83bafa8cc83506c48eafe81e3d0903a60c74/examples/companies.jsonl",
+    "browse_url": "https://github.com/queelius/jsonl-algebra/blob/382b83bafa8cc83506c48eafe81e3d0903a60c74/examples/companies.jsonl",
+    "sha256": "5d8399cbe0258bac6012468acab1d3ece02e1b4645377349ef282820dec162da",
+    "bytes": 1631,
+    "extension": ".jsonl",
+    "original_extension": ".jsonl",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/queelius/jsonl-algebra/blob/382b83bafa8cc83506c48eafe81e3d0903a60c74/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.000602,
+      "chunks": 7,
+      "text_characters": 863,
+      "chunk_kinds": {
+        "json-overview": 1,
+        "json-class": 1,
+        "json-field": 5
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "needs_semantic_review",
+      "seconds": 0.030847,
+      "counters": {
+        "units": 7,
+        "cold_cache_hits": 0,
+        "completed_units": 7,
+        "unresolved": 1,
+        "entities": 1,
+        "attributes": 5,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 1,
+        "attributes": 5,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "independent_structure_inventory_only",
+      "status": "inventory_only_not_full_retention",
+      "facts": {
+        "document_or_record_count": 8,
+        "scalar_and_key_count": 136
+      }
+    }
+  },
+  {
+    "id": "jsonl_algebra-2",
+    "file": "raw/jsonl_algebra-2.jsonl",
+    "repository": "queelius/jsonl-algebra",
+    "upstream_commit": "382b83bafa8cc83506c48eafe81e3d0903a60c74",
+    "upstream_path": "examples/people.jsonl",
+    "git_blob_sha": "e3853e9615c1eb627e0b9c20ab037abd13ddd0a4",
+    "source_url": "https://raw.githubusercontent.com/queelius/jsonl-algebra/382b83bafa8cc83506c48eafe81e3d0903a60c74/examples/people.jsonl",
+    "browse_url": "https://github.com/queelius/jsonl-algebra/blob/382b83bafa8cc83506c48eafe81e3d0903a60c74/examples/people.jsonl",
+    "sha256": "ea1bade4e270c62cfe1b6cc75d6beb44ed00ab90e7a2d3355dd2d9e504bab3b3",
+    "bytes": 15495,
+    "extension": ".jsonl",
+    "original_extension": ".jsonl",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/queelius/jsonl-algebra/blob/382b83bafa8cc83506c48eafe81e3d0903a60c74/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "read",
+      "seconds": 0.00214,
+      "chunks": 6,
+      "text_characters": 785,
+      "chunk_kinds": {
+        "json-overview": 1,
+        "json-class": 1,
+        "json-field": 4
+      },
+      "warnings": [],
+      "reader_status": "text_read"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "needs_semantic_review",
+      "seconds": 0.028667,
+      "counters": {
+        "units": 6,
+        "cold_cache_hits": 0,
+        "completed_units": 6,
+        "unresolved": 1,
+        "entities": 1,
+        "attributes": 4,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 1,
+        "attributes": 4,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "independent_structure_inventory_only",
+      "status": "inventory_only_not_full_retention",
+      "facts": {
+        "document_or_record_count": 30,
+        "scalar_and_key_count": 1183
+      }
+    }
+  },
+  {
+    "id": "docling_complex_pdf-1",
+    "file": "raw/docling_complex_pdf-1.pdf",
+    "repository": "docling-project/docling",
+    "upstream_commit": "bcb3678fad7426549643f54c5eceab77925ac5c1",
+    "upstream_path": "tests/data/pdf/sources/acroform_sample.pdf",
+    "git_blob_sha": "1c1e5d1c7a16ce8cc7be947136824f3ac463d816",
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/pdf/sources/acroform_sample.pdf",
+    "browse_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/pdf/sources/acroform_sample.pdf",
+    "sha256": "a4c3afbd5f7bf5d9ba7c13b84772e072f451b275bf4a7f05f6750b9a46548ddc",
+    "bytes": 2055,
+    "extension": ".pdf",
+    "original_extension": ".pdf",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "partial",
+      "seconds": 0.001641,
+      "chunks": 1,
+      "text_characters": 103,
+      "chunk_kinds": {
+        "prose": 1
+      },
+      "warnings": [
+        "PDF 按文字层读取；多栏阅读顺序、表格边界和图形关系未作完整版式验证"
+      ],
+      "reader_status": "needs_review"
+    },
+    "discovery": {
+      "mode": "RULE_DEMO_no_real_LLM",
+      "status": "rule_pass_finished",
+      "seconds": 0.004699,
+      "counters": {
+        "units": 1,
+        "cold_cache_hits": 0,
+        "completed_units": 1,
+        "unresolved": 0,
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unique_counts": {
+        "entities": 0,
+        "attributes": 0,
+        "relations": 0
+      },
+      "unit_errors": [],
+      "meaning": "Zero candidates is NOT proof that the source contains no ontology concepts; semantic LLM accuracy was not tested."
+    },
+    "api": {
+      "upload_http_status": 200,
+      "status": "accepted",
+      "error": null
+    },
+    "source_retention": {
+      "method": "poppler_pdftotext_independent_engine",
+      "source_units": 6,
+      "retained_units": 4,
+      "missing_units": 2,
+      "retention_fraction": 0.66667,
+      "missing_unit_sha256": [
+        "a2ec34c70884ad8afc375ce5df347f9ec1e6f87bbc587f6ef4680d2e60a9ff90",
+        "ef08178e491db06bfeafb6604628966190e3e586679f3d43b1a130fb58ce06ec"
+      ],
+      "facts": {},
+      "scope": "Lexical retention of readable source text; not ontology accuracy and not visual/layout completeness."
+    }
+  },
+  {
+    "id": "docling_legacy_doc-1",
+    "file": "raw/docling_legacy_doc-1.doc",
+    "repository": "docling-project/docling",
+    "upstream_commit": "bcb3678fad7426549643f54c5eceab77925ac5c1",
+    "upstream_path": "tests/data/doc/sources/greek_heading_styles.doc",
+    "git_blob_sha": "f7b312f19985c173414644bf768e2712b07c4ca3",
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/doc/sources/greek_heading_styles.doc",
+    "browse_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/doc/sources/greek_heading_styles.doc",
+    "sha256": "c1ed32d5b26155c6d612e2149e7bcaa74c1f1c8093f31777b6a508c92c0cc950",
+    "bytes": 27136,
+    "extension": ".doc",
+    "original_extension": ".doc",
+    "bytes_modified": false,
+    "extension_alias_only": false,
+    "repository_license": "MIT",
+    "license_url": "https://github.com/docling-project/docling/blob/bcb3678fad7426549643f54c5eceab77925ac5c1/LICENSE",
+    "checks": {
+      "sha256_matches": true,
+      "git_blob_matches": true
+    },
+    "parse": {
+      "status": "rejected",
+      "error_type": "ExtractionError",
+      "error": "该格式需要可选转换组件且尚未验证支持；优先将旧 Office 另存为 DOCX/XLSX/PPTX，图片需另行 OCR。"
+    },
+    "discovery": {},
+    "api": {
+      "upload_http_status": 415,
+      "status": "rejected",
+      "error": "{\"detail\":\"该格式需要可选转换组件且尚未验证支持；优先将旧 Office 另存为 DOCX/XLSX/PPTX，图片需另行 OCR。\"}"
+    }
+  }
+]

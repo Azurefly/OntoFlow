@@ -1,0 +1,50 @@
+[
+  {
+    "id": "docling_docx-2",
+    "independent_reader": "OOXML ZIP XML, strict/transitional namespaces",
+    "readable_text_units": 1,
+    "text_sha256": "4c2e9e6da31a64c70623619c449a040968cdbea85945bf384fa30ed2d5d24fa3"
+  },
+  {
+    "id": "docling_docx-3",
+    "independent_reader": "OOXML ZIP XML, strict/transitional namespaces",
+    "readable_text_units": 1,
+    "text_sha256": "4c2e9e6da31a64c70623619c449a040968cdbea85945bf384fa30ed2d5d24fa3"
+  },
+  {
+    "id": "pdfminer_pdf-1",
+    "independent_reader": "Poppler pdftotext",
+    "exit_code": 0,
+    "text_characters": 70,
+    "has_startxref": false,
+    "has_EOF": true,
+    "stderr": ""
+  },
+  {
+    "id": "pdfminer_pdf-2",
+    "independent_reader": "Poppler pdftotext",
+    "exit_code": 0,
+    "text_characters": 0,
+    "has_startxref": true,
+    "has_EOF": true,
+    "stderr": ""
+  },
+  {
+    "id": "pdfminer_pdf-3",
+    "independent_reader": "Poppler pdftotext",
+    "exit_code": 0,
+    "text_characters": 36,
+    "has_startxref": false,
+    "has_EOF": true,
+    "stderr": ""
+  },
+  {
+    "id": "docling_complex_pdf-1",
+    "independent_reader": "Poppler pdftotext",
+    "exit_code": 0,
+    "text_characters": 120,
+    "has_startxref": true,
+    "has_EOF": true,
+    "stderr": "Syntax Error: Unknown font tag 'ZaDb'"
+  }
+]
