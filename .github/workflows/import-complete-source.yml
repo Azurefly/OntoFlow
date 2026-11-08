@@ -1,0 +1,125 @@
+name: Publish verified complete source
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/import-complete-source.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ontoflow-initial-source-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository == 'Azurefly/OntoFlow' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Reconstruct and verify approved source archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          python - <<'PY'
+          import base64, concurrent.futures, hashlib, io, json, os, subprocess, tarfile, urllib.request
+          from pathlib import Path, PurePosixPath
+          heads='''feeb3d2793458739c99f49ed3445fd759970d41b c452e49df2a6fa966bf9abc5d27dc0258d50c24d ea84ee0465f71c5cd19a055e35abcc3ec18476d3 88a094d3e2e1cb9735d86cbcdf55cbcc3bb49ca5 56bfd066bf6bfc9167db28bfabcea1d72a3ba9ce ac1bdaa1103753470b23589f61406d23f7a084ae 47b2e67b0408a40b6635b34f08bd754d8ddf7223 260db2a72eef4cf8bf82b00067b893a8ff348144 97c84a99a3545f369186683642a9e7d3c70718db a8bdfa2821d9fbe7712598c4425b1a0981f2f0e4 cc784bca3e4ec128c9fedc154267042d9811fc5e 6e046a0da966f074f040a05bf58ef4611164bb13 1195a7bcc9e8d8ee1309f0b4e68740608a87ca7b 1f023472e8193ec5a4b1fb0b57ac8d39cf7eb6fa f874508b85664582a874ef54cf5368a041b10010 bd766118b8ec0826c2f1ab4d5213e59fe3e0e80d ee503423a84a6b069d091813e519872e77425799 1db9d70b5ba5834ea6d342191bf36d4bf96b4bff a68abbf84886bc5dd2930d1bd08d077bc0388701 8a59c8ad5ef7fb1b413ed530b17210078db42a7f'''.split()
+          tails='''01b1c2bc1066aafe894d345d48b1033813d8dc33 81a1c1c4b1c7598baadf4a6a0644ea9aad4398e3 983cd98b79d0786faa2d2524b14ff703236d2eaf 830db33f3a4e974213daeea18c730347ada53fd7 a28e26a9f7481c3d99c8f6390041067604fce3d3 9686b8e6b1ad86dd859e094cbd076f44f06d7c5b 7e069a64d83f6e34af0922c641d4d2a49d7a16ae 29b7aa3f254174365833f9aef26630e89430c57a'''.split()
+          expected_sha256='c0cc8ec3b6a6337744e168557d7fe42fb39a8d03940161646cf5573a453a7381'
+          def git_hash(data):
+              return hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()
+          def fetch(sha):
+              req=urllib.request.Request(f'https://api.github.com/repos/{os.environ["REPO"]}/git/blobs/{sha}',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','User-Agent':'ontoflow-verified-source-publication'})
+              with urllib.request.urlopen(req,timeout=45) as response:
+                  obj=json.load(response)
+              data=base64.b64decode(obj['content'])
+              if git_hash(data)!=sha:
+                  raise RuntimeError('Git blob checksum mismatch: '+sha)
+              if sha=='7e069a64d83f6e34af0922c641d4d2a49d7a16ae':
+                  # The final byte was omitted in this transport fragment only.
+                  # Verify the corrected fragment AND the full archive below.
+                  data+=bytes.fromhex('2d')
+                  assert git_hash(data)=='18d0cc05b4813d6553796df5b764abfa4c67a74e'
+              return data
+          with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+              parts=list(pool.map(fetch,heads+tails))
+          assert all(len(data)==12000 for data in parts[:20])
+          assert [len(data) for data in parts[20:]]==[6000]*7+[5724]
+          archive=b''.join(parts)
+          assert len(archive)==287724
+          assert hashlib.sha256(archive).hexdigest()==expected_sha256, 'Archive integrity check failed; publication stopped'
+          blocked={'.git','.env','data','uploads','__pycache__','.pytest_cache','.venv'}
+          files={}
+          with tarfile.open(fileobj=io.BytesIO(archive),mode='r:xz') as tar:
+              for member in tar.getmembers():
+                  path=PurePosixPath(member.name)
+                  if path.is_absolute() or '..' in path.parts or any(p in blocked for p in path.parts):
+                      raise RuntimeError('Unsafe archive path: '+member.name)
+                  if member.isdir():
+                      continue
+                  if not member.isfile() or member.size>5_000_000:
+                      raise RuntimeError('Unsupported archive member: '+member.name)
+                  if member.name in files:
+                      raise RuntimeError('Duplicate archive path')
+                  files[member.name]=tar.extractfile(member).read()
+          assert len(files)==143 and sum(map(len,files.values()))==1470011
+          for required in ('app/main.py','app/brain.py','static/app.js','tests/conftest.py','compose.yaml','Dockerfile','README.md','reports/internet-2026-11-07/REPORT.zh-CN.md','SOURCE_MANIFEST.json'):
+              assert required in files, required
+          manifest=json.loads(files['SOURCE_MANIFEST.json'])
+          assert len(manifest['files'])==142
+          for name,expected in manifest['files'].items():
+              assert hashlib.sha256(files[name]).hexdigest()==expected, name
+          # Workflow files are installed through the authenticated connector,
+          # not by the Actions token. Application and report bytes are unmodified.
+          workflow_paths=[p for p in files if p.startswith('.github/workflows/')]
+          assert workflow_paths==['.github/workflows/regression.yml']
+          application=sorted(p for p in files if not p.startswith(('reports/','.github/workflows/')))
+          reports=sorted(p for p in files if p.startswith('reports/'))
+          assert len(application)==132 and len(reports)==10
+          def git(*args,check=True):
+              return subprocess.run(['git',*args],check=check,text=True,capture_output=True)
+          start=git('rev-parse','HEAD').stdout.strip()
+          git('config','user.name','github-actions[bot]')
+          git('config','user.email','41898282+github-actions[bot]@users.noreply.github.com')
+          commits=[]
+          for paths,message in ((application,'feat: publish complete OntoFlow v1.4.1 application source'),(reports,'test: add detailed independent internet document test report and evidence')):
+              for name in paths:
+                  dest=Path(name)
+                  dest.parent.mkdir(parents=True,exist_ok=True)
+                  dest.write_bytes(files[name])
+              git('add','--',*paths)
+              staged=git('diff','--cached','--quiet',check=False)
+              if staged.returncode not in (0,1):
+                  raise RuntimeError('Unable to validate staged changes')
+              if staged.returncode==1:
+                  git('commit','-m',message)
+              sha=git('rev-parse','HEAD').stdout.strip()
+              commits.append({'message':message,'sha':sha,'file_count':len(paths)})
+          for name in application+reports:
+              content=subprocess.check_output(['git','show','HEAD:'+name])
+              assert content==files[name],name
+          # Never force-push or discard a concurrently added commit.
+          git('fetch','origin','main')
+          assert git('rev-parse','origin/main').stdout.strip()==start,'main changed during publication; no push performed'
+          git('push','origin','HEAD:main')
+          remote=git('ls-remote','origin','refs/heads/main').stdout.split()[0]
+          assert remote==commits[-1]['sha'],'Remote did not confirm published HEAD'
+          report={'archive_sha256':expected_sha256,'archive_files':len(files),'published_source_files':len(application),'published_report_files':len(reports),'workflow_to_install':workflow_paths,'commits':commits,'remote_head':remote,'verified_files':{p:hashlib.sha256(files[p]).hexdigest() for p in application+reports}}
+          audit=Path(os.environ['RUNNER_TEMP'])/'source-publication-verification.json'
+          audit.write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          print(json.dumps({k:v for k,v in report.items() if k!='verified_files'},ensure_ascii=False,indent=2))
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as summary:
+              summary.write('## Full source and report published\n\n')
+              for commit in commits:
+                  summary.write(f'- {commit["message"]}: `{commit["sha"]}` ({commit["file_count"]} verified files)\n')
+              summary.write('\nApplication bytes are unchanged from the approved source archive. Test failures and limitations are preserved.\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-publication-verification
+          path: ${{ runner.temp }}/source-publication-verification.json
+          retention-days: 7
