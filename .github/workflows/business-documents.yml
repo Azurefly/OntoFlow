@@ -1,0 +1,39 @@
+name: Complex public business documents
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/business-documents.yml'
+      - 'scripts/audit_business_documents.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen application dependencies and independent readers
+        run: |
+          python -m pip install -r requirements-dev.txt -c requirements-tested-constraints.txt
+          python -m pip install requests beautifulsoup4
+          sudo apt-get update -qq
+          sudo apt-get install -y poppler-utils
+      - name: Freeze, fetch original business documents, audit without model answers
+        run: |
+          set -o pipefail
+          mkdir -p business-audit
+          python -m scripts.audit_business_documents --output business-audit 2>&1 | tee business-audit/run.log
+      - name: Preserve actual results, including downloads and parsing failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: complex-business-documents-20261108
+          path: business-audit/
+          retention-days: 7
