@@ -1,0 +1,39 @@
+name: Additional complex business documents
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/business-documents-supplement.yml'
+      - 'scripts/audit_business_documents_supplement.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen dependencies and independent readers
+        run: |
+          python -m pip install -r requirements-dev.txt -c requirements-tested-constraints.txt
+          python -m pip install requests beautifulsoup4
+          sudo apt-get update -qq
+          sudo apt-get install -y poppler-utils
+      - name: Audit additional official business documents
+        run: |
+          set -o pipefail
+          mkdir -p business-supplement
+          python -m scripts.audit_business_documents_supplement --output business-supplement 2>&1 | tee business-supplement/run.log
+      - name: Preserve actual results including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: complex-business-supplement-20261108
+          path: business-supplement/
+          retention-days: 7
