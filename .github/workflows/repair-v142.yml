@@ -1,0 +1,206 @@
+name: Verify and publish business reading repairs
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/repair-v142.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  verify-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+      actions: read
+    outputs:
+      published_sha: ${{ steps.publish.outputs.sha }}
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: ontology_test
+          POSTGRES_PASSWORD: ci_only_temporary_not_a_deployed_secret
+          POSTGRES_DB: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U ontology_test -d postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify transferred patch against exact existing file hashes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import base64,hashlib,io,json,os,subprocess,tarfile,urllib.request
+          from pathlib import Path,PurePosixPath
+          blobs=[
+            ('7abd83f166e0cf55c51f7dd71de035e9ae361780','450138e6243495221aa75616a8106eb979df49b7623c2db53f74aaec90184ae7'),
+            ('a5155657f0580cd1b78ca825f5e97b4a238e0c2a','255c54ed45d0a338141ac33bb06f616cffb156ee48ddfa2edec20258511d8f30'),
+            ('b71515376dcf8accfd6a5d17cf7b93b27a848aae','468d870fa2d1f702d1f382af4ae78f337894fbdc40685dc8318d5ec91a28c786'),
+            ('a909e2bf627106c0a1cc28a8af8b186994c09e12','215510ca7b6a870edd05bd1d36db7715811853883df00331c19ce3e46d2b5039'),
+            ('e4abd4870db8d2e660108f6635b3fd1e7e6d3c19','6da947da477f961c7523db810a4149cebe2c1299f4dee9eb0cc9b39ca9e4bf1e'),
+            ('8bfbdba5407f7627354d8ebd377690c6a320e30e','510b0137ddf3e411f88afd8add3ea0259543ee9f07691c870344f29c35a4d721')]
+          raw=b''
+          for blob,expected in blobs:
+            req=urllib.request.Request(f'https://api.github.com/repos/{os.environ["GITHUB_REPOSITORY"]}/git/blobs/{blob}',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','User-Agent':'OntoFlow-verified-repair'})
+            with urllib.request.urlopen(req,timeout=60) as response:data=json.load(response)
+            chunk=base64.b64decode(data['content'])
+            assert hashlib.sha256(chunk).hexdigest()==expected,'Transfer part hash mismatch'
+            raw+=chunk
+          assert hashlib.sha256(raw).hexdigest()=='163137e448f0e0aec0e691e234be1961191fb931bd8a150b57e7c763693d720a','Transfer hash mismatch'
+          with tarfile.open(fileobj=io.BytesIO(raw),mode='r:xz') as archive:
+            members=archive.getmembers()
+            assert len({m.name for m in members})==len(members)
+            for member in members:
+              path=PurePosixPath(member.name)
+              assert member.isfile() and not path.is_absolute() and '..' not in path.parts and member.size<2_000_000
+            manifest=json.load(archive.extractfile('REPAIR-MANIFEST.json'))
+            for name,record in manifest['files'].items():
+              path=Path(name)
+              assert not path.is_absolute() and '..' not in path.parts
+              assert not set(path.parts)&{'.git','.github','.env','data','uploads'}
+              if record['old_sha256'] is None:assert not path.exists(),f'Unexpected existing new path: {name}'
+              else:assert hashlib.sha256(path.read_bytes()).hexdigest()==record['old_sha256'],f'Existing file changed: {name}'
+            patch=archive.extractfile('changes.patch').read()
+            subprocess.run(['git','apply','--check','-'],input=patch,check=True)
+            subprocess.run(['git','apply','-'],input=patch,check=True)
+            for name,record in manifest['files'].items():
+              path=Path(name)
+              if record['old_sha256'] is None:
+                path.parent.mkdir(parents=True,exist_ok=True)
+                path.write_bytes(archive.extractfile('new/'+name).read())
+              assert hashlib.sha256(path.read_bytes()).hexdigest()==record['new_sha256'],name
+          Path(os.environ['RUNNER_TEMP'],'repair-manifest.json').write_text(json.dumps(manifest,indent=2))
+          print('Verified applied files:',len(manifest['files']))
+          PY
+      - name: Install application and independent reading tools
+        run: |
+          python -m pip install -r requirements-dev.txt -c requirements-tested-constraints.txt
+          python -m pip install requests beautifulsoup4
+          sudo apt-get update -qq
+          sudo apt-get install -y poppler-utils
+      - uses: actions/download-artifact@v4
+        with:
+          name: public-test-documents
+          run-id: 42366165958
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/frozen-inputs/public
+      - uses: actions/download-artifact@v4
+        with:
+          name: complex-business-documents-20261108
+          run-id: 42447860392
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/frozen-inputs/business
+      - uses: actions/download-artifact@v4
+        with:
+          name: complex-business-supplement-20261108
+          run-id: 42448313997
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/frozen-inputs/supplement
+      - name: Complete regression including isolated real PostgreSQL
+        env:
+          ONTOFLOW_TEST_PG_ADMIN_DSN: postgresql://ontology_test:ci_only_temporary_not_a_deployed_secret@127.0.0.1:5432/postgres
+        run: |
+          set -o pipefail
+          mkdir -p ci-repair
+          python -m pytest -q --junitxml=ci-repair/regression.xml 2>&1 | tee ci-repair/regression.log
+          node --check static/app.js
+      - name: Verify all original public bytes and real upload paths
+        run: |
+          set -o pipefail
+          python -m scripts.repair_business_gate --inputs "$RUNNER_TEMP/frozen-inputs" --output ci-repair/corpus 2>&1 | tee ci-repair/corpus.log
+      - name: Commit verified source and measured CI results to main without force
+        id: publish
+        run: |
+          python - <<'PY'
+          import json,os,subprocess,hashlib
+          from pathlib import Path
+          from xml.etree import ElementTree as E
+          manifest=json.loads(Path(os.environ['RUNNER_TEMP'],'repair-manifest.json').read_text())
+          for name,entry in manifest['files'].items():
+            assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==entry['new_sha256'],name
+          root=E.parse('ci-repair/regression.xml').getroot()
+          suites=[root] if root.tag=='testsuite' else root.findall('testsuite')
+          measured={key:sum(int(s.get(key,0)) for s in suites) for key in ('tests','failures','errors','skipped')}
+          measured['passed']=measured['tests']-measured['failures']-measured['errors']-measured['skipped']
+          assert measured['failures']==0 and measured['errors']==0
+          corpus=json.loads(Path('ci-repair/corpus/summary.json').read_text())
+          assert corpus['files']==34 and not corpus['failures'] and corpus['real_llm_requests']==0
+          report={'application':'1.4.2-demo','run_url':f'https://github.com/{os.environ["GITHUB_REPOSITORY"]}/actions/runs/{os.environ["GITHUB_RUN_ID"]}', 'base_sha':os.environ['GITHUB_SHA'],'tests':measured,'postgres':'Real PostgreSQL 16 isolated test databases; includes 6 PG tests','corpus':corpus,'real_model':'Separate probe job; not inferred from this gate','openmind':'Not connected'}
+          directory=Path('reports/repair-2026-11-09');directory.mkdir(parents=True,exist_ok=True)
+          (directory/'ci-summary.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          (directory/'ci-regression.log').write_bytes(Path('ci-repair/regression.log').read_bytes())
+          (directory/'ci-corpus-results.json').write_bytes(Path('ci-repair/corpus/results.json').read_bytes())
+          paths=list(manifest['files'])+[str(directory/'ci-summary.json'),str(directory/'ci-regression.log'),str(directory/'ci-corpus-results.json')]
+          subprocess.run(['git','add','-f','--',*paths],check=True)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'fix: v1.4.2 lossless business reading, grounded inference and truthful semantic state'
+          git push origin HEAD:main
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v142-repair-regression
+          path: ci-repair/
+          retention-days: 30
+  real-model-probe:
+    needs: verify-publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.verify-publish.outputs.published_sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install actual CPU model runtime without remote model code
+        run: |
+          python -m pip install -r requirements-dev.txt -c requirements-tested-constraints.txt
+          python -m pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install transformers==4.57.1 accelerate huggingface_hub
+          sudo apt-get update -qq
+          sudo apt-get install -y poppler-utils
+      - uses: actions/download-artifact@v4
+        with:
+          name: complex-business-documents-20261108
+          run-id: 42447860392
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/frozen-inputs/business
+      - uses: actions/download-artifact@v4
+        with:
+          name: complex-business-supplement-20261108
+          run-id: 42448313997
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/frozen-inputs/supplement
+      - name: Run normal application against actual public-weight inference
+        env:
+          HF_HUB_DISABLE_TELEMETRY: '1'
+          HF_HUB_DISABLE_XET: '1'
+          TOKENIZERS_PARALLELISM: 'false'
+        run: |
+          set -o pipefail
+          mkdir -p ci-model
+          python -m scripts.real_model_business_probe --inputs "$RUNNER_TEMP/frozen-inputs" --output ci-model 2>&1 | tee ci-model/run.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v142-actual-model-probe
+          path: ci-model/
+          retention-days: 30
