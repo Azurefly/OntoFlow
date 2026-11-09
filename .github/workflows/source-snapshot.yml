@@ -1,0 +1,25 @@
+name: Verified source snapshot
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/source-snapshot.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Archive committed files only
+        run: |
+          mkdir -p "$RUNNER_TEMP/snapshot"
+          git archive --format=tar.gz --prefix=ontology-workbench/ HEAD > "$RUNNER_TEMP/snapshot/source.tar.gz"
+          git rev-parse HEAD > "$RUNNER_TEMP/snapshot/commit.txt"
+          sha256sum "$RUNNER_TEMP/snapshot/source.tar.gz" > "$RUNNER_TEMP/snapshot/SHA256SUMS"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: committed-source-snapshot
+          path: ${{ runner.temp }}/snapshot/
+          retention-days: 7
