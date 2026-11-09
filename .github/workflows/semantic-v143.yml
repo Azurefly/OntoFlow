@@ -1,0 +1,194 @@
+name: Semantic contract repair and actual model acceptance
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/semantic-v143.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: ontology_test
+          POSTGRES_PASSWORD: ci_only_temporary_not_a_deployed_secret
+          POSTGRES_DB: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U ontology_test -d postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Apply exact hash-verified repair, no expected ontology answers
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import base64,hashlib,io,json,os,subprocess,tarfile,urllib.request
+          from pathlib import Path,PurePosixPath
+          req=urllib.request.Request(f'https://api.github.com/repos/{os.environ["GITHUB_REPOSITORY"]}/git/blobs/e99f5062f295ddd2989fab996531118563658098',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','User-Agent':'OntoFlow-repair'})
+          with urllib.request.urlopen(req,timeout=60) as response:data=json.load(response)
+          raw=base64.b64decode(data['content'])
+          assert hashlib.sha256(raw).hexdigest()=='ae13645b40a2bc0acf2ddc9744d1094c4945fb3b27a35033067f0d065c894d33'
+          with tarfile.open(fileobj=io.BytesIO(raw),mode='r:xz') as archive:
+            for m in archive.getmembers():
+              p=PurePosixPath(m.name)
+              assert m.isfile() and not p.is_absolute() and '..' not in p.parts and m.size<2_000_000
+            manifest=json.load(archive.extractfile('PATCH-MANIFEST.json'))
+            for name,record in manifest['files'].items():
+              p=Path(name);assert not p.is_absolute() and '..' not in p.parts
+              assert not set(p.parts)&{'.git','.github','.env','data','uploads'}
+              if record['old_sha256'] is None:assert not p.exists(),name
+              else:assert hashlib.sha256(p.read_bytes()).hexdigest()==record['old_sha256'],name
+            patch=archive.extractfile('changes.patch').read()
+            subprocess.run(['git','apply','--check','-'],input=patch,check=True)
+            subprocess.run(['git','apply','-'],input=patch,check=True)
+            for name,record in manifest['files'].items():
+              p=Path(name)
+              if record['old_sha256'] is None:p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(archive.extractfile('new/'+name).read())
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==record['new_sha256'],name
+          out=Path('ci-contract');out.mkdir()
+          (out/'patch-manifest.json').write_text(json.dumps(manifest,indent=2))
+          PY
+      - name: Install runtime and independent readers
+        run: |
+          python -m pip install -r requirements-dev.txt -c requirements-tested-constraints.txt
+          python -m pip install requests beautifulsoup4
+          sudo apt-get update -qq && sudo apt-get install -y poppler-utils
+      - uses: actions/download-artifact@v4
+        with:
+          name: public-test-documents
+          run-id: 42366165958
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/inputs/public
+      - uses: actions/download-artifact@v4
+        with:
+          name: complex-business-documents-20261108
+          run-id: 42447860392
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/inputs/business
+      - uses: actions/download-artifact@v4
+        with:
+          name: complex-business-supplement-20261108
+          run-id: 42448313997
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/inputs/supplement
+      - name: Full regression with real PostgreSQL
+        env:
+          ONTOFLOW_TEST_PG_ADMIN_DSN: postgresql://ontology_test:ci_only_temporary_not_a_deployed_secret@127.0.0.1:5432/postgres
+        run: |
+          set -o pipefail
+          python -m pytest -q --junitxml=ci-contract/regression.xml 2>&1 | tee ci-contract/regression.log
+          node --check static/app.js
+          python -m scripts.repair_business_gate --inputs "$RUNNER_TEMP/inputs" --output ci-contract/corpus 2>&1 | tee ci-contract/corpus.log
+      - name: Archive tested source, not credentials or inputs
+        run: |
+          python - <<'PY'
+          import json,tarfile,subprocess
+          from pathlib import Path
+          manifest=json.loads(Path('ci-contract/patch-manifest.json').read_text())
+          files=set(subprocess.check_output(['git','ls-files'],text=True).splitlines())|set(manifest['files'])
+          with tarfile.open('ci-contract/tested-source.tar.gz','w:gz') as archive:
+            for name in sorted(files):
+              if Path(name).is_file():archive.add(name,arcname=name,recursive=False)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v143-staged-source-and-regression
+          path: ci-contract/
+          retention-days: 30
+  actual-model:
+    needs: regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: v143-staged-source-and-regression
+          path: ${{ runner.temp }}/staged
+      - name: Load tested source into working directory
+        run: tar -xzf "$RUNNER_TEMP/staged/tested-source.tar.gz"
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - name: Install actual application and model downloader
+        run: |
+          python -m pip install -r requirements-dev.txt -c requirements-tested-constraints.txt
+          python -m pip install huggingface_hub requests
+          sudo apt-get update -qq && sudo apt-get install -y poppler-utils
+      - uses: actions/download-artifact@v4
+        with:
+          name: complex-business-documents-20261108
+          run-id: 42447860392
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/inputs/business
+      - uses: actions/download-artifact@v4
+        with:
+          name: complex-business-supplement-20261108
+          run-id: 42448313997
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/inputs/supplement
+      - name: Download official public weights and record exact revision and hashes
+        env:
+          HF_HUB_DISABLE_TELEMETRY: '1'
+          HF_HUB_DISABLE_XET: '1'
+        run: |
+          mkdir -p ci-semantic "$RUNNER_TEMP/models"
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          from huggingface_hub import HfApi,hf_hub_download
+          repo='Qwen/Qwen2.5-7B-Instruct-GGUF'
+          info=HfApi().model_info(repo,files_metadata=True)
+          files=sorted(x.rfilename for x in info.siblings if 'q4_k_m' in x.rfilename.lower() and x.rfilename.endswith('.gguf'))
+          assert files and len(files)<=4,files
+          root=Path(os.environ['RUNNER_TEMP'])/'models';manifest=[]
+          for name in files:
+            p=Path(hf_hub_download(repo,name,revision=info.sha,local_dir=str(root)))
+            h=hashlib.sha256()
+            with p.open('rb') as stream:
+              for chunk in iter(lambda:stream.read(8*1024*1024),b''):h.update(chunk)
+            manifest.append({'file':name,'bytes':p.stat().st_size,'sha256':h.hexdigest()})
+          Path('ci-semantic/model.json').write_text(json.dumps({'repository':repo,'revision':info.sha,'files':manifest,'device':'actual CPU inference','no_mock':True},indent=2))
+          with open(os.environ['GITHUB_ENV'],'a') as env:env.write('MODEL_FILE='+files[0]+'\n')
+          PY
+      - name: Start official inference runtime on loopback only
+        run: |
+          docker pull ghcr.io/ggml-org/llama.cpp:server
+          docker image inspect ghcr.io/ggml-org/llama.cpp:server > ci-semantic/runtime-image.json
+          docker run --rm -d --name ontology-model -p 127.0.0.1:8766:8080 -v "$RUNNER_TEMP/models:/models:ro" ghcr.io/ggml-org/llama.cpp:server -m "/models/$MODEL_FILE" -c 8192 -t 4 -ngl 0 -np 1 --host 0.0.0.0 --port 8080 --alias Qwen2.5-7B-Instruct-Q4_K_M
+          python - <<'PY'
+          import time,urllib.request
+          for _ in range(90):
+            try:
+              with urllib.request.urlopen('http://127.0.0.1:8766/health',timeout=5) as r:
+                if r.status==200:break
+            except Exception:time.sleep(2)
+          else:raise SystemExit('Actual model did not become healthy')
+          PY
+      - name: Actual inference, evidence and dependency-order preview gate
+        run: |
+          set -o pipefail
+          python -m scripts.semantic_acceptance --inputs "$RUNNER_TEMP/inputs" --output ci-semantic --structured-output json_schema 2>&1 | tee ci-semantic/run.log
+      - name: Retain runtime logs and stop isolated model
+        if: always()
+        run: |
+          mkdir -p ci-semantic
+          docker logs ontology-model > ci-semantic/model-server.log 2>&1 || true
+          docker stop ontology-model || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v143-real-semantic-acceptance
+          path: ci-semantic/
+          retention-days: 30
