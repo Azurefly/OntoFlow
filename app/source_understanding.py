@@ -17,7 +17,7 @@ from .json_discovery import NATIVE_KINDS,discover_json_clues
 from .ontology_abstraction import discover_narrative_types,normalize_clues
 from .metrics import count
 
-SOURCE_VERSION='source-evidence-v141.1'
+SOURCE_VERSION='source-evidence-v142.1'
 _PROVIDER=ContextVar('source_discovery_provider',default=None)
 
 

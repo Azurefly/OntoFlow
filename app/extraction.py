@@ -10,7 +10,7 @@ from .json_discovery import extract_json_obj,extract_zip,JSONDiscoveryError
 from .text_io import decode_text,load_json,text_chunks,MAX_TEXT_CHARS
 from .format_registry import SUPPORTED,STANDARD,OPTIONAL as DOCLING_EXTRA,require_reader
 
-PARSER_VERSION='multi-format-v141.1'
+PARSER_VERSION='multi-format-v142.1'
 _CSV_LOCK=threading.Lock()
 
 class ExtractionError(ValueError):pass
@@ -194,7 +194,7 @@ def extract(path:Path):
 
 def _result(chunks,warning=None):
     warnings=warning if isinstance(warning,list) else [warning] if warning else []
-    keys=('kind','section','line_start','line_end','source_part','source_order','parser','context_before','layout_warning','encoding','source_line')
+    keys=('kind','section','line_start','line_end','source_part','source_order','parser','context_before','layout_warning','encoding','source_line','source_spans','semantic_unit_version')
     units=[]
     for index,c in enumerate(chunks):
         if not str(c.get('text','')).strip():continue
@@ -205,6 +205,8 @@ def _result(chunks,warning=None):
     if not units:raise ExtractionError('未提取到文字内容；空白/扫描文件需要人工提供文字或另行 OCR，不会显示为已完整解析')
     if len(units)>100000 or sum(len(c['text']) for c in units)>MAX_TEXT_CHARS:
         raise ExtractionError('抽取内容超过 100 万字符或 10 万单元，请拆分文件，未进行部分导入')
+    from .semantic_units import coalesce_prose
+    units=coalesce_prose(units)
     return {'chunks':units,'content':'\n'.join(c['text'] for c in units),
             'warnings':list(dict.fromkeys(warnings)),
             'reading_status':'needs_review' if warnings else 'text_read',

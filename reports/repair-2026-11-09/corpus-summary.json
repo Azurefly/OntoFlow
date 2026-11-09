@@ -1,0 +1,19 @@
+{
+  "version": "1.4.2-demo",
+  "files": 34,
+  "parse_statuses": {
+    "needs_review": 16,
+    "text_read": 16,
+    "rejected": 2
+  },
+  "http_statuses": {
+    "200": 32,
+    "422": 1,
+    "415": 1
+  },
+  "real_llm_requests": 0,
+  "database": "temporary SQLite",
+  "failures": [],
+  "note": "Reading, lossless evidence, routing and upload regression only; not semantic precision or recall.",
+  "python": "3.13.5"
+}

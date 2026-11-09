@@ -9,7 +9,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
-ABSTRACTION_VERSION = 'schema-only-abstraction-v2-attribution'
+ABSTRACTION_VERSION = 'schema-only-abstraction-v3-context'
 
 # Covers anonymized Chinese names commonly found in reports. It is NOT a general
 # named-entity recognizer; an LLM may find further people, but the schema output
@@ -49,7 +49,8 @@ def named_people(text: str) -> list[str]:
             continue
         for length in (3,2):
             candidate=text[index:index+length]
-            if (len(candidate)==length and candidate[-1] in _GIVEN_NAME_END and
+            if (candidate not in {'申明','声明','说明','证明','表明'} and
+                len(candidate)==length and candidate[-1] in _GIVEN_NAME_END and
                 re.fullmatch(r'[\u4e00-\u9fff]{2,3}',candidate) and
                 re.search(r'^(?:向|给|在|与|和|同|报警|报案|驾驶|转账|称|说|涉嫌|参与|发生)',
                           text[index+length:index+length+4])):
@@ -230,6 +231,33 @@ def _affirmative_hits(text: str, pattern: str) -> list[re.Match]:
     return hits
 
 
+def _local_sentence(text, position):
+    left=max(text.rfind(c,0,position) for c in '。！？；;\n')+1
+    ends=[text.find(c,position) for c in '。！？；;\n']
+    right=min([i+1 for i in ends if i>=0] or [len(text)])
+    return text[left:right], position-left
+
+
+def _police_alarm_context(text):
+    """The word 报警 alone is ambiguous: monitoring, fire, industrial or police.
+
+    Named people used by this conservative rule must be grammatical actors;
+    their mere presence elsewhere in a document does not disambiguate alarms.
+    """
+    if re.search(r'报案|向[^。；\n]{0,12}(?:警方|公安|派出所|民警)|拨打\s*(?:110|报警电话)|报警人',text):
+        return True
+    attributed,_=_attributed_actions(text,named_people(text))
+    if any(a['action'].startswith(('报警','报案','拨打')) for a in attributed):return True
+    for action in re.finditer(r'报警(?!器|系统|信号|阈值)',text):
+        actor,_=_subject_for_action(text,action.start(),named_people(text))
+        if actor and actor!='PRONOUN':return True
+    return False
+
+
+def _conditional_payment(text):
+    return bool(re.search(r'可(?:以)?(?:采用|选择|通过|使用)|支付方式|付款方式|方式(?:有|包括)|转账[、/或]|(?:现金|支票|电汇)[、/或].*转账|承诺函|拟(?:采用|通过)|计划|尚未',text))
+
+
 def discover_narrative_types(text: str) -> dict[str, Any]:
     """Evidence-based *schema* discovery from case prose; never emit instances.
 
@@ -254,8 +282,22 @@ def discover_narrative_types(text: str) -> dict[str, Any]:
         (r'转账(?!金额|字段|属性)|汇款(?!金额|字段|属性)','转账事件','资金转移行为的事件类型。'),
         (r'报警(?!人|电话)|报案(?!人)|拨打\s*110','报警事件','向警方报警或报案的事件类型。')]:
         hits=_affirmative_hits(text,pattern)
-        if hits:
-            _clue_for(result['entities'],name,hits[0].group(),description)
+        grounded=[]
+        for hit in hits:
+            sentence,_=_local_sentence(text,hit.start())
+            if name=='报警事件' and not _police_alarm_context(sentence):
+                result['_unresolved'].append({'category':'word_sense','source_excerpt':sentence[:180],
+                    'reason':'“报警”存在监控、设备或人员报案等不同含义，当前证据不足以认定为警方报警；交由语义理解与用户确认',
+                    'recovery':'awaiting_model','blocks_coverage':False})
+                continue
+            if name=='转账事件' and _conditional_payment(sentence):
+                result['_unresolved'].append({'category':'conditional_context','source_excerpt':sentence[:180],
+                    'reason':'此处是备选付款方式或条件性表述，不认定为已发生转账；是否纳入模型由本轮业务目标决定',
+                    'recovery':'awaiting_model','blocks_coverage':False})
+                continue
+            grounded.append((hit,sentence))
+        if grounded:
+            _clue_for(result['entities'],name,grounded[0][1],description)
     vehicle=_VEHICLE.search(text)
     if vehicle:
         _clue_for(result['entities'],'交通工具',vehicle.group(),'用于出行或运输的工具类型。')
@@ -303,6 +345,7 @@ def discover_narrative_types(text: str) -> dict[str, Any]:
         result['_unresolved'].append({'source_excerpt':action['quote'][:160],
                                       'reason':question, 'blocks_coverage':False, 'category':'modeling_choice'})
         if role in ('报警人','报案人'):
+            _clue_for(result['entities'],'报警事件',action['quote'],'向警方报警或报案的事件类型。')
             relation('自然人','reportsIncident','报警事件',action['quote'],
                      '自然人发起报警或报案事件（参与角色待确认）。')
         elif role=='驾驶人' and _VEHICLE.search(action['clause']):
@@ -314,6 +357,7 @@ def discover_narrative_types(text: str) -> dict[str, Any]:
     for clause in _clauses(text):
         if not _affirmative_hits(clause['text'],r'转账(?!金额|字段|属性)|汇款(?!金额|字段|属性)'):
             continue
+        if not any(e['name']=='转账事件' for e in result['entities']) or _conditional_payment(clause['text']):continue
         amount=_AMOUNT.search(clause['text'])
         if amount and not re.search(r'手续费|赔偿费|罚款|利息', clause['text'][:amount.start()]):
             result['attributes'].append({'owner':'转账事件','name':'转账金额',
@@ -415,6 +459,15 @@ def normalize_clues(clues: dict, text: str) -> dict:
                     result['_unresolved'].append({'source_excerpt': quote[:160],
                          'reason': '仅允许本体类定义，不允许实体实例；请归纳为类或角色'});
                     continue
+                if (name in ('报警人','报案人') or
+                    (name=='报警事件' and re.search(r'警方|报案|公安',str(item.get('description',''))))):
+                    position=text.find(quote)
+                    context,_=_local_sentence(text,max(0,position))
+                    if not (_police_alarm_context(context) or _police_alarm_context(quote)):
+                        result['_unresolved'].append({'source_excerpt':context[:160],
+                            'reason':'候选将多义“报警”限定为警方报案，但原文上下文不支持；需要消歧',
+                            'category':'word_sense'})
+                        discarded+=1;continue
                 if not _role_grounded(name, quote):
                     discarded += 1
                     result['_unresolved'].append({'source_excerpt': quote[:160],

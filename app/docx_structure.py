@@ -15,7 +15,7 @@ from docx.table import Table
 from lxml import etree
 from .structured_discovery import tabular_chunks
 
-PARSER_VERSION='docx-ordered-v1'
+PARSER_VERSION='docx-ordered-strict-v2'
 
 
 def _text(element):
@@ -70,7 +70,14 @@ def read_docx(path:Path, budget=5000):
         if 'word/document.xml' not in archive.namelist():
             raise ValueError('文件不是包含正文的 DOCX；请核对真实格式，而非只修改扩展名')
         note_parts={name:archive.read(name) for name in ('word/footnotes.xml','word/endnotes.xml') if name in archive.namelist()}
-    document=Document(str(path))
+    from .ooxml_compat import compatible_docx_stream
+    stream,strict_projected=compatible_docx_stream(path)
+    if strict_projected:
+        warnings.append('Strict OOXML 按结构命名空间在内存中兼容读取；原文件未修改，扩展版式需核查')
+        with ZipFile(stream) as compatible:
+            note_parts={name:compatible.read(name) for name in note_parts}
+        stream.seek(0)
+    document=Document(stream)
     output=[];headings={};counts={'paragraphs':0,'tables':0,'images':0,'textboxes':0,'tracked_changes':0}
     visited_parts=set();source_order=0
 

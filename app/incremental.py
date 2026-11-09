@@ -14,8 +14,8 @@ from .naming import relation_name
 from .store import j,now
 from .native_semantics import semantically_equal
 
-PARSER_VERSION='source-chunk-v6-multi-format'
-EXTRACTOR_VERSION='intent-interpretation-v141-'+ABSTRACTION_VERSION
+PARSER_VERSION='source-chunk-v7-occurrence-v142'
+EXTRACTOR_VERSION='intent-interpretation-v142-'+ABSTRACTION_VERSION
 # Striped single-process coordination prevents concurrent same-content requests.
 # The PG result key remains the authority; different worker processes would need
 # additional coordination before scaling beyond the current single-worker setup.
@@ -34,9 +34,9 @@ def segments(documents):
             yield {'document_id':d['id'],'project_id':d['project_id'],
                    'ordinal':index,'locator':locator,'content':text,
                    'kind':str(chunk.get('kind') or ''),'section':str(chunk.get('section') or ''),
-                   **{k:chunk[k] for k in ('context_before','source_part','source_order','layout_warning','parser') if k in chunk},
+                   **{k:chunk[k] for k in ('context_before','source_part','source_order','layout_warning','parser','source_spans','semantic_unit_version') if k in chunk},
                    'content_hash':sha(text),
-                   'id':sha(d['id']+'\0'+locator+'\0'+text)[:40]}
+                   'id':sha(d['id']+'\0'+str(index)+'\0'+locator+'\0'+text)[:40]}
 
 
 def persist_segments(store,document):
@@ -157,8 +157,8 @@ def align_clues(stage, clues, current, piece, baseline=None, catalog_reference=N
     for item in clues.get(source_kind,[]):
         if not isinstance(item,dict):continue
         quote=str(item.get('quote','')).strip()
-        evidence=([{'document_id':piece['document_id'],'locator':piece['locator'],
-                   'quote':quote[:400]}] if quote and quote in content else [])
+        from .semantic_units import quote_locations
+        evidence=quote_locations(piece,quote)
         def gap(reason):
             gaps.append({'kind':kind,'payload':item,'evidence':evidence,'reason':reason})
         if not evidence:

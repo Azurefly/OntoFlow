@@ -1,0 +1,960 @@
+[
+  {
+    "id": "beijing_rail",
+    "file": "beijing_rail.pdf",
+    "sha256": "aeb2df7cf9972b816565c21c03bf38bd72334767195ab31a2f0043ab0ab5aef4",
+    "bytes": 261424,
+    "source_url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/202411/W020241120370897690852.pdf",
+    "read_status": "needs_review",
+    "characters": 15705,
+    "units": 5,
+    "warnings": [
+      "PDF 按文字层和标准表单读取；多栏顺序、表格边界和图形关系未作完整版式验证"
+    ],
+    "parse_seconds": 0.4568,
+    "source_occurrences": 34,
+    "model_units": 5,
+    "interpretation_units": 5,
+    "states": {
+      "awaiting_model": 5
+    },
+    "rule_counts": {
+      "entities": 1,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [
+      "地点"
+    ],
+    "http_status": 200
+  },
+  {
+    "id": "property_registration",
+    "file": "property_registration.html",
+    "sha256": "55d02b7b55c51314745f760a2ad01a134637105906a6ff5edf1d79a3b5361ffb",
+    "bytes": 960668,
+    "source_url": "https://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zcwj/gfxwj/202406/t20240605_3704790.html",
+    "read_status": "needs_review",
+    "characters": 123598,
+    "units": 75,
+    "warnings": [
+      "HTML 行 713 含外部嵌入页，未抓取其内容",
+      "HTML 行 972 含外部嵌入页，未抓取其内容",
+      "HTML 行 1162 含外部嵌入页，未抓取其内容",
+      "HTML 行 937 含合并、嵌套或不等列表格；保留文字，不猜测属性归属",
+      "HTML 行 937 / 行 1-2 / 片段 1：合并/嵌套/不等列表格需人工核查",
+      "HTML 行 937 / 行 1-73 / 片段 1：合并/嵌套/不等列表格需人工核查",
+      "HTML 行 937 / 行 1-68 / 片段 1：合并/嵌套/不等列表格需人工核查",
+      "HTML 行 937 / 行 1-16 / 片段 1：合并/嵌套/不等列表格需人工核查",
+      "HTML 行 937 / 行 1-34 / 片段 1：合并/嵌套/不等列表格需人工核查",
+      "HTML 行 937 / 行 1-3 / 片段 1：合并/嵌套/不等列表格需人工核查",
+      "HTML 行 937 / 行 1-24 / 片段 1：合并/嵌套/不等列表格需人工核查",
+      "HTML 行 937 表格 行 2-6：表头重复/缺失或各行列数不一致，保留全部单元格，归属需人工核查",
+      "HTML 行 937 / 行 1-31 / 片段 1：合并/嵌套/不等列表格需人工核查"
+    ],
+    "parse_seconds": 0.1375,
+    "source_occurrences": 3257,
+    "model_units": 74,
+    "interpretation_units": 74,
+    "states": {
+      "awaiting_model": 74
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "egov_guide",
+    "file": "egov_guide.html",
+    "sha256": "a0037a2b3c9ddb801262f88b71b2586bba3216427c2614506c1fb6a0600adda6",
+    "bytes": 203253,
+    "source_url": "https://www.mof.gov.cn/zhengwuxinxi/caizhengxinwen/201701/t20170113_2519635.htm",
+    "read_status": "needs_review",
+    "characters": 53333,
+    "units": 24,
+    "warnings": [
+      "HTML 行 151 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 154 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 165 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 180 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 181 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 182 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 183 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 184 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 185 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 186 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 187 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 208 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 209 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 210 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 466 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 479 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 491 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 496 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 501 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 507 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 512 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 529 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 533 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 537 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 664 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 671 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 685 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 715 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 719 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 723 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 806 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 842 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 847 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 897 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 944 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 963 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1000 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1027 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1033 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1043 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1324 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1325 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1334 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1397 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1398 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1399 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1401 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1402 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 存在未闭合或需容错恢复的结构；已保留可读内容，请核查表格/标题边界"
+    ],
+    "parse_seconds": 0.0183,
+    "source_occurrences": 937,
+    "model_units": 17,
+    "interpretation_units": 17,
+    "states": {
+      "awaiting_model": 17
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "docling_docx-1",
+    "file": "docling_docx-1.docx",
+    "sha256": "23518f8c635264b038b3e1207292f99cb5d40be35dbcd85d56508d3226ad9a11",
+    "bytes": 29578,
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/docx/sources/unit_test_formatting.docx",
+    "read_status": "needs_review",
+    "characters": 568,
+    "units": 8,
+    "warnings": [
+      "节1 / 首页页脚 / 块3 / 段落 有 1 个图片引用：未识别图片中文字，不能视为全文已覆盖。"
+    ],
+    "parse_seconds": 0.0425,
+    "source_occurrences": 22,
+    "model_units": 8,
+    "interpretation_units": 8,
+    "states": {
+      "awaiting_model": 8
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "docling_docx-2",
+    "file": "docling_docx-2.docx",
+    "sha256": "87742da12fecf8301faa898fb457b9045de462128523011f0d0658f6b5e8fbe3",
+    "bytes": 11923,
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/docx/sources/Strict.docx",
+    "read_status": "needs_review",
+    "characters": 9,
+    "units": 1,
+    "warnings": [
+      "Strict OOXML 按结构命名空间在内存中兼容读取；原文件未修改，扩展版式需核查"
+    ],
+    "parse_seconds": 0.0078,
+    "source_occurrences": 1,
+    "model_units": 1,
+    "interpretation_units": 1,
+    "states": {
+      "awaiting_model": 1
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "docling_docx-3",
+    "file": "docling_docx-3.docx",
+    "sha256": "52a3f5d4866150709ed8d73cc31c6133abb83f2db4c7e93fec8cf9ea7459903d",
+    "bytes": 11932,
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/docx/sources/Transitional.docx",
+    "read_status": "text_read",
+    "characters": 9,
+    "units": 1,
+    "warnings": [],
+    "parse_seconds": 0.0016,
+    "source_occurrences": 1,
+    "model_units": 1,
+    "interpretation_units": 1,
+    "states": {
+      "awaiting_model": 1
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "docling_pptx-1",
+    "file": "docling_pptx-1.pptx",
+    "sha256": "24191d47fda511e11984e875f8676506da5ae1fbcaefcc63d81be377d3a3950c",
+    "bytes": 45849,
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/pptx/sources/powerpoint_sample.pptx",
+    "read_status": "needs_review",
+    "characters": 742,
+    "units": 8,
+    "warnings": [
+      "幻灯片 1 / 对象3 表格含合并单元格，不自动推断其归属",
+      "幻灯片按文件对象顺序读取；自由布局、箭头和空间位置不被当作业务关系，需人工核查阅读顺序",
+      "幻灯片 1 / 对象3 / 表格 行 2-9：PPT 合并单元格需人工核查"
+    ],
+    "parse_seconds": 0.0479,
+    "source_occurrences": 11,
+    "model_units": 6,
+    "interpretation_units": 6,
+    "states": {
+      "awaiting_model": 6
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "docling_pptx-2",
+    "file": "docling_pptx-2.pptx",
+    "sha256": "c0bd75bbf8ac10380bc2c3bedd752564ef82030a587f85ca5235060edaf918dd",
+    "bytes": 48107,
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/pptx/sources/pptx_chart.pptx",
+    "read_status": "needs_review",
+    "characters": 43,
+    "units": 2,
+    "warnings": [
+      "幻灯片 1 / 对象2 为图表，图表数据和图形含义未完整读取",
+      "幻灯片 2 / 对象2 为图表，图表数据和图形含义未完整读取",
+      "幻灯片按文件对象顺序读取；自由布局、箭头和空间位置不被当作业务关系，需人工核查阅读顺序"
+    ],
+    "parse_seconds": 0.0042,
+    "source_occurrences": 0,
+    "model_units": 0,
+    "interpretation_units": 0,
+    "states": {},
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "docling_html-1",
+    "file": "docling_html-1.html",
+    "sha256": "d83caa8e29ab48148ae323c5e96a8889c56d7b84fced8fd82d0bf6e577c9b72c",
+    "bytes": 680,
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/html/sources/example_01.html",
+    "read_status": "needs_review",
+    "characters": 321,
+    "units": 6,
+    "warnings": [
+      "HTML 行 7 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 7 / 行 1-1 / 片段 1：仅图片替代文字"
+    ],
+    "parse_seconds": 0.0004,
+    "source_occurrences": 9,
+    "model_units": 4,
+    "interpretation_units": 4,
+    "states": {
+      "awaiting_model": 4
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "docling_html-2",
+    "file": "docling_html-2.html",
+    "sha256": "a41f163af380f1ebab4b514f8c62a990557347d7b154bc8e7151894431483e20",
+    "bytes": 245014,
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/html/sources/wiki_duck.html",
+    "read_status": "needs_review",
+    "characters": 29101,
+    "units": 46,
+    "warnings": [
+      "HTML 行 118 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 120 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 121 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 787 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 807 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 818 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1002 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1007 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1008 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1012 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1017 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1023 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1026 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1031 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1041 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1049 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1061 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1065 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1074 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1225 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1231 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1268 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1297 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 1298 含图片；只保留替代文字，未识别图片内文字或跟随网络地址",
+      "HTML 行 801 含合并、嵌套或不等列表格；保留文字，不猜测属性归属",
+      "HTML 行 1231 含合并、嵌套或不等列表格；保留文字，不猜测属性归属",
+      "HTML 行 801 / 行 1-14 / 片段 1：合并/嵌套/不等列表格需人工核查",
+      "HTML 行 1231 / 行 1-8 / 片段 1：合并/嵌套/不等列表格需人工核查"
+    ],
+    "parse_seconds": 0.0426,
+    "source_occurrences": 401,
+    "model_units": 25,
+    "interpretation_units": 25,
+    "states": {
+      "awaiting_model": 25
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "docling_xml-1",
+    "file": "docling_xml-1.xml",
+    "sha256": "3531a9748d5a525e24e33639cdadd0b342694139a212f356059393c5dc5f1885",
+    "bytes": 4778,
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/uspto/sources/tables_ipa20180000016.xml",
+    "read_status": "text_read",
+    "characters": 2490,
+    "units": 228,
+    "warnings": [],
+    "parse_seconds": 0.0018,
+    "source_occurrences": 228,
+    "model_units": 228,
+    "interpretation_units": 228,
+    "states": {
+      "awaiting_model": 228
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "pdfminer_pdf-1",
+    "file": "pdfminer_pdf-1.pdf",
+    "sha256": "a21f0df056bbd133cbf987859d9934c6b37ec8c0cd484f93dd233e012e4ca320",
+    "bytes": 849,
+    "source_url": "https://raw.githubusercontent.com/pdfminer/pdfminer.six/a18de2a9c479b4c847538500017b449ddaec177e/samples/simple1.pdf",
+    "read_status": "needs_review",
+    "characters": 96,
+    "units": 1,
+    "warnings": [
+      "主读取器无法恢复 PDF 索引，使用 Poppler 只读兼容路径；原始文件未改写，表单和图形完整性未验证"
+    ],
+    "parse_seconds": 0.014,
+    "source_occurrences": 1,
+    "model_units": 1,
+    "interpretation_units": 1,
+    "states": {
+      "awaiting_model": 1
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "pdfminer_pdf-2",
+    "file": "pdfminer_pdf-2.pdf",
+    "sha256": "dfd271205e2be7421d265ef7974b54ac3bb4aeb9e040c0d644220bb3c7dedcd3",
+    "bytes": 1174,
+    "source_url": "https://raw.githubusercontent.com/pdfminer/pdfminer.six/a18de2a9c479b4c847538500017b449ddaec177e/samples/simple2.pdf",
+    "read_status": "rejected",
+    "error": "ExtractionError: 解析 pdfminer_pdf-2.pdf 失败：PDF 没有可读取的文字层，当前未执行 OCR；请提供文字版文件",
+    "http_status": 422
+  },
+  {
+    "id": "pdfminer_pdf-3",
+    "file": "pdfminer_pdf-3.pdf",
+    "sha256": "1a86f259208896a670930e65a01636b3c628619309d37a0f7f3ad1aa3417ded0",
+    "bytes": 1051,
+    "source_url": "https://raw.githubusercontent.com/pdfminer/pdfminer.six/a18de2a9c479b4c847538500017b449ddaec177e/samples/simple3.pdf",
+    "read_status": "needs_review",
+    "characters": 86,
+    "units": 1,
+    "warnings": [
+      "主读取器无法恢复 PDF 索引，使用 Poppler 只读兼容路径；原始文件未改写，表单和图形完整性未验证"
+    ],
+    "parse_seconds": 0.0147,
+    "source_occurrences": 1,
+    "model_units": 1,
+    "interpretation_units": 1,
+    "states": {
+      "awaiting_model": 1
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "pandas_csv-1",
+    "file": "pandas_csv-1.csv",
+    "sha256": "904d791b308aa79bf4f06669f63be3f1ab331a23bd508051065e00f700f573f9",
+    "bytes": 4600,
+    "source_url": "https://raw.githubusercontent.com/pandas-dev/pandas/831f55cdb3662a396587a0553c94a24bcefc9c6f/pandas/tests/io/data/csv/iris.csv",
+    "read_status": "text_read",
+    "characters": 6539,
+    "units": 2,
+    "warnings": [],
+    "parse_seconds": 0.0016,
+    "source_occurrences": 2,
+    "model_units": 2,
+    "interpretation_units": 2,
+    "states": {
+      "awaiting_model": 2
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "pandas_csv-2",
+    "file": "pandas_csv-2.csv",
+    "sha256": "22415aaf1e56e675b9a0983cb0d321697dad51f6060a44fb8ecaad7a00de9a09",
+    "bytes": 7943,
+    "source_url": "https://raw.githubusercontent.com/pandas-dev/pandas/831f55cdb3662a396587a0553c94a24bcefc9c6f/pandas/tests/io/data/csv/tips.csv",
+    "read_status": "text_read",
+    "characters": 12106,
+    "units": 3,
+    "warnings": [],
+    "parse_seconds": 0.0018,
+    "source_occurrences": 3,
+    "model_units": 3,
+    "interpretation_units": 3,
+    "states": {
+      "awaiting_model": 3
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "pandas_xlsx-1",
+    "file": "pandas_xlsx-1.xlsx",
+    "sha256": "b6fe2d9ae5afd6d0bdfefbae9c0c1649d8bf883e183a153cb76f2a8a548cef11",
+    "bytes": 12074,
+    "source_url": "https://raw.githubusercontent.com/pandas-dev/pandas/831f55cdb3662a396587a0553c94a24bcefc9c6f/pandas/tests/io/data/excel/test1.xlsx",
+    "read_status": "needs_review",
+    "characters": 1512,
+    "units": 4,
+    "warnings": [
+      "Sheet1 行 2-8：表头重复/缺失或各行列数不一致，保留全部单元格，归属需人工核查",
+      "Sheet2 行 2-9：表头重复/缺失或各行列数不一致，保留全部单元格，归属需人工核查",
+      "Sheet4 行 2-3：表头重复/缺失或各行列数不一致，保留全部单元格，归属需人工核查"
+    ],
+    "parse_seconds": 0.061,
+    "source_occurrences": 4,
+    "model_units": 4,
+    "interpretation_units": 4,
+    "states": {
+      "awaiting_model": 4
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "pandas_xlsx-2",
+    "file": "pandas_xlsx-2.xlsx",
+    "sha256": "1910a60747bd1a52bfd046973ff5df2a83bcbf57199920f29aac0606e9f21cef",
+    "bytes": 8067,
+    "source_url": "https://raw.githubusercontent.com/pandas-dev/pandas/831f55cdb3662a396587a0553c94a24bcefc9c6f/pandas/tests/io/data/excel/test2.xlsx",
+    "read_status": "text_read",
+    "characters": 47,
+    "units": 1,
+    "warnings": [],
+    "parse_seconds": 0.0042,
+    "source_occurrences": 1,
+    "model_units": 1,
+    "interpretation_units": 1,
+    "states": {
+      "awaiting_model": 1
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "openapi_yaml-1",
+    "file": "openapi_yaml-1.yaml",
+    "sha256": "598136cb904e17e8eeead51ae33dd8d401fdff455d2d74f3869c4aa5f2742266",
+    "bytes": 2772,
+    "source_url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/4f86429f134f7e48b6351563549b4502fc69de52/_archive_/schemas/v3.0/pass/petstore.yaml",
+    "read_status": "text_read",
+    "characters": 646,
+    "units": 12,
+    "warnings": [],
+    "parse_seconds": 0.0213,
+    "source_occurrences": 12,
+    "model_units": 9,
+    "interpretation_units": 12,
+    "states": {
+      "native": 3,
+      "awaiting_model": 9
+    },
+    "rule_counts": {
+      "entities": 1,
+      "attributes": 1,
+      "relations": 0
+    },
+    "entity_names": [
+      "servers"
+    ],
+    "http_status": 200
+  },
+  {
+    "id": "openapi_json-1",
+    "file": "openapi_json-1.json",
+    "sha256": "29dab26d6553ee7f4f2c3eb03521fa71302d1f512d5204cb7028564b0c78e925",
+    "bytes": 385,
+    "source_url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/4f86429f134f7e48b6351563549b4502fc69de52/_archive_/schemas/v1.2/resourceObject.json",
+    "read_status": "needs_review",
+    "characters": 385,
+    "units": 8,
+    "warnings": [
+      "此结构未明确声明本体/集合语义；已保留字段与值供模型或用户理解，不直接把键名当实体类型"
+    ],
+    "parse_seconds": 0.0002,
+    "source_occurrences": 8,
+    "model_units": 8,
+    "interpretation_units": 8,
+    "states": {
+      "awaiting_model": 8
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "cpython_eml-1",
+    "file": "cpython_eml-1.eml",
+    "sha256": "c15a3a17f6b65e9c51c58ed3a79d12bc517f867321ed118e5dc7b5c3a1ed7d4b",
+    "bytes": 459,
+    "source_url": "https://raw.githubusercontent.com/python/cpython/cbaba022cf2778c5f02445ae231a8af1f1db53a1/Lib/test/test_email/data/msg_01.txt",
+    "read_status": "text_read",
+    "characters": 139,
+    "units": 2,
+    "warnings": [],
+    "parse_seconds": 0.0047,
+    "source_occurrences": 2,
+    "model_units": 2,
+    "interpretation_units": 2,
+    "states": {
+      "awaiting_model": 2
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "cpython_eml-2",
+    "file": "cpython_eml-2.eml",
+    "sha256": "05d5e533f5e590d9ee2c7692d26dc87ccbf381f4831cca3362baf596691a55bb",
+    "bytes": 2812,
+    "source_url": "https://raw.githubusercontent.com/python/cpython/cbaba022cf2778c5f02445ae231a8af1f1db53a1/Lib/test/test_email/data/msg_02.txt",
+    "read_status": "text_read",
+    "characters": 868,
+    "units": 2,
+    "warnings": [],
+    "parse_seconds": 0.0069,
+    "source_occurrences": 9,
+    "model_units": 2,
+    "interpretation_units": 2,
+    "states": {
+      "awaiting_model": 2
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "cpython_rst-1",
+    "file": "cpython_rst-1.rst",
+    "sha256": "3cf75d195de125769cc55b8b9c3d0a8cf1653d0aa3538fd4e0738f7eea04e56c",
+    "bytes": 278,
+    "source_url": "https://raw.githubusercontent.com/python/cpython/cbaba022cf2778c5f02445ae231a8af1f1db53a1/Doc/faq/index.rst",
+    "read_status": "text_read",
+    "characters": 277,
+    "units": 1,
+    "warnings": [],
+    "parse_seconds": 0.0002,
+    "source_occurrences": 1,
+    "model_units": 1,
+    "interpretation_units": 1,
+    "states": {
+      "awaiting_model": 1
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "cpython_xml-1",
+    "file": "cpython_xml-1.xml",
+    "sha256": "24b3c8e971a76d61cbf6a1bc9f9806c2b8e651a3aae2978c21a5654e98a3ff33",
+    "bytes": 122,
+    "source_url": "https://raw.githubusercontent.com/python/cpython/cbaba022cf2778c5f02445ae231a8af1f1db53a1/Lib/test/xmltestdata/simple.xml",
+    "read_status": "text_read",
+    "characters": 26,
+    "units": 4,
+    "warnings": [],
+    "parse_seconds": 0.0003,
+    "source_occurrences": 4,
+    "model_units": 4,
+    "interpretation_units": 4,
+    "states": {
+      "awaiting_model": 4
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "jieba_chinese_md-1",
+    "file": "jieba_chinese_md-1.md",
+    "sha256": "d6754b68da8fae70d2fb93b8100f41d55e2c0c262230c1017a053ad8154d85c1",
+    "bytes": 31879,
+    "source_url": "https://raw.githubusercontent.com/fxsjy/jieba/67fa2e36e72f69d9134b8a1037b83fbb070b9775/README.md",
+    "read_status": "text_read",
+    "characters": 24858,
+    "units": 55,
+    "warnings": [],
+    "parse_seconds": 0.0024,
+    "source_occurrences": 43,
+    "model_units": 27,
+    "interpretation_units": 43,
+    "states": {
+      "awaiting_model": 27,
+      "awaiting_user": 16
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "postgres_sql-1",
+    "file": "postgres_sql-1.sql",
+    "sha256": "c80d56c083aafad268a8c896d9a8f086dc59f875e4ab7fd5ab5e1ec112731f01",
+    "bytes": 6144,
+    "source_url": "https://raw.githubusercontent.com/postgres/postgres/0607aa61090ac1b574f8bafe854c684195b31e16/src/test/regress/sql/create_misc.sql",
+    "read_status": "text_read",
+    "characters": 6142,
+    "units": 2,
+    "warnings": [],
+    "parse_seconds": 0.0003,
+    "source_occurrences": 2,
+    "model_units": 2,
+    "interpretation_units": 2,
+    "states": {
+      "awaiting_model": 2
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "pdfminer_text-1",
+    "file": "pdfminer_text-1.txt",
+    "sha256": "fa4f600f27b26ba68df5a392058c9f0c00bd39a726953e03bca8223a12da98be",
+    "bytes": 2916,
+    "source_url": "https://raw.githubusercontent.com/pdfminer/pdfminer.six/a18de2a9c479b4c847538500017b449ddaec177e/cmaprsrc/README.txt",
+    "read_status": "text_read",
+    "characters": 2915,
+    "units": 1,
+    "warnings": [],
+    "parse_seconds": 0.0002,
+    "source_occurrences": 1,
+    "model_units": 1,
+    "interpretation_units": 1,
+    "states": {
+      "awaiting_model": 1
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "vega_tsv-1",
+    "file": "vega_tsv-1.tsv",
+    "sha256": "f82bff0a9745cc9e9997c0b83a02ecc77cea7b1d6acbbc4b404bff293e95bb6e",
+    "bytes": 34739,
+    "source_url": "https://raw.githubusercontent.com/vega/vega-datasets/5448e25297c8f705be78e879d5423d55d04dc6f1/data/unemployment.tsv",
+    "read_status": "text_read",
+    "characters": 54346,
+    "units": 11,
+    "warnings": [],
+    "parse_seconds": 0.0229,
+    "source_occurrences": 11,
+    "model_units": 11,
+    "interpretation_units": 11,
+    "states": {
+      "awaiting_model": 11
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "jsonl_algebra-1",
+    "file": "jsonl_algebra-1.jsonl",
+    "sha256": "5d8399cbe0258bac6012468acab1d3ece02e1b4645377349ef282820dec162da",
+    "bytes": 1631,
+    "source_url": "https://raw.githubusercontent.com/queelius/jsonl-algebra/382b83bafa8cc83506c48eafe81e3d0903a60c74/examples/companies.jsonl",
+    "read_status": "text_read",
+    "characters": 863,
+    "units": 7,
+    "warnings": [],
+    "parse_seconds": 0.0006,
+    "source_occurrences": 7,
+    "model_units": 0,
+    "interpretation_units": 7,
+    "states": {
+      "native": 7
+    },
+    "rule_counts": {
+      "entities": 1,
+      "attributes": 5,
+      "relations": 0
+    },
+    "entity_names": [
+      "jsonl_algebra-1"
+    ],
+    "http_status": 200
+  },
+  {
+    "id": "jsonl_algebra-2",
+    "file": "jsonl_algebra-2.jsonl",
+    "sha256": "ea1bade4e270c62cfe1b6cc75d6beb44ed00ab90e7a2d3355dd2d9e504bab3b3",
+    "bytes": 15495,
+    "source_url": "https://raw.githubusercontent.com/queelius/jsonl-algebra/382b83bafa8cc83506c48eafe81e3d0903a60c74/examples/people.jsonl",
+    "read_status": "text_read",
+    "characters": 785,
+    "units": 6,
+    "warnings": [],
+    "parse_seconds": 0.0021,
+    "source_occurrences": 6,
+    "model_units": 0,
+    "interpretation_units": 6,
+    "states": {
+      "native": 6
+    },
+    "rule_counts": {
+      "entities": 1,
+      "attributes": 4,
+      "relations": 0
+    },
+    "entity_names": [
+      "jsonl_algebra-2"
+    ],
+    "http_status": 200
+  },
+  {
+    "id": "docling_complex_pdf-1",
+    "file": "docling_complex_pdf-1.pdf",
+    "sha256": "a4c3afbd5f7bf5d9ba7c13b84772e072f451b275bf4a7f05f6750b9a46548ddc",
+    "bytes": 2055,
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/pdf/sources/acroform_sample.pdf",
+    "read_status": "needs_review",
+    "characters": 361,
+    "units": 5,
+    "warnings": [
+      "PDF 标准表单的保存值与按钮状态已单独读取；未执行脚本，版面/未保存的可视状态仍需核对",
+      "PDF 按文字层和标准表单读取；多栏顺序、表格边界和图形关系未作完整版式验证"
+    ],
+    "parse_seconds": 0.0015,
+    "source_occurrences": 5,
+    "model_units": 5,
+    "interpretation_units": 5,
+    "states": {
+      "awaiting_model": 5
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "docling_legacy_doc-1",
+    "file": "docling_legacy_doc-1.doc",
+    "sha256": "c1ed32d5b26155c6d612e2149e7bcaa74c1f1c8093f31777b6a508c92c0cc950",
+    "bytes": 27136,
+    "source_url": "https://raw.githubusercontent.com/docling-project/docling/bcb3678fad7426549643f54c5eceab77925ac5c1/tests/data/doc/sources/greek_heading_styles.doc",
+    "read_status": "rejected",
+    "error": "ExtractionError: 该格式需要可选转换组件且尚未验证支持；优先将旧 Office 另存为 DOCX/XLSX/PPTX，图片需另行 OCR。",
+    "http_status": 415
+  },
+  {
+    "id": "urban_network_maintenance",
+    "file": "urban_network_maintenance.pdf",
+    "sha256": "06c4753cbaa3acfa1e5eb6616f64b652be2cf5dbd48030a08d9c9c39a926c3cd",
+    "bytes": 835624,
+    "source_url": "https://cgj.beijing.gov.cn/xxgk/zfcg/zbgg1/202503/P020250529522783359344.pdf",
+    "read_status": "needs_review",
+    "characters": 47050,
+    "units": 12,
+    "warnings": [
+      "PDF 带加密标志，但空打开口令可读取；仅内存读取，原文件及权限标志未修改",
+      "PDF 按文字层和标准表单读取；多栏顺序、表格边界和图形关系未作完整版式验证"
+    ],
+    "parse_seconds": 2.0933,
+    "source_occurrences": 82,
+    "model_units": 12,
+    "interpretation_units": 12,
+    "states": {
+      "awaiting_model": 12
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  },
+  {
+    "id": "hospital_outpatient_service",
+    "file": "hospital_outpatient_service.pdf",
+    "sha256": "95d408864e33078c0e757d3562e9f3e6aa3fc50ceb979178ccade0b6f9cba225",
+    "bytes": 603916,
+    "source_url": "https://xinyang.zfcg.henan.gov.cn/cmsweb81e27e/xinyang/rootfiles/2025/07/07/245012e0fedf4879a83103c49a7579ef.pdf",
+    "read_status": "needs_review",
+    "characters": 32350,
+    "units": 9,
+    "warnings": [
+      "PDF 第 1 页含图片或嵌入图形；图像文字与关系未核实",
+      "PDF 含数字签名，未验证签名有效性；不把签名证书作为业务文字",
+      "PDF 按文字层和标准表单读取；多栏顺序、表格边界和图形关系未作完整版式验证"
+    ],
+    "parse_seconds": 1.0911,
+    "source_occurrences": 57,
+    "model_units": 9,
+    "interpretation_units": 9,
+    "states": {
+      "awaiting_model": 9
+    },
+    "rule_counts": {
+      "entities": 0,
+      "attributes": 0,
+      "relations": 0
+    },
+    "entity_names": [],
+    "http_status": 200
+  }
+]

@@ -125,28 +125,5 @@ def read_pptx(path):
 
 
 def read_pdf(path):
-    from pypdf import PdfReader
-    reader=PdfReader(str(path));warnings=[];chunks=[]
-    if reader.is_encrypted:raise ValueError('PDF 已加密，请先提供可读取的解密副本')
-    if len(reader.pages)>2000:raise ValueError('PDF 超过 2000 页，请拆分')
-    for i,page in enumerate(reader.pages,1):
-        text=page.extract_text() or ''
-        # Only inspect resource metadata; do not decode images or apply OCR.
-        resources=page.get('/Resources') or {}
-        if hasattr(resources,'get_object'):resources=resources.get_object()
-        objects=resources.get('/XObject') or {}
-        if hasattr(objects,'get_object'):objects=objects.get_object()
-        has_image=False
-        for obj in objects.values():
-            obj=obj.get_object() if hasattr(obj,'get_object') else obj
-            if obj.get('/Subtype') in ('/Image','/Form'):has_image=True
-        if not text.strip():warnings.append(f'PDF 第 {i} 页没有可读文字层；未执行 OCR，不能认定该页内容已覆盖')
-        if has_image:warnings.append(f'PDF 第 {i} 页含图片或嵌入图形；只读取文字层，图像内文字与图表语义未核实')
-        if '\ufffd' in text:warnings.append(f'PDF 第 {i} 页文字存在无法映射字符，请核对字体编码')
-        for chunk in text_chunks(text,f'PDF 第 {i} 页'):
-            chunks.append({**chunk,'source_part':'pdf_text','parser':PARSER_VERSION,
-                'source_order':len(chunks)+1})
-    if not chunks:raise ValueError('PDF 没有可读取的文字层，当前未执行 OCR；请提供可复制文字的 PDF 或文字版文件')
-    # Text extraction alone never certifies the reading order or table geometry.
-    warnings.append('PDF 按文字层读取；多栏阅读顺序、表格边界和图形关系未作完整版式验证')
-    return {'chunks':chunks,'warnings':warnings}
+    from .pdf_reader import read_pdf as read
+    return read(path)

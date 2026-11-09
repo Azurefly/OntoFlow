@@ -1,12 +1,18 @@
 # OntoFlow
 
-渐进式、证据约束的人机协商本体构建工具。当前应用版本 **v1.4.1-demo**。
+渐进式、证据约束的人机协商本体构建工具。当前应用版本 **v1.4.2-demo**。
 
 导入材料 → 形成文档理解与主题 → 实体类型/属性定义/关系定义 → 人工协商与审批 → 对齐OpenMind既有分支 → 明确授权后写回。
 
 **仅生成本体类型，不生成具体人员、案件或业务实例。三类对象采用中文名称和英文CODE。** 原文事实、模型推断和用户建模决定分别保存；文件格式决定读取方式，不等于内容语义已经理解。
 
-## 本次独立互联网测试：已发现兼容缺口
+## v1.4.2 修复与复测
+
+[修复说明](docs/RELEASE-v1.4.2.md) · [冻结公开样本复测](reports/repair-2026-11-09/corpus-summary.json)
+
+重复来源ID、长HTML微片段、报警词义误判、空打开口令PDF、Strict DOCX、PDF索引容错及表单保存值已修复。32/34份冻结文件可以读取并上传，另两项明确拒绝无文字PDF与旧DOC；“能读取”不等于“本体语义完全正确”。未配置模型时语义正文保持awaiting_model，不再伪装成功。真实模型探针及PG结果以独立CI产物为准。
+
+## 历史v1.4.1独立互联网测试（修复前，保留失败记录）
 
 [详细测试报告（29份新样本、17个扩展名）](reports/internet-2026-11-07/REPORT.zh-CN.md) · [固定来源与校验清单](reports/internet-2026-11-07/manifest.json) · [逐文件机器结果](reports/internet-2026-11-07/results.json)
 
@@ -50,6 +56,6 @@ python -m scripts.audit_external_documents --corpus /tmp/ontoflow-corpus --outpu
 
 真实PG门禁仅使用独立测试库：`docker compose -f compose.test.yaml up --build --abort-on-container-exit --exit-code-from regression`。模拟远端测试不能代替用户OpenMind现场验收。
 
-[当前发布说明](docs/RELEASE-v1.4.1.md) · [建模意图与Word上下文](docs/RELEASE-v1.4.0.md)
+[当前发布说明](docs/RELEASE-v1.4.2.md) · [建模意图与Word上下文](docs/RELEASE-v1.4.0.md)
 
 本次仅按用户授权公开源码；未擅自添加新的项目许可证。第三方组件和外部样本的许可证以其原始项目为准。

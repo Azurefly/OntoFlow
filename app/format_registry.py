@@ -23,10 +23,10 @@ BUILTIN={
  '.html':('HTML',None,'标题、表格与正文顺序；不执行脚本或访问 URL'),
  '.htm':('HTML',None,'与 .html 相同'),
  '.eml':('邮件',None,'正文及邮件头；附件不自动展开，提示缺口'),
- '.docx':('Word','docx','正文顺序、标题与表格；图像不自动 OCR'),
+ '.docx':('Word','docx','Strict/Transitional 正文顺序、标题与表格；图像不自动 OCR'),
  '.xlsx':('Excel','openpyxl','完整单元格及表头；不执行公式'),
  '.pptx':('PowerPoint','pptx','标题、组合文字、表格、备注；图像不自动 OCR'),
- '.pdf':('PDF 文字层','pypdf','读取文字；空页/图片页/版式边界明确提示'),
+ '.pdf':('PDF 文字层','pypdf','文字层与标准表单；空打开口令只读兼容、损坏索引可用 Poppler；无 OCR'),
  '.zip':('OpenMind 原生 ZIP',None,'仅受校验的原生导出包，不是任意文件 ZIP'),
 }
 OPTIONAL={'.doc','.xls','.ppt','.odt','.ods','.odp','.rtf','.epub',
