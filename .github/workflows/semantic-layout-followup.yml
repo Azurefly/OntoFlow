@@ -1,0 +1,162 @@
+name: Source-exact layout evidence follow-up
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/semantic-layout-followup.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  verify-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: ontology_test
+          POSTGRES_PASSWORD: ci_only_temporary_not_a_deployed_secret
+          POSTGRES_DB: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U ontology_test -d postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Apply narrowly scoped correction to verified source
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          expected={
+            'app/semantic_contract.py':'b866f58aad97fccb71121e4139442566fa9e105c7cb353e333f9efcd9c964063',
+            'app/incremental.py':'d46447eb29849de5a06f9a793cb83aa7400b2d8ff7ff143324c584f74824eb5a',
+            'tests/test_bounded_semantic_v143.py':'704ee98f8c522792fb4c21468662991d6925105b2d69d42c0c51c8d97e125fad'}
+          for name,value in expected.items():assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==value,name
+          def replace(path,old,new):
+            p=Path(path);text=p.read_text();assert text.count(old)==1,(path,old);p.write_text(text.replace(old,new))
+          replace('app/semantic_contract.py',"VERSION = 'semantic-contract-v143.2-bounded'","VERSION = 'semantic-contract-v143.3-layout'")
+          replace('app/semantic_contract.py',"            if not (_cjk(prev) and _cjk(nxt)):","            # Remove only CJK layout whitespace; never change literal characters.\n            punctuation='，。；：！？、（）《》【】“”‘’'\n            layout_boundary=(_cjk(prev) or _cjk(nxt) or\n                (bool(prev) and prev in punctuation) or (bool(nxt) and nxt in punctuation))\n            if not layout_boundary:")
+          replace('app/incremental.py','from .native_semantics import semantically_equal','from .native_semantics import semantically_equal\nfrom .semantic_contract import VERSION as SEMANTIC_CONTRACT_VERSION')
+          replace('app/incremental.py',"model.get('prompt_version',''),model.get('structured_output')", "model.get('prompt_version',''),SEMANTIC_CONTRACT_VERSION,os.getenv('LLM_SEMANTIC_MAX_TOKENS','4096'),model.get('structured_output')")
+          p=Path('tests/test_bounded_semantic_v143.py')
+          p.write_text(p.read_text()+'''\n\ndef test_pdf_punctuation_and_chinese_number_wrap_keep_exact_quote():
+              from app.semantic_contract import locate_quote
+              source='确认后 5 分\\n钟内报告甲机构，\\n通报乙机构。每\\n10 分钟续报 1 次。'
+              assert locate_quote(source,'确认后5分钟内报告甲机构，通报乙机构。')=='确认后 5 分\\n钟内报告甲机构，\\n通报乙机构。'
+              assert locate_quote(source,'每10分钟续报1次')=='每\\n10 分钟续报 1 次'
+              assert locate_quote(source,'确认后10分钟内报告甲机构') is None
+          \ndef test_layout_matching_never_erases_english_or_numeric_boundaries():
+              from app.semantic_contract import locate_quote
+              assert locate_quote('now here','nowhere') is None
+              assert locate_quote('12 34','1234') is None
+              assert locate_quote('向甲报告，\\n通报乙','向甲通报，报告乙') is None
+              assert locate_quote('及时\\n- 13 -\\n向甲报告','及时向甲报告') is None
+          \ndef test_ambiguous_punctuation_wrap_still_rejected():
+              from app.semantic_contract import locate_quote
+              assert locate_quote('向甲报告，\\n通报乙。向甲报告， 通报乙。','向甲报告，通报乙') is None
+          \ndef test_response_budget_change_cannot_reuse_terminal_checkpoint(monkeypatch):
+              p=piece('材料应当完整提交。')
+              monkeypatch.setenv('LLM_SEMANTIC_MAX_TOKENS','1024')
+              first=incremental.clue_cache_key(p,CONF)
+              monkeypatch.setenv('LLM_SEMANTIC_MAX_TOKENS','4096')
+              assert incremental.clue_cache_key(p,CONF)!=first
+          ''')
+          PY
+      - name: Install tested readers and dependencies
+        run: |
+          python -m pip install -r requirements-dev.txt -c requirements-tested-constraints.txt
+          python -m pip install requests beautifulsoup4
+          sudo apt-get update -qq && sudo apt-get install -y poppler-utils
+      - uses: actions/download-artifact@v4
+        with:
+          name: v143-bounded-repair-evidence
+          run-id: 42944553580
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/prior
+      - uses: actions/download-artifact@v4
+        with:
+          name: public-test-documents
+          run-id: 42366165958
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/inputs/public
+      - uses: actions/download-artifact@v4
+        with:
+          name: complex-business-documents-20261108
+          run-id: 42447860392
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/inputs/business
+      - uses: actions/download-artifact@v4
+        with:
+          name: complex-business-supplement-20261108
+          run-id: 42448313997
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/inputs/supplement
+      - name: Complete regression and fixed-corpus gate
+        env:
+          ONTOFLOW_TEST_PG_ADMIN_DSN: postgresql://ontology_test:ci_only_temporary_not_a_deployed_secret@127.0.0.1:5432/postgres
+        run: |
+          set -o pipefail
+          mkdir -p ci-layout
+          python -m pytest -q --junitxml=ci-layout/regression.xml 2>&1 | tee ci-layout/regression.log
+          node --check static/app.js
+          python -m scripts.repair_business_gate --inputs "$RUNNER_TEMP/inputs" --output ci-layout/corpus 2>&1 | tee ci-layout/corpus.log
+      - name: Replay unchanged genuine model responses against validator only
+        run: |
+          python - <<'PY'
+          import json,os,hashlib
+          from pathlib import Path
+          from app.semantic_contract import validate_response
+          original=Path(os.environ['RUNNER_TEMP'])/'prior/semantic/actual-requests.json'
+          rows=json.loads(original.read_text());results=[]
+          for row in rows:
+            source=json.loads(row['request']['messages'][1]['content'])['piece']
+            raw=json.loads(row['response']['choices'][0]['message']['content'])
+            valid,errors=validate_response(raw,source)
+            results.append({'request_index':row['request_index'],'validation_errors':errors,'valid_item_counts':{k:len(valid[k]) for k in ('entities','attributes','relations')},'all_retained_quotes_exact':all(item['quote'] in source for k in ('entities','attributes','relations') for item in valid[k])})
+          assert len(results)==3 and all(r['all_retained_quotes_exact'] for r in results)
+          # Replays do not call inference or certify meaning, endpoints or recall.
+          Path('ci-layout/validator-replay.json').write_text(json.dumps({'type':'validator_only_replay_not_new_inference','source_run':42944553580,'response_sha256':hashlib.sha256(original.read_bytes()).hexdigest(),'actual_new_model_calls':0,'results':results},ensure_ascii=False,indent=2)+'\n')
+          PY
+      - name: Commit tested source plus measured evidence, without force
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,shutil
+          from pathlib import Path
+          from xml.etree import ElementTree as ET
+          suites=ET.parse('ci-layout/regression.xml').getroot().findall('testsuite')
+          stats={k:sum(int(s.get(k,0)) for s in suites) for k in ('tests','failures','errors','skipped')}
+          stats['passed']=stats['tests']-stats['failures']-stats['errors']-stats['skipped']
+          assert not stats['errors'] and not stats['failures']
+          corpus=json.loads(Path('ci-layout/corpus/summary.json').read_text());assert corpus['files']==34 and not corpus['failures']
+          root=Path('reports/semantic-2026-11-11')
+          result={'scope':'layout and cache follow-up, no new model inference','run_url':f'https://github.com/{os.environ["GITHUB_REPOSITORY"]}/actions/runs/{os.environ["GITHUB_RUN_ID"]}','regression':stats,'database':'real PostgreSQL 16','corpus':corpus,'real_model_gate_unchanged':'1/3 passed on three earlier fixed excerpts; no claim of semantic accuracy or full documents'}
+          (root/'layout-followup.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          shutil.copyfile('ci-layout/validator-replay.json',root/'validator-replay.json')
+          shutil.copyfile('ci-layout/regression.log',root/'layout-regression.log')
+          with (root/'REPORT.zh-CN.md').open('a') as f:
+            f.write(f"\n## 排版证据与缓存跟进\n\n回归 {stats['passed']} 通过、{stats['skipped']} 跳过，0失败；包含真实PG16。34份固定读取样本门禁通过，原始两项拒绝保留。仅消除中文排版空白，不删除页码、不改词或数字、不拼接证据；英文词界及数字间空格保留，多位置歧义仍拒绝。缓存键新增验证器版本和输出预算，预算变更不会继续复用终止检查点。\n\n对上一轮真实响应做验证器回放，未再次调用模型。真正改写的引文仍拒绝；关系端点不足和业务语义问题没有被放宽。真实模型完整门禁仍为1/3，不能按验证器回放改写成3/3。详见layout-followup.json及validator-replay.json。\n")
+          hashes={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for folder in ('app','static') for p in Path(folder).rglob('*') if p.is_file() and p.name!='build_manifest.json' and '__pycache__' not in p.parts}
+          build={'version':'1.4.3-demo','basis':'SHA256 of canonical app/static path/hash JSON','files':dict(sorted(hashes.items()))}
+          build['build_id']='sha256:'+hashlib.sha256(json.dumps(build['files'],sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          Path('app/build_manifest.json').write_text(json.dumps(build,indent=2)+'\n')
+          PY
+          git add app/semantic_contract.py app/incremental.py app/build_manifest.json tests/test_bounded_semantic_v143.py reports/semantic-2026-11-11/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'fix: preserve exact CJK layout quotes and invalidate budget-dependent semantic caches'
+          git push origin HEAD:main
+          git rev-parse HEAD > ci-layout/published-commit.txt
+          git archive --format=zip --prefix=ontology-workbench/ HEAD > ci-layout/ontoflow-v143-demo.zip
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v143-layout-followup-evidence
+          path: ci-layout/
+          retention-days: 30
