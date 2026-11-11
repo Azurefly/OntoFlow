@@ -1,0 +1,43 @@
+{
+  "type": "validator_only_replay_not_new_inference",
+  "source_run": 42944553580,
+  "response_sha256": "d51089971f0b061a7a260eea50fb0e0551a76c58976939b02100d18c9d408b48",
+  "actual_new_model_calls": 0,
+  "results": [
+    {
+      "request_index": 1,
+      "validation_errors": [
+        "entities[4]: quote 缺失或无法在原文定位；请逐字摘录，不可填占位符",
+        "attributes[0]: quote 缺失或无法在原文定位；请逐字摘录，不可填占位符",
+        "attributes[3]: quote 缺失或无法在原文定位；请逐字摘录，不可填占位符",
+        "relations[2]: quote 缺失或无法在原文定位；请逐字摘录，不可填占位符"
+      ],
+      "valid_item_counts": {
+        "entities": 4,
+        "attributes": 2,
+        "relations": 2
+      },
+      "all_retained_quotes_exact": true
+    },
+    {
+      "request_index": 2,
+      "validation_errors": [],
+      "valid_item_counts": {
+        "entities": 6,
+        "attributes": 6,
+        "relations": 6
+      },
+      "all_retained_quotes_exact": true
+    },
+    {
+      "request_index": 3,
+      "validation_errors": [],
+      "valid_item_counts": {
+        "entities": 4,
+        "attributes": 4,
+        "relations": 4
+      },
+      "all_retained_quotes_exact": true
+    }
+  ]
+}

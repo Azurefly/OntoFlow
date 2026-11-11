@@ -9,7 +9,7 @@ from copy import deepcopy
 import re
 from .naming import code_error
 
-VERSION = 'semantic-contract-v143.2-bounded'
+VERSION = 'semantic-contract-v143.3-layout'
 FIELDS = ('entities', 'attributes', 'relations')
 ITEM_LIMIT = 6
 TEXT_LIMITS = {'name':64, 'description':80, 'quote':160, 'owner':64, 'source':64, 'target':64}
@@ -74,7 +74,11 @@ def _canonical(text):
             while end<len(text) and text[end].isspace(): end+=1
             prev=text[index-1] if index else ''
             nxt=text[end] if end<len(text) else ''
-            if not (_cjk(prev) and _cjk(nxt)):
+            # Remove only CJK layout whitespace; never change literal characters.
+            punctuation='，。；：！？、（）《》【】“”‘’'
+            layout_boundary=(_cjk(prev) or _cjk(nxt) or
+                (bool(prev) and prev in punctuation) or (bool(nxt) and nxt in punctuation))
+            if not layout_boundary:
                 chars.append(' ');positions.append(index)
             index=end
         else:

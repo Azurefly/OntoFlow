@@ -14,6 +14,7 @@ from .ontology_abstraction import normalize_clues, abstract_reference, ABSTRACTI
 from .naming import relation_name
 from .store import j,now
 from .native_semantics import semantically_equal
+from .semantic_contract import VERSION as SEMANTIC_CONTRACT_VERSION
 
 PARSER_VERSION='source-chunk-v7-occurrence-v142'
 EXTRACTOR_VERSION='evidence-first-v143-contract-'+ABSTRACTION_VERSION
@@ -59,7 +60,7 @@ def clue_cache_key(piece,model,version=EXTRACTOR_VERSION):
     # Neutral parsing remains shared. Semantic output varies by confirmed scope,
     # human decisions AND target branch; new contexts cannot reuse old answers.
     return sha('|'.join((version,model.get('base_url',''),model.get('model',''),
-        model.get('prompt_version',''),model.get('structured_output') or os.getenv('LLM_STRUCTURED_OUTPUT','off'),
+        model.get('prompt_version',''),SEMANTIC_CONTRACT_VERSION,os.getenv('LLM_SEMANTIC_MAX_TOKENS','4096'),model.get('structured_output') or os.getenv('LLM_STRUCTURED_OUTPUT','off'),
         source_key(piece),intent.get('fingerprint','default'))))
 
 

@@ -9,7 +9,7 @@
     "app/extraction.py": "02fdaf80302999b87fab96049ba817b6ebd36e900a9495c5a3f7d4ff03f6a40a",
     "app/format_registry.py": "8b8af6025250c3c57e7c2e18516b04ba31b79d4a43f83da538d29abd8b52ed72",
     "app/gap_state.py": "65153af4e41765b50618bccfe0859d3ccbc90e834e2fe830ac753b4d9456ba91",
-    "app/incremental.py": "d46447eb29849de5a06f9a793cb83aa7400b2d8ff7ff143324c584f74824eb5a",
+    "app/incremental.py": "7454ac33fe948b437a013945c6f7716ee532702f1489d77ec059041cc9f1c419",
     "app/json_discovery.py": "1bf3230537b8e1b29dcb0af5814c5d421c4b905d8fe88f975e5fe57297247a90",
     "app/main.py": "30bfa07241446f9b84eb05dd22451a264e96a1662a50b6ecd3b613fff2babc9d",
     "app/markup_sources.py": "4ec1f2f6bd1035424dfd59021eda5b83b08346e6de5bca15b566c7ca38c36ba5",
@@ -35,7 +35,7 @@
     "app/review_all.py": "0462867b9b88806e6ac48ae58bc26e46d8abff89f98b6734fb3206036ec7e45e",
     "app/schema_catalog.py": "c47952697c425c0ffbd95e2e8fcdb738c83a83285a9643c80af313f58dd8c891",
     "app/schema_upgrade.py": "fe4679093f27ea5674ce4d4e86f3b1c9576ff9b18702e87cdb921fb370db9f68",
-    "app/semantic_contract.py": "b866f58aad97fccb71121e4139442566fa9e105c7cb353e333f9efcd9c964063",
+    "app/semantic_contract.py": "b4504c3e223f3c098203ffd67bc941d1694496f4020731d2c0cf5a309dfc123d",
     "app/semantic_units.py": "e2e9043eb9d25da5444c065fcb2f4383572821611d26c380e466621ccfc610ce",
     "app/source_understanding.py": "35542952d29318a4eff78a043a45750d71c8d8f0f53c3ebf695a4bd35865f310",
     "app/store.py": "86fa873ea7bdee8fb1435a49b7637bb223ff4588e2daa3d6a5aa845bb59d66ee",
@@ -51,5 +51,5 @@
     "static/app.js": "667b86436a88b879f7cba4632b98056cbb6d1a05d3604ac1ca9a49101dc3f88e",
     "static/index.html": "adde5a1570fa458ffaeab1fdf1e8dbeedae75bf2f51ac6287a5fad096015124a"
   },
-  "build_id": "sha256:73c50ef5df62ffa20884889a51de175d1ee709013aa583683d12790560c9bd67"
+  "build_id": "sha256:9a2107ea3f027e6ef7a1ee46c66b2fab820ade89b67caf80db9326fd558e3937"
 }

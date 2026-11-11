@@ -81,3 +81,29 @@ def test_incremental_repair_keeps_good_items_and_provides_type_inventory(monkeyp
     assert {x['name'] for x in second['entities']}=={'材料','审核'}
     assert second['_complete']
     assert len([x for x in second['_unresolved'] if x.get('category')=='semantic_clarification'])==1
+
+
+def test_pdf_punctuation_and_chinese_number_wrap_keep_exact_quote():
+    from app.semantic_contract import locate_quote
+    source='确认后 5 分\n钟内报告甲机构，\n通报乙机构。每\n10 分钟续报 1 次。'
+    assert locate_quote(source,'确认后5分钟内报告甲机构，通报乙机构。')=='确认后 5 分\n钟内报告甲机构，\n通报乙机构。'
+    assert locate_quote(source,'每10分钟续报1次')=='每\n10 分钟续报 1 次'
+    assert locate_quote(source,'确认后10分钟内报告甲机构') is None
+
+def test_layout_matching_never_erases_english_or_numeric_boundaries():
+    from app.semantic_contract import locate_quote
+    assert locate_quote('now here','nowhere') is None
+    assert locate_quote('12 34','1234') is None
+    assert locate_quote('向甲报告，\n通报乙','向甲通报，报告乙') is None
+    assert locate_quote('及时\n- 13 -\n向甲报告','及时向甲报告') is None
+
+def test_ambiguous_punctuation_wrap_still_rejected():
+    from app.semantic_contract import locate_quote
+    assert locate_quote('向甲报告，\n通报乙。向甲报告， 通报乙。','向甲报告，通报乙') is None
+
+def test_response_budget_change_cannot_reuse_terminal_checkpoint(monkeypatch):
+    p=piece('材料应当完整提交。')
+    monkeypatch.setenv('LLM_SEMANTIC_MAX_TOKENS','1024')
+    first=incremental.clue_cache_key(p,CONF)
+    monkeypatch.setenv('LLM_SEMANTIC_MAX_TOKENS','4096')
+    assert incremental.clue_cache_key(p,CONF)!=first
