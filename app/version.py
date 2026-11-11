@@ -1,5 +1,5 @@
 """One authoritative application release identifier."""
-VERSION = '1.4.2-demo'
+VERSION = '1.4.3-demo'
 SCHEMA_VERSION = '1.4.0'
 
 

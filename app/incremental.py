@@ -9,13 +9,14 @@ import hashlib
 import json
 import re
 import threading
+import os
 from .ontology_abstraction import normalize_clues, abstract_reference, ABSTRACTION_VERSION
 from .naming import relation_name
 from .store import j,now
 from .native_semantics import semantically_equal
 
 PARSER_VERSION='source-chunk-v7-occurrence-v142'
-EXTRACTOR_VERSION='intent-interpretation-v142-'+ABSTRACTION_VERSION
+EXTRACTOR_VERSION='evidence-first-v143-contract-'+ABSTRACTION_VERSION
 # Striped single-process coordination prevents concurrent same-content requests.
 # The PG result key remains the authority; different worker processes would need
 # additional coordination before scaling beyond the current single-worker setup.
@@ -58,7 +59,8 @@ def clue_cache_key(piece,model,version=EXTRACTOR_VERSION):
     # Neutral parsing remains shared. Semantic output varies by confirmed scope,
     # human decisions AND target branch; new contexts cannot reuse old answers.
     return sha('|'.join((version,model.get('base_url',''),model.get('model',''),
-        model.get('prompt_version',''),source_key(piece),intent.get('fingerprint','default'))))
+        model.get('prompt_version',''),model.get('structured_output') or os.getenv('LLM_STRUCTURED_OUTPUT','off'),
+        source_key(piece),intent.get('fingerprint','default'))))
 
 
 def cached_clue_status(store,piece,model):

@@ -744,11 +744,12 @@ def create_app(data_root: str | Path | None=None, *, testing: bool=False):
         source_docs=store.many('SELECT id,sha256,content_revision FROM documents WHERE project_id=? ORDER BY created_at,id',(pid,))
         entities=(store.many('SELECT id,name FROM entities WHERE project_id=? ORDER BY id',(pid,))
                   if kind=='propose' and stage in ('PROPERTY','RELATION') else [])
-        obj={'algorithm':'v140-intent-aware','kind':kind,'stage':stage,
+        obj={'algorithm':'v143-semantic-contract','kind':kind,'stage':stage,
              'modeling_context':modeling.runtime(store,pid)['fingerprint'],
              'scope':project['scope'] if kind=='propose' else '',
              'model':config.get('model',''),'base_url':config.get('base_url',''),
              'prompt_version':config.get('prompt_version',''),
+             'structured_output':config.get('structured_output') or os.getenv('LLM_STRUCTURED_OUTPUT','off'),
              'openmind_baseline':(baseline_row(pid) or {}).get('fingerprint',''),
              'documents':source_docs,'approved_entities':entities}
         return hashlib.sha256(json.dumps(obj,ensure_ascii=False,sort_keys=True).encode()).hexdigest()

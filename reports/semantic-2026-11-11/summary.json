@@ -1,0 +1,65 @@
+{
+  "version": "1.4.3-demo",
+  "run_url": "https://github.com/Azurefly/OntoFlow/actions/runs/42944553580",
+  "base_commit": "d379d83fa418113676dae1b798791addff2f048b",
+  "regression": {
+    "tests": 468,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 4,
+    "passed": 464
+  },
+  "postgres": "real PostgreSQL 16 isolated databases",
+  "corpus": {
+    "version": "1.4.3-demo",
+    "files": 34,
+    "parse_statuses": {
+      "needs_review": 16,
+      "text_read": 16,
+      "rejected": 2
+    },
+    "http_statuses": {
+      "200": 32,
+      "422": 1,
+      "415": 1
+    },
+    "real_llm_requests": 0,
+    "database": "temporary SQLite",
+    "failures": [],
+    "note": "Reading, lossless evidence, routing and upload regression only; not semantic precision or recall.",
+    "python": "3.11.18"
+  },
+  "model_setup": "success",
+  "semantic_outcome": "failure",
+  "semantic": {
+    "version": "1.4.3-demo",
+    "model": "Qwen2.5-1.5B-Instruct-Q4_K_M",
+    "structured_output": "json_schema",
+    "cases": 3,
+    "real_requests": 3,
+    "contract_cases_passed": 1,
+    "request_errors": 0,
+    "attempts_per_case_limit": 1,
+    "request_timeout_seconds": 180,
+    "max_output_tokens_per_request": 3072,
+    "scope": "Three fixed real-source excerpts; contract + evidence + dependency preview, NOT full-document accuracy or OpenMind approval",
+    "human_gold_annotation": false,
+    "failures_preserved": true
+  },
+  "previous_model_runs": {
+    "7B": {
+      "run_id": 42582999515,
+      "passed": 0,
+      "cases": 3,
+      "state": "cancelled"
+    },
+    "1.5B": {
+      "run_id": 42584292003,
+      "passed": 0,
+      "cases": 3,
+      "state": "cancelled"
+    }
+  },
+  "full_document_semantic_accuracy": "NOT_EVALUATED",
+  "real_openmind": "NOT_CONNECTED"
+}
