@@ -1,0 +1,171 @@
+name: Production-equivalent semantic preview gate
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/semantic-approval-gate.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  verify-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: ontology_test
+          POSTGRES_PASSWORD: ci_only_temporary_not_a_deployed_secret
+          POSTGRES_DB: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U ontology_test -d postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Align dry-run validation with existing production checks
+        run: |
+          python - <<'PY'
+          import hashlib,textwrap
+          from pathlib import Path
+          p=Path('scripts/semantic_acceptance.py')
+          assert hashlib.sha256(p.read_bytes()).hexdigest()=='2001873895254c75778365a4765068e8d422adf51c3ea227ebb109f9e3b25466'
+          text=p.read_text().replace('    from app.ontology import validate_payload','    from scripts.semantic_preview import validate_for_review')
+          old="                        payload=prepare_payload(candidate['kind'],candidate['payload'],candidate['evidence'],current)\n                        obj=validate_payload(candidate['kind'],payload,current)"
+          new="                        obj=validate_for_review(candidate['kind'],candidate['payload'],candidate['evidence'],current)"
+          assert text.count(old)==1
+          p.write_text(text.replace(old,new))
+          p=Path('scripts/semantic_preview.py');assert not p.exists()
+          p.write_text(textwrap.dedent('''\
+          """Read-only approval-shaped checks, not semantic accuracy or approval."""
+          from app.naming import prepare_payload, naming_errors, assignment_error
+          from app.ontology import validate_payload
+
+          def validate_for_review(kind, payload, evidence, snapshot):
+              prepared = prepare_payload(kind, payload, evidence, snapshot)
+              clean = validate_payload(kind, prepared, snapshot)
+              issues = naming_errors(kind, clean)
+              conflict = assignment_error(kind, clean, evidence, snapshot)
+              if conflict:
+                  issues.append(conflict)
+              if issues:
+                  raise ValueError('; '.join(issues))
+              return clean
+          '''))
+          p=Path('tests/test_semantic_preview_approval.py');assert not p.exists()
+          p.write_text(textwrap.dedent('''\
+          from copy import deepcopy
+          import pytest
+          from scripts.semantic_preview import validate_for_review
+
+          def snapshot():
+              return {'entities':[{'id':'equipment','name':'设备','kind':'class','code':'equipment'},
+                                  {'id':'event','name':'事件','kind':'class','code':'event'}],
+                      'attributes':[], 'relations':[]}
+
+          def test_attribute_may_not_reuse_entity_code():
+              state=snapshot();before=deepcopy(state)
+              with pytest.raises(ValueError,match='CODE'):
+                  validate_for_review('attribute',{'owner_id':'equipment','name':'状态',
+                       'code':'equipment','datatype':'string'},[],state)
+              assert state==before
+
+          def test_relation_may_not_reuse_entity_code():
+              with pytest.raises(ValueError,match='CODE'):
+                  validate_for_review('relation',{'source_id':'equipment','target_id':'event',
+                       'name':'参与事件','code':'event','predicate':'participates_in'},[],snapshot())
+
+          def test_valid_code_and_name_accepted_without_mutation():
+              state=snapshot();before=deepcopy(state)
+              item=validate_for_review('attribute',{'owner_id':'equipment','name':'状态',
+                   'code':'equipment_status','datatype':'string'},[],state)
+              assert item['code']=='equipment_status'
+              assert state==before
+
+          def test_ascii_only_display_label_not_accepted_as_chinese_name():
+              with pytest.raises(ValueError,match='中文'):
+                  validate_for_review('attribute',{'owner_id':'equipment','name':'status',
+                       'code':'equipment_status','datatype':'string'},[],snapshot())
+          '''))
+          PY
+      - name: Install tested dependencies
+        run: |
+          python -m pip install -r requirements-dev.txt -c requirements-tested-constraints.txt
+          sudo apt-get update -qq && sudo apt-get install -y poppler-utils
+      - uses: actions/download-artifact@v4
+        with:
+          name: v143-bounded-repair-evidence
+          run-id: 42944553580
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/prior
+      - name: Complete regression including real PostgreSQL
+        env:
+          ONTOFLOW_TEST_PG_ADMIN_DSN: postgresql://ontology_test:ci_only_temporary_not_a_deployed_secret@127.0.0.1:5432/postgres
+        run: |
+          set -o pipefail
+          mkdir -p ci-approval
+          python -m pytest -q --junitxml=ci-approval/regression.xml 2>&1 | tee ci-approval/regression.log
+          node --check static/app.js
+      - name: Recheck unchanged saved model candidates with actual approval guards
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,uuid
+          from pathlib import Path
+          from app import incremental
+          from scripts.semantic_preview import validate_for_review
+          root=Path(os.environ['RUNNER_TEMP'])/'prior/semantic'
+          rows=json.loads((root/'results.json').read_text());inputs=json.loads((root/'inputs.json').read_text());results=[]
+          for row,inp in zip(rows,inputs):
+              state={'entities':[],'attributes':[],'relations':[]};errors=[]
+              piece={'document_id':'audit','project_id':'preview','locator':inp['locator'],'content':inp['text'],'content_hash':inp['excerpt_sha256']}
+              for stage,key in [('ENTITY','entities'),('PROPERTY','attributes'),('RELATION','relations')]:
+                  candidates,gaps=incremental.align_clues(stage,row['clues'],state,piece)
+                  errors.extend({'stage':stage,'reason':g['reason']} for g in gaps)
+                  for c in candidates:
+                      try:
+                          obj=validate_for_review(c['kind'],c['payload'],c['evidence'],state)
+                          obj['id']=str(uuid.uuid4());obj['evidence']=c['evidence'];state[key].append(obj)
+                      except ValueError as exc:
+                          errors.append({'stage':stage,'name':c['payload'].get('name'),'reason':str(exc)})
+              results.append({'file':row['file'],'earlier_basic_gate':row['contract_gate_passed'],'approval_shaped_gate':not errors and bool(row['clues'].get('_complete')),'shape_valid_counts':{k:len(v) for k,v in state.items()},'blockers':errors})
+          data={'method':'unchanged saved real-model candidates; stricter evaluation only, no new model calls and no approval/write','source_run':42944553580,'source_results_sha256':hashlib.sha256((root/'results.json').read_bytes()).hexdigest(),'cases':len(results),'basic_gate_passed':sum(r['earlier_basic_gate'] for r in results),'approval_shaped_gate_passed':sum(r['approval_shaped_gate'] for r in results),'semantic_accuracy':'NOT_MEASURED','results':results}
+          Path('ci-approval/replay.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({k:v for k,v in data.items() if k!='results'},ensure_ascii=False,indent=2))
+          PY
+      - name: Publish honest gate correction and evidence
+        run: |
+          python - <<'PY'
+          import json,os,shutil
+          from pathlib import Path
+          from xml.etree import ElementTree as ET
+          suites=ET.parse('ci-approval/regression.xml').getroot().findall('testsuite')
+          stats={k:sum(int(s.get(k,0)) for s in suites) for k in ('tests','failures','errors','skipped')}
+          stats['passed']=stats['tests']-stats['failures']-stats['errors']-stats['skipped']
+          assert not stats['failures'] and not stats['errors']
+          replay=json.loads(Path('ci-approval/replay.json').read_text())
+          directory=Path('reports/semantic-2026-11-11')
+          summary={'run_url':f'https://github.com/{os.environ["GITHUB_REPOSITORY"]}/actions/runs/{os.environ["GITHUB_RUN_ID"]}','regression':stats,'real_postgresql':True,'real_new_model_calls':0,'evaluation':replay}
+          (directory/'approval-gate-followup.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
+          shutil.copyfile('ci-approval/regression.log',directory/'approval-regression.log')
+          with (directory/'REPORT.zh-CN.md').open('a') as f:
+              f.write(f"\n## 审批等价校验纠正（以本节为准）\n\n回归 {stats['passed']} 通过、{stats['skipped']} 跳过，0失败，含真实PG16。旧评估脚本只验证编码格式，没有调用正式审批的跨对象CODE唯一性校验；医院样例重复使用实体CODE，不能算作可审核或可发布本体。\n\n现复用正式 naming_errors / assignment_error，不放宽约束。对同一批保存的真实模型候选回放，旧基础门禁 {replay['basic_gate_passed']}/{replay['cases']}；补齐审批等价校验后 {replay['approval_shaped_gate_passed']}/{replay['cases']}。这是更严格的评估，不是模型新一轮推理，更不能换算为精确率或召回率。原始日志不覆盖。\n\n代码读取与重试机制已修复，复杂业务语义及跨类别编码质量仍未达标。医院样例把不同服务职责串联为is关系，也不能仅凭引文存在就认为关系正确；该语义问题仍需模型重新生成和人工核查。\n")
+          PY
+          git add scripts/semantic_acceptance.py scripts/semantic_preview.py tests/test_semantic_preview_approval.py reports/semantic-2026-11-11/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'test: enforce production approval guards; retract false-positive semantic preview'
+          git push origin HEAD:main
+          git rev-parse HEAD > ci-approval/published-commit.txt
+          git archive --format=zip --prefix=ontology-workbench/ HEAD > ci-approval/ontoflow-v143-demo.zip
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v143-approval-equivalent-evidence
+          path: ci-approval/
+          retention-days: 30
