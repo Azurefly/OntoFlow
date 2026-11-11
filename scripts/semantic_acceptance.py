@@ -28,7 +28,7 @@ def main():
     import httpx
     from app import brain,incremental
     from app.extraction import extract
-    from app.ontology import validate_payload
+    from scripts.semantic_preview import validate_for_review
     from app.naming import prepare_payload,code_error
     from app.version import VERSION
     from app.semantic_contract import locate_quote
@@ -100,8 +100,7 @@ def main():
                 validation.extend({'stage':stage,'kind':'alignment','detail':x['reason']} for x in gaps)
                 for candidate in proposals:
                     try:
-                        payload=prepare_payload(candidate['kind'],candidate['payload'],candidate['evidence'],current)
-                        obj=validate_payload(candidate['kind'],payload,current)
+                        obj=validate_for_review(candidate['kind'],candidate['payload'],candidate['evidence'],current)
                         obj['id']=str(uuid.uuid4());obj['evidence']=candidate['evidence'];current[key].append(obj)
                     except Exception as exc:validation.append({'stage':stage,'kind':'invalid','detail':str(exc)})
             evidence_valid=all(locate_quote(source['text'],x.get('quote')) is not None

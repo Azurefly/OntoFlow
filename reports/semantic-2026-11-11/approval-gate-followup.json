@@ -1,0 +1,131 @@
+{
+  "run_url": "https://github.com/Azurefly/OntoFlow/actions/runs/42946222560",
+  "regression": {
+    "tests": 476,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 4,
+    "passed": 472
+  },
+  "real_postgresql": true,
+  "real_new_model_calls": 0,
+  "evaluation": {
+    "method": "unchanged saved real-model candidates; stricter evaluation only, no new model calls and no approval/write",
+    "source_run": 42944553580,
+    "source_results_sha256": "abe49b3617101fc18dd529450a1da92dddea1f845a5da6f7de61f49f49d90873",
+    "cases": 3,
+    "basic_gate_passed": 1,
+    "approval_shaped_gate_passed": 0,
+    "semantic_accuracy": "NOT_MEASURED",
+    "results": [
+      {
+        "file": "property_registration.html",
+        "earlier_basic_gate": false,
+        "approval_shaped_gate": false,
+        "shape_valid_counts": {
+          "entities": 4,
+          "attributes": 0,
+          "relations": 0
+        },
+        "blockers": [
+          {
+            "stage": "PROPERTY",
+            "name": "信息共享",
+            "reason": "英文 CODE「information_sharing」已被 信息共享 使用；请确认共享定义或修改编码。"
+          },
+          {
+            "stage": "PROPERTY",
+            "name": "前置条件",
+            "reason": "英文 CODE「preconditions」已被 前置条件 使用；请确认共享定义或修改编码。"
+          },
+          {
+            "stage": "RELATION",
+            "name": "信息共享",
+            "reason": "英文 CODE「information_sharing」已被 信息共享 使用；请确认共享定义或修改编码。"
+          },
+          {
+            "stage": "RELATION",
+            "name": "前置条件",
+            "reason": "英文 CODE「preconditions」已被 前置条件 使用；请确认共享定义或修改编码。"
+          }
+        ]
+      },
+      {
+        "file": "beijing_rail.pdf",
+        "earlier_basic_gate": false,
+        "approval_shaped_gate": false,
+        "shape_valid_counts": {
+          "entities": 6,
+          "attributes": 6,
+          "relations": 1
+        },
+        "blockers": [
+          {
+            "stage": "RELATION",
+            "reason": "关系源或目标实体尚未确认"
+          },
+          {
+            "stage": "RELATION",
+            "reason": "关系源或目标实体尚未确认"
+          },
+          {
+            "stage": "RELATION",
+            "reason": "关系源或目标实体尚未确认"
+          }
+        ]
+      },
+      {
+        "file": "hospital_outpatient_service.pdf",
+        "earlier_basic_gate": true,
+        "approval_shaped_gate": false,
+        "shape_valid_counts": {
+          "entities": 4,
+          "attributes": 0,
+          "relations": 0
+        },
+        "blockers": [
+          {
+            "stage": "PROPERTY",
+            "name": "患者接待与引导",
+            "reason": "英文 CODE「patient_reception」已被 患者接待与引导 使用；请确认共享定义或修改编码。"
+          },
+          {
+            "stage": "PROPERTY",
+            "name": "医疗政策宣导",
+            "reason": "英文 CODE「medical_policy_announcement」已被 医疗政策宣导 使用；请确认共享定义或修改编码。"
+          },
+          {
+            "stage": "PROPERTY",
+            "name": "智能就医协助",
+            "reason": "英文 CODE「smart_medical_assistance」已被 智能就医协助 使用；请确认共享定义或修改编码。"
+          },
+          {
+            "stage": "PROPERTY",
+            "name": "检查协调与沟通",
+            "reason": "英文 CODE「check_cooperation」已被 检查协调与沟通 使用；请确认共享定义或修改编码。"
+          },
+          {
+            "stage": "RELATION",
+            "name": "患者接待与引导",
+            "reason": "英文 CODE「patient_reception」已被 患者接待与引导 使用；请确认共享定义或修改编码。"
+          },
+          {
+            "stage": "RELATION",
+            "name": "医疗政策宣导",
+            "reason": "英文 CODE「medical_policy_announcement」已被 医疗政策宣导 使用；请确认共享定义或修改编码。"
+          },
+          {
+            "stage": "RELATION",
+            "name": "智能就医协助",
+            "reason": "英文 CODE「smart_medical_assistance」已被 智能就医协助 使用；请确认共享定义或修改编码。"
+          },
+          {
+            "stage": "RELATION",
+            "name": "检查协调与沟通",
+            "reason": "英文 CODE「check_cooperation」已被 检查协调与沟通 使用；请确认共享定义或修改编码。"
+          }
+        ]
+      }
+    ]
+  }
+}
