@@ -1,0 +1,217 @@
+name: Bounded semantic repair and evidence publication
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/semantic-bounded-v143.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  verify-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: ontology_test
+          POSTGRES_PASSWORD: ci_only_temporary_not_a_deployed_secret
+          POSTGRES_DB: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U ontology_test -d postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - uses: actions/download-artifact@v4
+        with:
+          name: v143-staged-source-and-regression
+          run-id: 42582999515
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/staged
+      - name: Verify prior staged source and apply bounded-response repair
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import base64,hashlib,io,json,os,subprocess,tarfile,urllib.request
+          from pathlib import Path,PurePosixPath
+          def sha(data):return hashlib.sha256(data).hexdigest()
+          def safe(name):
+            p=PurePosixPath(name)
+            assert not p.is_absolute() and '..' not in p.parts
+            assert not set(p.parts)&{'.git','.github','.env','data','uploads'}
+            return Path(name)
+          stage=Path(os.environ['RUNNER_TEMP'])/'staged'
+          manifest=json.loads((stage/'patch-manifest.json').read_text())
+          with tarfile.open(stage/'tested-source.tar.gz') as archive:
+            for name,record in manifest['files'].items():
+              p=safe(name)
+              if record['old_sha256'] is None:assert not p.exists(),name
+              else:assert sha(p.read_bytes())==record['old_sha256'],name
+              member=archive.getmember(name);assert member.isfile() and member.size<2_000_000
+              data=archive.extractfile(member).read();assert sha(data)==record['new_sha256'],name
+              p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)
+          request=urllib.request.Request(f'https://api.github.com/repos/{os.environ["GITHUB_REPOSITORY"]}/git/blobs/82dfea0a1e723fef1e9d64606c064d410b50cb40',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','User-Agent':'OntoFlow-bounded-repair'})
+          with urllib.request.urlopen(request,timeout=60) as response:raw=base64.b64decode(json.load(response)['content'])
+          assert sha(raw)=='6859201f201235cdf29729a1f621834cf2d6ea43d75d08d2ac55fd34f9687cfd'
+          with tarfile.open(fileobj=io.BytesIO(raw),mode='r:xz') as archive:
+            extra=json.load(archive.extractfile('MANIFEST.json'))
+            for name,record in extra['files'].items():
+              p=safe(name)
+              if record['old_sha256'] is None:assert not p.exists(),name
+              else:assert sha(p.read_bytes())==record['old_sha256'],name
+            patch=archive.extractfile('changes.patch').read()
+            subprocess.run(['git','apply','--check','-'],input=patch,check=True)
+            subprocess.run(['git','apply','-'],input=patch,check=True)
+            for name,record in extra['files'].items():
+              p=safe(name)
+              if record['old_sha256'] is None:
+                p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(archive.extractfile('new/'+name).read())
+              assert sha(p.read_bytes())==record['new_sha256'],name
+          paths=sorted(set(manifest['files'])|set(extra['files']))
+          out=Path('ci-bounded');out.mkdir()
+          (out/'changed-paths.json').write_text(json.dumps(paths))
+          (out/'verified-hashes.json').write_text(json.dumps({name:sha(Path(name).read_bytes()) for name in paths},indent=2))
+          print('Verified staged and final repair files:',len(paths))
+          PY
+      - name: Install tested dependencies
+        run: |
+          python -m pip install -r requirements-dev.txt -c requirements-tested-constraints.txt
+          python -m pip install requests beautifulsoup4 huggingface_hub
+          sudo apt-get update -qq && sudo apt-get install -y poppler-utils
+      - uses: actions/download-artifact@v4
+        with:
+          name: public-test-documents
+          run-id: 42366165958
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/inputs/public
+      - uses: actions/download-artifact@v4
+        with:
+          name: complex-business-documents-20261108
+          run-id: 42447860392
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/inputs/business
+      - uses: actions/download-artifact@v4
+        with:
+          name: complex-business-supplement-20261108
+          run-id: 42448313997
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/inputs/supplement
+      - name: Complete regression including real PostgreSQL and frozen reading corpus
+        id: regression
+        env:
+          ONTOFLOW_TEST_PG_ADMIN_DSN: postgresql://ontology_test:ci_only_temporary_not_a_deployed_secret@127.0.0.1:5432/postgres
+        run: |
+          set -o pipefail
+          python -m pytest -q --junitxml=ci-bounded/regression.xml 2>&1 | tee ci-bounded/regression.log
+          node --check static/app.js
+          python -m scripts.repair_business_gate --inputs "$RUNNER_TEMP/inputs" --output ci-bounded/corpus 2>&1 | tee ci-bounded/corpus.log
+      - name: Start same pinned public model and inference runtime
+        id: model_setup
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          HF_HUB_DISABLE_TELEMETRY: '1'
+          HF_HUB_DISABLE_XET: '1'
+        run: |
+          mkdir -p ci-bounded/semantic "$RUNNER_TEMP/models"
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          from huggingface_hub import hf_hub_download
+          repo='Qwen/Qwen2.5-1.5B-Instruct-GGUF';revision='91cad51170dc346986eccefdc2dd33a9da36ead9'
+          name='qwen2.5-1.5b-instruct-q4_k_m.gguf'
+          p=Path(hf_hub_download(repo,name,revision=revision,local_dir=os.environ['RUNNER_TEMP']+'/models'))
+          h=hashlib.sha256()
+          with p.open('rb') as f:
+            for part in iter(lambda:f.read(8*1024*1024),b''):h.update(part)
+          assert h.hexdigest()=='6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e'
+          Path('ci-bounded/semantic/model.json').write_text(json.dumps({'repository':repo,'revision':revision,'filename':name,'sha256':h.hexdigest(),'bytes':p.stat().st_size,'no_mock':True},indent=2))
+          PY
+          IMAGE=ghcr.io/ggml-org/llama.cpp@sha256:30300ecfcb7ef05dc9413867dd7d03c9ce66eef00fec3576a6a15e9bf2b0bae7
+          docker pull "$IMAGE"
+          docker image inspect "$IMAGE" > ci-bounded/semantic/runtime-image.json
+          docker run --rm -d --name ontology-model -p 127.0.0.1:8766:8080 -v "$RUNNER_TEMP/models:/models:ro" "$IMAGE" -m /models/qwen2.5-1.5b-instruct-q4_k_m.gguf -c 8192 -t 4 -ngl 0 -np 1 --host 0.0.0.0 --port 8080 --alias Qwen2.5-1.5B-Instruct-Q4_K_M
+          python - <<'PY'
+          import time,urllib.request
+          for _ in range(45):
+            try:
+              with urllib.request.urlopen('http://127.0.0.1:8766/health',timeout=3) as r:
+                if r.status==200:break
+            except Exception:time.sleep(2)
+          else:raise SystemExit('Model did not become ready')
+          PY
+      - name: Bounded actual inference on identical public excerpts
+        id: semantic
+        if: steps.model_setup.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 10
+        run: |
+          set -o pipefail
+          python -m scripts.semantic_acceptance --inputs "$RUNNER_TEMP/inputs" --output ci-bounded/semantic --model Qwen2.5-1.5B-Instruct-Q4_K_M --structured-output json_schema --attempts 1 --request-timeout 180 --max-tokens 3072 2>&1 | tee ci-bounded/semantic/run.log
+      - name: Preserve actual model outcome, including failures
+        if: always()
+        env:
+          MODEL_SETUP: ${{ steps.model_setup.outcome }}
+          SEMANTIC_OUTCOME: ${{ steps.semantic.outcome }}
+        run: |
+          mkdir -p ci-bounded/semantic
+          docker logs ontology-model > ci-bounded/semantic/model-server.log 2>&1 || true
+          docker stop ontology-model || true
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          Path('ci-bounded/semantic/outcome.json').write_text(json.dumps({'setup':os.environ['MODEL_SETUP'],'semantic_gate':os.environ['SEMANTIC_OUTCOME'],'workflow_green_does_not_mean_semantics_passed':True},indent=2))
+          PY
+      - name: Publish tested source and truthful evidence to main
+        if: steps.regression.outcome == 'success'
+        env:
+          MODEL_SETUP: ${{ steps.model_setup.outcome }}
+          SEMANTIC_OUTCOME: ${{ steps.semantic.outcome }}
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,shutil,subprocess
+          from pathlib import Path
+          from xml.etree import ElementTree as E
+          out=Path('ci-bounded')
+          expected=json.loads((out/'verified-hashes.json').read_text())
+          for name,digest in expected.items():assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name
+          suites=E.parse(out/'regression.xml').getroot().findall('testsuite')
+          stats={key:sum(int(s.get(key,0)) for s in suites) for key in ('tests','failures','errors','skipped')}
+          stats['passed']=stats['tests']-stats['failures']-stats['errors']-stats['skipped']
+          assert not stats['failures'] and not stats['errors']
+          corpus=json.loads((out/'corpus/summary.json').read_text());assert corpus['files']==34 and not corpus['failures']
+          semantic_path=out/'semantic/summary.json'
+          semantic=json.loads(semantic_path.read_text()) if semantic_path.exists() else {'status':'not_completed','contract_cases_passed':0}
+          summary={'version':'1.4.3-demo','run_url':f'https://github.com/{os.environ["GITHUB_REPOSITORY"]}/actions/runs/{os.environ["GITHUB_RUN_ID"]}','base_commit':os.environ['GITHUB_SHA'],'regression':stats,'postgres':'real PostgreSQL 16 isolated databases','corpus':corpus,'model_setup':os.environ['MODEL_SETUP'],'semantic_outcome':os.environ['SEMANTIC_OUTCOME'],'semantic':semantic,'previous_model_runs':{'7B':{'run_id':42582999515,'passed':0,'cases':3,'state':'cancelled'},'1.5B':{'run_id':42584292003,'passed':0,'cases':3,'state':'cancelled'}},'full_document_semantic_accuracy':'NOT_EVALUATED','real_openmind':'NOT_CONNECTED'}
+          report=Path('reports/semantic-2026-11-11');report.mkdir(parents=True,exist_ok=True)
+          (report/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
+          shutil.copyfile(out/'regression.log',report/'regression.log')
+          shutil.copyfile(out/'corpus/results.json',report/'corpus-results.json')
+          md=f'''# v1.4.3 本轮进度与验收\n\n完整源码经回归后发布，模型失败不会被工作流绿色掩盖。\n\n- 回归：{stats['passed']}通过，{stats['skipped']}跳过，失败{stats['failures']}，错误{stats['errors']}。含真实PG16。\n- 34份固定格式/业务文件：32份可读并可上传；无文字PDF和旧DOC明确拒绝，详情见corpus-results.json。\n- 前两轮真实模型均取消、0/3通过；未计入通过，也没有修改原文或塞入预设答案。\n- 本轮模型准备：{os.environ['MODEL_SETUP']}；语义门禁：{os.environ['SEMANTIC_OUTCOME']}；摘录通过：{semantic.get('contract_cases_passed',0)}/{semantic.get('cases',0)}。\n- 使用同一模型权重、同一运行镜像和同三个固定业务摘录；只变更输出/重试限制。失败与未完成均保留。\n- 本轮不是整份文档语义精确率/召回率，不连接真实OpenMind，不自动批准任何业务候选。\n\n[CI与完整产物]({summary['run_url']})\n'''
+          (report/'REPORT.zh-CN.md').write_text(md)
+          hashes={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for folder in ('app','static') for p in Path(folder).rglob('*') if p.is_file() and p.name!='build_manifest.json' and '__pycache__' not in p.parts}
+          build={'version':'1.4.3-demo','basis':'SHA256 of canonical app/static path/hash JSON','files':dict(sorted(hashes.items()))}
+          build['build_id']='sha256:'+hashlib.sha256(json.dumps(build['files'],sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          Path('app/build_manifest.json').write_text(json.dumps(build,indent=2)+'\n')
+          paths=json.loads((out/'changed-paths.json').read_text())+['app/build_manifest.json',str(report)]
+          subprocess.run(['git','add','--',*paths],check=True)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'fix: v1.4.3 bound semantic output and checkpoint retries; record real-model limits'
+          git push origin HEAD:main
+          git rev-parse HEAD > ci-bounded/published-commit.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v143-bounded-repair-evidence
+          path: ci-bounded/
+          retention-days: 30
